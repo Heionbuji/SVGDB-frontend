@@ -5,8 +5,7 @@ const getSuggestions = (value, json) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
   return inputLength < 2 ? [] : json.filter((card) =>
-    card.toLowerCase().slice(0, inputLength) === inputValue,
-  );
+    card.toLowerCase().slice(0, inputLength) === inputValue);
 };
 const getSuggestionValue = (suggestion) => suggestion;
 const renderSuggestion = (suggestion) => (

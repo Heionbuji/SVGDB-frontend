@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { StyledDiv } from '../styles/globalStyles';
 import CardSearch from './CardSearch';
 
 const Navbar = () => {
+  const { t } = useTranslation();
   return (
     <StyledDiv>
       <h1>SVDB</h1>
-      <Link to="/cards" className="spaced">Cards</Link>
-      <Link to="/leaders" className="spaced">Leaders</Link>
-      <Link to="/sleeves" className="spaced">Sleeves</Link>
+      <Link to="/cards" className="spaced">{t('cards')}</Link>
+      <Link to="/leaders" className="spaced">{t('leaders')}</Link>
+      <Link to="/sleeves" className="spaced">{t('sleeves')}</Link>
       <CardSearch />
     </StyledDiv>
   );
