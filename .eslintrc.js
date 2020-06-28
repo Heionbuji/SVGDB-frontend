@@ -23,5 +23,6 @@ module.exports = {
   rules: {
     'linebreak-style': ['error', 'windows'],
     'import/prefer-default-export': 0,
+    'implicit-arrow-linebreak': 0,
   },
 };
