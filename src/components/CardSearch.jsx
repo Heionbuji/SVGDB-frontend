@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Autosuggest from 'react-autosuggest';
+import { useTranslation } from 'react-i18next';
 import { StyledAutosuggest } from '../styles/globalStyles';
 
 const getSuggestions = (value, json) => {
@@ -19,6 +20,7 @@ const CardSearch = () => {
   const [searchValue, setSearchValue] = useState('');
   const [json, setJson] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetch('http://localhost:3002/json').then((res) => res.json()).then((data) => setJson(data));
@@ -37,7 +39,7 @@ const CardSearch = () => {
   };
 
   const inputProps = {
-    placeholder: 'Search Cards',
+    placeholder: t('cardSearch'),
     value: searchValue,
     onChange,
   };
