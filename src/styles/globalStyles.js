@@ -1,6 +1,9 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+html, body, #root {
+  height: 100vh;
+}
 body {
   background-color: #e6e6e6;
 }
@@ -19,6 +22,15 @@ text-align: center;
   margin-left: 10px;
   margin-right: 10px;
 }
+`;
+
+export const StyledContentDiv = styled.div`
+  margin: auto;
+  width: 70vw;
+  background-color: #111;
+  text-align: center;
+  min-height: 70vh;
+  opacity: 90%;
 `;
 
 export const StyledAutosuggest = styled.div`

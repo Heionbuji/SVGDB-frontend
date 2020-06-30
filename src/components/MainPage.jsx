@@ -1,5 +1,11 @@
 import React from 'react';
+import News from './News';
+import { StyledContentDiv } from '../styles/globalStyles';
 
-const MainPage = () => (<p>This is the main oage</p>);
+const MainPage = () => (
+  <StyledContentDiv>
+    <News />
+  </StyledContentDiv>
+);
 
 export default MainPage;
