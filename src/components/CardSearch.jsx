@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Autosuggest from 'react-autosuggest';
+import { StyledAutosuggest } from '../styles/globalStyles';
 
 const getSuggestions = (value, json) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
   return inputLength < 2 ? [] : json.filter((card) =>
-    card.toLowerCase().slice(0, inputLength) === inputValue);
+    card.toLowerCase().includes(inputValue));
 };
 const getSuggestionValue = (suggestion) => suggestion;
 const renderSuggestion = (suggestion) => (
@@ -42,14 +43,16 @@ const CardSearch = () => {
   };
 
   return (
-    <Autosuggest
-      suggestions={suggestions}
-      onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-      onSuggestionsClearRequested={onSuggestionsClearRequested}
-      getSuggestionValue={getSuggestionValue}
-      renderSuggestion={renderSuggestion}
-      inputProps={inputProps}
-    />
+    <StyledAutosuggest>
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+      />
+    </StyledAutosuggest>
   );
 };
 

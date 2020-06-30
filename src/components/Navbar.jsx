@@ -7,8 +7,8 @@ import CardSearch from './CardSearch';
 const Navbar = () => {
   const { t } = useTranslation();
   return (
-    <StyledDiv>
-      <h1>SVDB</h1>
+    <StyledDiv className="nav">
+      <h1 className="title">SVDB</h1>
       <Link to="/cards" className="spaced">{t('cards')}</Link>
       <Link to="/leaders" className="spaced">{t('leaders')}</Link>
       <Link to="/sleeves" className="spaced">{t('sleeves')}</Link>
