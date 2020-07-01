@@ -12,10 +12,10 @@ const News = () => {
     fetch('http://localhost:3002/news')
       .then((res) => res.json())
       .then((resjson) => setNews(resjson));
-  });
+  }, []);
   return (
     news && news.map((newsItem) => (
-      <StyledNewsDiv>
+      <StyledNewsDiv key={newsItem.title}>
         <StyledNewsTitle>{newsItem.title}</StyledNewsTitle>
         <StyledNewsTimestamp>{newsItem.timestamp}</StyledNewsTimestamp>
         <StyledNewsContent>{newsItem.content}</StyledNewsContent>

@@ -34,7 +34,6 @@ export const StyledContentDiv = styled.div`
 `;
 
 export const StyledAutosuggest = styled.div`
-  background-color: blue;
   display: inline;
 
   .react-autosuggest__container {
