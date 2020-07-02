@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Autosuggest from 'react-autosuggest';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { StyledAutosuggest } from '../styles/globalStyles';
 
 const getSuggestions = (value, json) => {
@@ -17,6 +18,7 @@ const renderSuggestion = (suggestion) => (
 );
 
 const CardSearch = () => {
+  const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
   const [json, setJson] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
@@ -27,7 +29,16 @@ const CardSearch = () => {
   }, []);
 
   const onChange = (event, { newValue }) => {
-    setSearchValue(newValue);
+    switch (event.type) {
+      case 'change':
+        setSearchValue(newValue);
+        break;
+      case 'click':
+        setSearchValue(newValue);
+        history.push(`/cards/${newValue}`);
+        break;
+      default:
+    }
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {

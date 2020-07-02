@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import MainPage from './components/MainPage';
+import CardView from './components/CardView';
 
 const Root = () => (
   <>
@@ -15,6 +16,7 @@ const Root = () => (
       <Navbar />
       <Switch>
         <Route exact path="/" component={MainPage} />
+        <Route exact path="/cards/:cardId" component={CardView} />
         <Redirect to="/" />
       </Switch>
     </Router>
