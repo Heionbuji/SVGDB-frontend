@@ -26,5 +26,6 @@ module.exports = {
     'linebreak-style': ['error', 'windows'],
     'import/prefer-default-export': 0,
     'implicit-arrow-linebreak': 0,
+    'react/jsx-one-expression-per-line': 0,
   },
 };
