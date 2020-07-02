@@ -37,6 +37,12 @@ const CardSearch = () => {
         setSearchValue(newValue);
         history.push(`/cards/${newValue}`);
         break;
+      case 'keydown':
+        if (event.keyCode === 13) {
+          setSearchValue(newValue);
+          history.push(`/cards/${newValue}`);
+        }
+        break;
       default:
     }
   };
