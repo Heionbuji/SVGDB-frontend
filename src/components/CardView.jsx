@@ -7,7 +7,6 @@ import {
   StyledCardInformation,
   StyledCardImageContainer,
   StyledArtImg,
-  StyledSpacer,
 } from '../styles/cardStyles';
 
 const CardView = () => {
@@ -15,7 +14,7 @@ const CardView = () => {
   const [cardJson, setCardJson] = useState({});
   const { cardId } = useParams();
   useEffect(() => {
-    if (Number.isNaN(+cardId) || (!Number.isNaN(+cardId) && !cardJson.id_)) {
+    if (Number.isNaN(+cardId) || (!Number.isNaN(+cardId) && !cardJson.id_)) { // help this is a mess
       fetch(`http://localhost:3002/cards/${cardId}`)
         .then((res) => res.json())
         .then((resjson) => {
@@ -23,7 +22,7 @@ const CardView = () => {
           history.push(`/cards/${resjson.id_}`);
         });
     }
-  }, [cardId, cardJson, history]); // TODO: filter what stats are displayed depending on the type of the card
+  }, [cardId, cardJson, history]);
   if (cardJson.id_ && !Number.isNaN(+cardId)) {
     return (
       <StyledCardContainer>
@@ -40,30 +39,43 @@ const CardView = () => {
           </a>
         </StyledCardImageContainer>
         <StyledCardInformation>
-          <div>
-            <p style={{ textAlign: 'left', fontSize: '1.2rem' }}>
+          <div style={{ maxWidth: '40%' }}>
+            <div style={{ textAlign: 'left', fontSize: '1.2rem', marginTop: '19.2px' }}>
               <b>Type: </b>{cardJson.type_} <br />
               <b>Rarity: </b>{cardJson.rarity_} <br />
               <b>Set: </b>{cardJson.expansion_} {cardJson.rotation_ ? '(Rotation)' : '(Unlimited)'} <br />
               <b>Cost: </b>{cardJson.pp_} <br />
               <br />
               <b>Base: </b><br />
-              <b>Stats: </b>{cardJson.baseAtk_}/{cardJson.baseDef_} <br />
-              {cardJson.baseEffect_} <br />
+              <div style={{ paddingLeft: '10px' }}>
+                {cardJson.type_ === 'Follower' && <><b>Stats: </b> {cardJson.baseAtk_}/{cardJson.baseDef_} <br /></>}
+                <b>Effect: </b>{cardJson.baseEffect_} <br />
+              </div>
               <br />
-              <b>Evolved: </b><br />
-              <b>Stats: </b>{cardJson.evoAtk_}/{cardJson.evoDef_} <br />
-              <b>Effect: </b>{cardJson.evoEffect_}
-            </p>
+              {cardJson.type_ === 'Follower'
+              && (
+                <>
+                  <b>Evolved: </b><br />
+                  <div style={{ paddingLeft: '10px' }}>
+                    <b>Stats: </b>{cardJson.evoAtk_}/{cardJson.evoDef_} <br />
+                    <b>Effect: </b>{cardJson.evoEffect_}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-          <StyledSpacer />
-          <div>
+          <div style={{ maxWidth: '45%' }}>
             <p style={{ textAlign: 'right', fontSize: '1.2rem' }}>
               <b>Base Flair</b> <br />
               {cardJson.baseFlair_} <br />
               <br />
-              <b>Evolved Flair</b> <br />
-              {cardJson.evoFlair_}
+              {cardJson.type_ === 'Follower'
+              && (
+              <>
+                <b>Evolved Flair</b> <br />
+                {cardJson.evoFlair_}
+              </>
+              )}
             </p>
           </div>
         </StyledCardInformation>

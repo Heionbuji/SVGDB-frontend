@@ -22,6 +22,10 @@ export const StyledCardInformation = styled.div`
   justify-content: space-around;
   padding-left: 10%;
   padding-right: 10%;
+  @media(max-width: 768px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 
 export const StyledCardImageContainer = styled.div`
@@ -33,8 +37,4 @@ export const StyledArtImg = styled.img`
   max-width: 345px;
   max-height: 417px;
   width: auto;
-`;
-
-export const StyledSpacer = styled.div`
-  width: 50%;
 `;
