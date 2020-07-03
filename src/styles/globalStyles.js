@@ -26,7 +26,7 @@ text-align: center;
 
 export const StyledContentDiv = styled.div`
   margin: auto;
-  width: 70vw;
+  max-width: 1400px;
   background-color: #111;
   text-align: center;
   min-height: 70vh;
