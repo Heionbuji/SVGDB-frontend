@@ -33,16 +33,20 @@ const CardSearch = () => {
       case 'change':
         setSearchValue(newValue);
         break;
-      case 'click':
+      case 'click': {
         setSearchValue(newValue);
-        history.push(`/cards/${newValue}`);
+        const urlsafe = newValue.replace(/[\\/]/g, '');
+        history.push(`/cards/${urlsafe}`);
         break;
-      case 'keydown':
+      }
+      case 'keydown': {
         if (event.keyCode === 13) {
           setSearchValue(newValue);
-          history.push(`/cards/${newValue}`);
+          const urlsafe = newValue.replace(/[\\/]/g, '');
+          history.push(`/cards/${urlsafe}`);
         }
         break;
+      }
       default:
     }
   };
