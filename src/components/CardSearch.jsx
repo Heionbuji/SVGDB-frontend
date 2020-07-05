@@ -25,7 +25,7 @@ const CardSearch = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    fetch('http://localhost:3002/json').then((res) => res.json()).then((data) => setJson(data));
+    fetch(`${process.env.REACT_APP_API_URL}/json`).then((res) => res.json()).then((data) => setJson(data));
   }, []);
 
   const onChange = (event, { newValue }) => {

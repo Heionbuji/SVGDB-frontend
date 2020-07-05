@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/media-has-caption */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
@@ -15,7 +17,7 @@ const CardView = () => {
   const { cardId } = useParams();
   useEffect(() => {
     if (Number.isNaN(+cardId) || (!Number.isNaN(+cardId) && !cardJson.id_)) { // help this is a mess
-      fetch(`http://localhost:3002/cards/${cardId}`)
+      fetch(`${process.env.REACT_APP_API_URL}/cards/${cardId}`)
         .then((res) => res.json())
         .then((resjson) => {
           setCardJson(resjson);
@@ -31,11 +33,11 @@ const CardView = () => {
           <span style={{ float: 'right' }}>{cardJson.craft_}</span>
         </StyledCardName>
         <StyledCardImageContainer>
-          <a target="_blank" href={`http://localhost:3002/assets/${cardId}0.png`} rel="noopener noreferrer">
-            <StyledArtImg src={`http://localhost:3002/assets/${cardId}0.png`} alt="" />
+          <a target="_blank" href={`${process.env.REACT_APP_API_URL}/assets/cards/C_${cardId}.png`} rel="noopener noreferrer">
+            <StyledArtImg src={`${process.env.REACT_APP_API_URL}/assets/cards/C_${cardId}.png`} alt="" />
           </a>
-          <a target="_blank" href={`http://localhost:3002/assets/${cardId}1.png`} rel="noopener noreferrer">
-            <StyledArtImg src={`http://localhost:3002/assets/${cardId}1.png`} alt="" />
+          <a target="_blank" href={`${process.env.REACT_APP_API_URL}/assets/${cardId}0.png`} rel="noopener noreferrer">
+            <StyledArtImg src={`${process.env.REACT_APP_API_URL}/assets/${cardId}0.png`} alt="" />
           </a>
         </StyledCardImageContainer>
         <StyledCardInformation>
@@ -79,6 +81,59 @@ const CardView = () => {
             </p>
           </div>
         </StyledCardInformation>
+        <table style={{ margin: 'auto' }}>
+          <thead>
+            <tr>
+              <th style={{ width: 'auto' }} />
+              <th>Japanese</th>
+              <th>English</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Play </td>
+              <td>
+                <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/jp/vo_${cardId}_0.mp3`} />
+              </td>
+              <td>
+                <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/en/vo_${cardId}_0.mp3`} />
+              </td>
+            </tr>
+            {cardJson.type_ === 'Follower'
+            && (
+            <>
+              <tr>
+                <td>Attack </td>
+                <td>
+                  <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/jp/vo_${cardId}_1.mp3`} />
+                </td>
+                <td>
+                  <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/en/vo_${cardId}_1.mp3`} />
+                </td>
+              </tr>
+              <tr>
+                <td>Evolve </td>
+                <td>
+                  <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/jp/vo_${cardId}_2.mp3`} />
+                </td>
+                <td>
+                  <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/en/vo_${cardId}_2.mp3`} />
+                </td>
+              </tr>
+              <tr>
+                <td>Death </td>
+                <td>
+                  <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/jp/vo_${cardId}_3.mp3`} />
+                </td>
+                <td>
+                  <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/en/vo_${cardId}_3.mp3`} />
+                </td>
+              </tr>
+            </>
+            )}
+          </tbody>
+
+        </table>
       </StyledCardContainer>
     );
   }

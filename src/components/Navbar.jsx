@@ -8,10 +8,10 @@ const Navbar = () => {
   const { t } = useTranslation();
   return (
     <StyledDiv className="nav">
-      <h1 className="title">SVGDB</h1>
-      <Link to="/cards" className="spaced">{t('cards')}</Link>
-      <Link to="/leaders" className="spaced">{t('leaders')}</Link>
-      <Link to="/sleeves" className="spaced">{t('sleeves')}</Link>
+      <h1 className="title"><Link to="/" style={{ textDecoration: 'none', color: 'black' }}>SVGDB</Link></h1>
+      <span className="spaced disabled">{t('cards')}</span>
+      <span className="spaced disabled">{t('leaders')}</span>
+      <span className="spaced disabled">{t('sleeves')}</span>
       <CardSearch />
     </StyledDiv>
   );

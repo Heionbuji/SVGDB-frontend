@@ -9,7 +9,7 @@ import {
 const News = () => {
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3002/news')
+    fetch(`${process.env.REACT_APP_API_URL}/news`)
       .then((res) => res.json())
       .then((resjson) => setNews(resjson));
   }, []);

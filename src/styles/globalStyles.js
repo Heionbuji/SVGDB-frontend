@@ -22,6 +22,9 @@ text-align: center;
   margin-left: 10px;
   margin-right: 10px;
 }
+& > .disabled {
+  text-decoration: line-through;
+}
 `;
 
 export const StyledContentDiv = styled.div`
@@ -46,6 +49,7 @@ export const StyledAutosuggest = styled.div`
     width: 240px;
     height: 30px;
     padding: 10px 20px;
+    margin-bottom: 5px;
     font-family: Helvetica, sans-serif;
     font-weight: 300;
     font-size: 16px;
