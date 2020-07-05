@@ -9,11 +9,13 @@ import {
   StyledCardInformation,
   StyledCardImageContainer,
   StyledArtImg,
+  StyledButton,
 } from '../styles/cardStyles';
 
 const CardView = () => {
   const history = useHistory();
   const [cardJson, setCardJson] = useState({});
+  const [evo, setEvo] = useState(false);
   const { cardId } = useParams();
   useEffect(() => {
     if (Number.isNaN(+cardId) || (!Number.isNaN(+cardId) && !cardJson.id_)) { // help this is a mess
@@ -33,13 +35,18 @@ const CardView = () => {
           <span style={{ float: 'right' }}>{cardJson.craft_}</span>
         </StyledCardName>
         <StyledCardImageContainer>
-          <a target="_blank" href={`${process.env.REACT_APP_API_URL}/assets/cards/C_${cardId}.png`} rel="noopener noreferrer">
-            <StyledArtImg src={`${process.env.REACT_APP_API_URL}/assets/cards/C_${cardId}.png`} alt="" />
+          <a target="_blank" href={`${process.env.REACT_APP_API_URL}/assets/cards/${evo ? 'E' : 'C'}_${cardId}.png`} rel="noopener noreferrer">
+            <StyledArtImg src={`${process.env.REACT_APP_API_URL}/assets/cards/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
           </a>
-          <a target="_blank" href={`${process.env.REACT_APP_API_URL}/assets/${cardId}0.png`} rel="noopener noreferrer">
-            <StyledArtImg src={`${process.env.REACT_APP_API_URL}/assets/${cardId}0.png`} alt="" />
+          <a target="_blank" href={`${process.env.REACT_APP_API_URL}/assets/${cardId}${evo ? '1' : '0'}.png`} rel="noopener noreferrer">
+            <StyledArtImg src={`${process.env.REACT_APP_API_URL}/assets/${cardId}${evo ? '1' : '0'}.png`} alt="" />
           </a>
         </StyledCardImageContainer>
+        <div style={{ textAlign: 'center' }}>
+          <StyledButton type="button" onClick={() => setEvo(!evo)}>
+            Alt Art
+          </StyledButton>
+        </div>
         <StyledCardInformation>
           <div style={{ maxWidth: '40%' }}>
             <div style={{ textAlign: 'left', fontSize: '1.2rem', marginTop: '19.2px' }}>

@@ -38,3 +38,13 @@ export const StyledArtImg = styled.img`
   max-height: 417px;
   width: auto;
 `;
+
+export const StyledButton = styled.button`
+  margin: auto;
+  color: white;
+  padding: 20px;
+  border: 0;
+  background-color: rgb(31, 52, 71);
+  outline: none;
+  cursor: pointer;
+`;
