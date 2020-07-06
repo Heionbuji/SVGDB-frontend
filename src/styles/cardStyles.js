@@ -5,7 +5,7 @@ export const StyledCardContainer = styled.div`
   max-width: 1400px;
   background-color: #111;
   min-height: 70vh;
-  opacity: 90%;
+  opacity: 95%;
   color: white;
   overflow: auto;
   padding: 20px;

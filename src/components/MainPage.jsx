@@ -3,7 +3,7 @@ import News from './News';
 import { StyledContentDiv } from '../styles/globalStyles';
 
 const MainPage = () => (
-  <StyledContentDiv>
+  <StyledContentDiv style={{ textAlign: 'left' }}>
     <News />
   </StyledContentDiv>
 );

@@ -2,13 +2,18 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 html, body, #root {
-  height: 100vh;
+  min-height: 100vh;
 }
 body {
   background-color: #e6e6e6;
+  background-image: url(${process.env.REACT_APP_API_URL}/assets/bg/ceres.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 20%;
 }
 .nav {
-  background-color: #aacc11;
+  background-color: black;
+  color: white;
 }
 .title {
   margin: 0;
@@ -32,8 +37,8 @@ export const StyledContentDiv = styled.div`
   max-width: 1400px;
   background-color: #111;
   text-align: center;
-  min-height: 70vh;
-  opacity: 90%;
+  min-height: 80vh;
+  opacity: 95%;
 `;
 
 export const StyledAutosuggest = styled.div`
@@ -43,6 +48,7 @@ export const StyledAutosuggest = styled.div`
     position: relative;
     display: inline-block;
     height: 100%;
+    color: black;
   }
   
   .react-autosuggest__input {
