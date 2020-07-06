@@ -44,7 +44,7 @@ const CardView = () => {
         </StyledCardImageContainer>
         <div style={{ textAlign: 'center' }}>
           <StyledButton type="button" onClick={() => setEvo(!evo)}>
-            Evo Art
+            {evo ? 'Base' : 'Evo'} Art
           </StyledButton>
         </div>
         <StyledCardInformation>
