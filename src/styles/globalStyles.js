@@ -35,10 +35,9 @@ text-align: center;
 export const StyledContentDiv = styled.div`
   margin: auto;
   max-width: 1400px;
-  background-color: #111;
+  background-color: rgb(11,11,11,0.95);
   text-align: center;
   min-height: 80vh;
-  opacity: 95%;
 `;
 
 export const StyledAutosuggest = styled.div`

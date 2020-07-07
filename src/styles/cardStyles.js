@@ -3,9 +3,8 @@ import styled from 'styled-components';
 export const StyledCardContainer = styled.div`
   margin: auto;
   max-width: 1400px;
-  background-color: #111;
+  background-color: rgb(11,11,11,0.95);
   min-height: 70vh;
-  opacity: 95%;
   color: white;
   overflow: auto;
   padding: 20px;
