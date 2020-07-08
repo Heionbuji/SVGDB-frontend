@@ -158,6 +158,43 @@ const CardView = () => {
                     </tr>
                   </>
                 ))}
+                {cardJson.extras && (cardJson.extras[0].charAt(5) === '3' || cardJson.extras[0].charAt(5) === '2')
+                && cardJson.extras.map((extra, index) => (
+                  <>
+                    <tr>
+                      <td>Crystallize {cardJson.extras.length !== 1 && index + 1}</td>
+                      <td>
+                        <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${extra}_0.mp3`} />
+                      </td>
+                      <td>
+                        <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${extra}_0.mp3`} />
+                      </td>
+                    </tr>
+                  </>
+                ))}
+                {cardJson.extras && cardJson.extras[0] === 'ub'
+                && (
+                  <>
+                    <tr>
+                      <td>Union Burst 1</td>
+                      <td>
+                        <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${cardId}_ub1.mp3`} />
+                      </td>
+                      <td>
+                        <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_ub1.mp3`} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Union Burst 2</td>
+                      <td>
+                        <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${cardId}_ub2.mp3`} />
+                      </td>
+                      <td>
+                        <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_ub2.mp3`} />
+                      </td>
+                    </tr>
+                  </>
+                )}
               </tbody>
 
             </table>
