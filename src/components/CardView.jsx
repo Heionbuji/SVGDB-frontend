@@ -35,11 +35,11 @@ const CardView = () => {
           <span style={{ float: 'right' }}>{cardJson.craft_}</span>
         </StyledCardName>
         <StyledCardImageContainer>
-          <a target="_blank" href={`${process.env.REACT_APP_API_URL}/assets/cards/${evo ? 'E' : 'C'}_${cardId}.png`} rel="noopener noreferrer">
-            <StyledArtImg src={`${process.env.REACT_APP_API_URL}/assets/cards/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
+          <a target="_blank" href={`${process.env.REACT_APP_ASSETS_URL}/cards/${evo ? 'E' : 'C'}_${cardId}.png`} rel="noopener noreferrer">
+            <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/cards/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
           </a>
-          <a target="_blank" href={`${process.env.REACT_APP_API_URL}/assets/${cardId}${evo ? '1' : '0'}.png`} rel="noopener noreferrer">
-            <StyledArtImg src={`${process.env.REACT_APP_API_URL}/assets/${cardId}${evo ? '1' : '0'}.png`} alt="" />
+          <a target="_blank" href={`${process.env.REACT_APP_ASSETS_URL}/fullart/${cardId}${evo ? '1' : '0'}.png`} rel="noopener noreferrer">
+            <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/fullart/${cardId}${evo ? '1' : '0'}.png`} alt="" />
           </a>
         </StyledCardImageContainer>
         {cardJson.type_ === 'Follower'
@@ -54,6 +54,7 @@ const CardView = () => {
           <div style={{ maxWidth: '40%' }}>
             <div style={{ textAlign: 'left', fontSize: '1.2rem', marginTop: '19.2px' }}>
               <b>Type: </b>{cardJson.type_} <br />
+              {cardJson.trait_ !== '-' && <><b>Trait: </b>{cardJson.trait_} <br /></>}
               <b>Rarity: </b>{cardJson.rarity_} <br />
               <b>Set: </b>{cardJson.expansion_} {cardJson.rotation_ ? '(Rotation)' : '(Unlimited)'} <br />
               <b>Cost: </b>{cardJson.pp_} <br />
@@ -105,10 +106,10 @@ const CardView = () => {
                 <tr>
                   <td>Play </td>
                   <td>
-                    <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/jp/vo_${cardId}_0.mp3`} />
+                    <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${cardId}_0.mp3`} />
                   </td>
                   <td>
-                    <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/en/vo_${cardId}_0.mp3`} />
+                    <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_0.mp3`} />
                   </td>
                 </tr>
                 {cardJson.type_ === 'Follower'
@@ -117,32 +118,46 @@ const CardView = () => {
                   <tr>
                     <td>Attack </td>
                     <td>
-                      <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/jp/vo_${cardId}_1.mp3`} />
+                      <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${cardId}_1.mp3`} />
                     </td>
                     <td>
-                      <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/en/vo_${cardId}_1.mp3`} />
+                      <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_1.mp3`} />
                     </td>
                   </tr>
                   <tr>
                     <td>Evolve </td>
                     <td>
-                      <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/jp/vo_${cardId}_2.mp3`} />
+                      <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${cardId}_2.mp3`} />
                     </td>
                     <td>
-                      <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/en/vo_${cardId}_2.mp3`} />
+                      <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_2.mp3`} />
                     </td>
                   </tr>
                   <tr>
                     <td>Death </td>
                     <td>
-                      <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/jp/vo_${cardId}_3.mp3`} />
+                      <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${cardId}_3.mp3`} />
                     </td>
                     <td>
-                      <audio controls preload="none" src={`${process.env.REACT_APP_API_URL}/assets/audio/en/vo_${cardId}_3.mp3`} />
+                      <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_3.mp3`} />
                     </td>
                   </tr>
                 </>
                 )}
+                {cardJson.extras && cardJson.extras[0].charAt(5) === '4'
+                && cardJson.extras.map((extra, index) => (
+                  <>
+                    <tr>
+                      <td>Accelerate {cardJson.extras.length !== 1 && index + 1}</td>
+                      <td>
+                        <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${extra}_0.mp3`} />
+                      </td>
+                      <td>
+                        <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${extra}_0.mp3`} />
+                      </td>
+                    </tr>
+                  </>
+                ))}
               </tbody>
 
             </table>
