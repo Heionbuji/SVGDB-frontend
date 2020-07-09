@@ -198,7 +198,7 @@ const CardView = () => {
                 {cardJson.extras && cardJson.extras.includes('enh') && cardJson.extras
                   .filter((el) => el === 'enh')
                   .map((el, index, arr) => (
-                    <>
+                    <React.Fragment key={`frag${el}`}>
                       <tr>
                         <td>Enhance {arr.length > 1 && index + 1}</td>
                         <td>
@@ -208,12 +208,12 @@ const CardView = () => {
                           <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_enh${index}.mp3`} />
                         </td>
                       </tr>
-                    </>
+                    </React.Fragment>
                   ))}
                 {cardJson.extras && cardJson.extras.includes('eff') && cardJson.extras
                   .filter((el) => el === 'eff')
                   .map((el, index, arr) => (
-                    <>
+                    <React.Fragment key={`frag${el}`}>
                       <tr>
                         <td>Effect/Special {arr.length > 1 && index + 1}</td>
                         <td>
@@ -223,7 +223,7 @@ const CardView = () => {
                           <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_${cardJson.extras.includes('enh') ? index + 5 : index + 4}.mp3`} />
                         </td>
                       </tr>
-                    </>
+                    </React.Fragment>
                   ))}
               </tbody>
 
