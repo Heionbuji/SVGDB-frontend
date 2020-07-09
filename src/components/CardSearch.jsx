@@ -51,7 +51,7 @@ const CardSearch = () => {
     }
   };
   const onKeyDown = (event) => {
-    if (!event.target.attributes['aria-activedescendant']) {
+    if (!event.target.attributes['aria-activedescendant'] && suggestions[0]) {
       if (event.keyCode === 13) {
         const newValue = suggestions[0];
         setSearchValue(newValue);
