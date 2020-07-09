@@ -50,6 +50,16 @@ const CardSearch = () => {
       default:
     }
   };
+  const onKeyDown = (event) => {
+    if (!event.target.attributes['aria-activedescendant']) {
+      if (event.keyCode === 13) {
+        const newValue = suggestions[0];
+        setSearchValue(newValue);
+        const urlsafe = newValue.replace(/[\\/]/g, '');
+        history.push(`/cards/${urlsafe}`);
+      }
+    }
+  };
 
   const onSuggestionsFetchRequested = ({ value }) => {
     setSuggestions(getSuggestions(value, json));
@@ -63,6 +73,7 @@ const CardSearch = () => {
     placeholder: t('cardSearch'),
     value: searchValue,
     onChange,
+    onKeyDown,
   };
 
   return (
