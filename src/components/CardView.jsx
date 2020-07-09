@@ -27,6 +27,15 @@ const CardView = () => {
         });
     }
   }, [cardId, cardJson, history]);
+
+  const sumArray = (arr) => {
+    let sum = 0;
+    arr.forEach((el) => {
+      sum += el;
+    });
+    return sum;
+  };
+
   if (cardJson.id_ && !Number.isNaN(+cardId)) {
     return (
       <StyledCardContainer>
@@ -217,10 +226,10 @@ const CardView = () => {
                       <tr>
                         <td>Effect/Special {arr.length > 1 && index + 1}</td>
                         <td>
-                          <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${cardId}_${cardJson.extras.includes('enh') ? index + 5 : index + 4}.mp3`} />
+                          <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${cardId}_${cardJson.extras.includes('enh') ? index + 4 + sumArray(cardJson.extras.map((elem) => elem === 'enh')) : index + 4}.mp3`} />
                         </td>
                         <td>
-                          <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_${cardJson.extras.includes('enh') ? index + 5 : index + 4}.mp3`} />
+                          <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${cardId}_${cardJson.extras.includes('enh') ? index + 4 + sumArray(cardJson.extras.map((elem) => elem === 'enh')) : index + 4}.mp3`} />
                         </td>
                       </tr>
                     </React.Fragment>
