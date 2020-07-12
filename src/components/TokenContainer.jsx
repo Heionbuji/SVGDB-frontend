@@ -20,12 +20,24 @@ const TokenContainer = ({ token }) => {
         <p>{tokenJson.name_}</p>
         <div style={{ display: 'flex' }}>
           <img src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_${tokenJson.id_}.png`} alt="" style={{ float: 'left' }} />
-          <span>
-            Base: <br />
-            {tokenJson.baseEffect_} <br />
-            Evo: <br />
-            {tokenJson.evoEffect_}
-          </span>
+          {tokenJson.type_ === 'Follower'
+            ? (
+              <span style={{
+                maxWidth: '200px', maxHeight: '200px', minHeight: '200px', minWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis',
+              }}
+              >
+                <b>Base: </b><br />
+                {tokenJson.baseEffect_} <br />
+                <b>Evo: </b><br />
+                {tokenJson.evoEffect_}
+              </span>
+            )
+            : (
+              <span style={{ maxWidth: '250px', maxHeight: '250px' }}>
+                {tokenJson.baseEffect_}
+              </span>
+            )}
+
         </div>
       </div>
     </Link>
