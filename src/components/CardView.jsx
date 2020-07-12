@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   StyledCardContainer,
   StyledCardName,
@@ -10,24 +10,24 @@ import {
   StyledButton,
 } from '../styles/cardStyles';
 import AudioContainer from './AudioContainer';
+import TokenContainer from './TokenContainer';
 
 const CardView = () => {
-  const history = useHistory();
-  const [cardJson, setCardJson] = useState({});
+  const [cardJson, setCardJson] = useState(null);
   const [evo, setEvo] = useState(false);
   const { cardId } = useParams();
   useEffect(() => {
-    if (Number.isNaN(+cardId) || (!Number.isNaN(+cardId) && !cardJson.id_)) { // help this is a mess
+    if (!cardJson || (cardJson && parseInt(cardId, 10) !== cardJson.id_)) {
+      window.scrollTo(0, 0);
       fetch(`${process.env.REACT_APP_API_URL}/cards/${cardId}`)
         .then((res) => res.json())
         .then((resjson) => {
           setCardJson(resjson);
-          history.push(`/cards/${resjson.id_}`);
         });
     }
-  }, [cardId, cardJson, history]);
+  }, [cardId, cardJson]);
 
-  if (cardJson.id_ && !Number.isNaN(+cardId)) {
+  if (cardJson && cardJson.id_ && !Number.isNaN(+cardId)) {
     return (
       <StyledCardContainer>
         <StyledCardName>
@@ -93,6 +93,12 @@ const CardView = () => {
           </div>
         </StyledCardInformation>
         <AudioContainer cardJson={cardJson} cardId={cardId} />
+        <h2>Related Cards: </h2> <br />
+        <div style={{ display: 'flex' }}>
+          {cardJson.tokens_.map((token) => (
+            <TokenContainer token={token} />
+          ))}
+        </div>
       </StyledCardContainer>
     );
   }

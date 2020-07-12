@@ -19,6 +19,10 @@ body {
   margin: 0;
   padding: 20px;
 }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 `;
 
 export const StyledDiv = styled.div`

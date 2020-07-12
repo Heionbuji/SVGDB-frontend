@@ -5,9 +5,10 @@ import { useHistory } from 'react-router-dom';
 import { StyledAutosuggest } from '../styles/globalStyles';
 
 const getSuggestions = (value, json) => {
+  const names = Object.keys(json);
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
-  return inputLength < 2 ? [] : json.filter((card) =>
+  return inputLength < 2 ? [] : names.filter((card) =>
     card.toLowerCase().includes(inputValue));
 };
 const getSuggestionValue = (suggestion) => suggestion;
@@ -35,15 +36,13 @@ const CardSearch = () => {
         break;
       case 'click': {
         setSearchValue(newValue);
-        const urlsafe = newValue.replace(/[\\/]/g, '');
-        history.push(`/cards/${urlsafe}`);
+        history.push(`/cards/${json[newValue]}`);
         break;
       }
       case 'keydown': {
         if (event.keyCode === 13) {
           setSearchValue(newValue);
-          const urlsafe = newValue.replace(/[\\/]/g, '');
-          history.push(`/cards/${urlsafe}`);
+          history.push(`/cards/${json[newValue]}`);
         }
         break;
       }
@@ -55,8 +54,7 @@ const CardSearch = () => {
       if (event.keyCode === 13) {
         const newValue = suggestions[0];
         setSearchValue(newValue);
-        const urlsafe = newValue.replace(/[\\/]/g, '');
-        history.push(`/cards/${urlsafe}`);
+        history.push(`/cards/${json[newValue]}`);
       }
     }
   };

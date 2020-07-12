@@ -10,7 +10,10 @@ const propTypes = {
     type_: PropTypes.string,
     extras: PropTypes.arrayOf(PropTypes.string),
   }),
-  cardId: PropTypes.number,
+  cardId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 };
 
 const AudioContainer = ({ cardJson, cardId }) => {
@@ -78,7 +81,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   )}
               {cardJson.extras && cardJson.extras[0].charAt(5) === '4'
                   && cardJson.extras.map((extra, index) => (
-                    <>
+                    <React.Fragment key={`frag${extra}`}>
                       <tr>
                         <td>Accelerate {cardJson.extras.length !== 1 && index + 1}</td>
                         <td>
@@ -88,11 +91,11 @@ const AudioContainer = ({ cardJson, cardId }) => {
                           <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${extra}_0.mp3`} />
                         </td>
                       </tr>
-                    </>
+                    </React.Fragment>
                   ))}
               {cardJson.extras && (cardJson.extras[0].charAt(5) === '3' || cardJson.extras[0].charAt(5) === '2')
                   && cardJson.extras.map((extra, index) => (
-                    <>
+                    <React.Fragment key={`frag${extra}`}>
                       <tr>
                         <td>Crystallize {cardJson.extras.length !== 1 && index + 1}</td>
                         <td>
@@ -102,7 +105,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                           <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${extra}_0.mp3`} />
                         </td>
                       </tr>
-                    </>
+                    </React.Fragment>
                   ))}
               {cardJson.extras && cardJson.extras[0] === 'ub'
                   && (
@@ -158,7 +161,6 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   </React.Fragment>
                 ))}
             </tbody>
-
           </table>
         </>
       ));
