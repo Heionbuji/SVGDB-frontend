@@ -6,9 +6,10 @@ html, body, #root {
 }
 body {
   background-color: #e6e6e6;
-  background-image: url(${process.env.REACT_APP_API_URL}/assets/bg/ceres.jpg);
+  background-image: url(${process.env.REACT_APP_ASSETS_URL}/bg/ceres.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   background-position: center 20%;
 }
 .nav {

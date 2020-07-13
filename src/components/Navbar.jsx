@@ -11,7 +11,7 @@ const Navbar = () => {
       <h1 className="title"><Link to="/" style={{ textDecoration: 'none', color: 'white' }}>SVGDB</Link></h1>
       <span className="spaced disabled">{t('cards')}</span>
       <span className="spaced disabled">{t('leaders')}</span>
-      <span className="spaced disabled">{t('sleeves')}</span>
+      <span className="spaced"><Link to="/sleeves">{t('sleeves')}</Link></span>
       <CardSearch />
     </StyledDiv>
   );

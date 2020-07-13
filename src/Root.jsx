@@ -9,6 +9,7 @@ import {
 import Navbar from './components/Navbar';
 import MainPage from './components/MainPage';
 import CardView from './components/CardView';
+import Sleeves from './components/Sleeves';
 
 const Root = () => (
   <>
@@ -17,6 +18,7 @@ const Root = () => (
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/cards/:cardId" component={CardView} />
+        <Route exact path="/sleeves" component={Sleeves} />
         <Redirect to="/" />
       </Switch>
     </Router>
