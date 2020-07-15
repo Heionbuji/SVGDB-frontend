@@ -19,7 +19,7 @@ const TokenContainer = ({ token }) => {
       <div style={{ border: '1px solid pink', padding: '10px' }}>
         <p>{tokenJson.name_}</p>
         <div style={{ display: 'flex' }}>
-          <img src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_${tokenJson.id_}.png`} alt="" style={{ float: 'left' }} />
+          <img src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_${tokenJson.id_}.png`} alt="" style={{ float: 'left', paddingRight: '5px' }} />
           {tokenJson.type_ === 'Follower'
             ? (
               <span style={{

@@ -14,6 +14,7 @@ import CardImageContainer from './CardImageContainer';
 const CardView = () => {
   const [cardJson, setCardJson] = useState(null);
   const [evo, setEvo] = useState(false);
+  const [showAlt, setShowAlt] = useState(false);
   const { cardId } = useParams();
   useEffect(() => {
     if (!cardJson || (cardJson && parseInt(cardId, 10) !== cardJson.id_)) {
@@ -34,14 +35,24 @@ const CardView = () => {
           <span style={{ float: 'right' }}>{cardJson.craft_}</span>
         </StyledCardName>
         <CardImageContainer evo={evo} cardId={cardId} />
-        {cardJson.type_ === 'Follower'
-        && (
-          <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          {cardJson.type_ === 'Follower'
+          && (
             <StyledButton type="button" onClick={() => setEvo(!evo)}>
               {evo ? 'Base' : 'Evo'} Art
             </StyledButton>
-          </div>
-        )}
+          )}
+          {cardJson.alts_[0] && (
+            <>
+              <StyledButton type="button" onClick={() => setShowAlt(!showAlt)} style={{ margin: '5px' }}>
+                {showAlt ? 'Hide' : 'Show'} Alt Art
+              </StyledButton>
+              {cardJson.alts_.map((alt) => (
+                <CardImageContainer evo={evo} cardId={alt} hidden={!showAlt} />
+              ))}
+            </>
+          )}
+        </div>
         <StyledCardInformation>
           <div style={{ maxWidth: '40%' }}>
             <div style={{ textAlign: 'left', fontSize: '1.2rem', marginTop: '19.2px' }}>
