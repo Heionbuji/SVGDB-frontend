@@ -5,12 +5,11 @@ import {
   StyledCardContainer,
   StyledCardName,
   StyledCardInformation,
-  StyledCardImageContainer,
-  StyledArtImg,
   StyledButton,
 } from '../styles/cardStyles';
 import AudioContainer from './AudioContainer';
 import TokenContainer from './TokenContainer';
+import CardImageContainer from './CardImageContainer';
 
 const CardView = () => {
   const [cardJson, setCardJson] = useState(null);
@@ -34,14 +33,7 @@ const CardView = () => {
           {cardJson.name_}
           <span style={{ float: 'right' }}>{cardJson.craft_}</span>
         </StyledCardName>
-        <StyledCardImageContainer>
-          <a target="_blank" href={`${process.env.REACT_APP_ASSETS_URL}/cards/${evo ? 'E' : 'C'}_${cardId}.png`} rel="noopener noreferrer">
-            <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/cards/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
-          </a>
-          <a target="_blank" href={`${process.env.REACT_APP_ASSETS_URL}/fullart/${cardId}${evo ? '1' : '0'}.png`} rel="noopener noreferrer">
-            <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/fullart/${cardId}${evo ? '1' : '0'}.png`} alt="" />
-          </a>
-        </StyledCardImageContainer>
+        <CardImageContainer evo={evo} cardId={cardId} />
         {cardJson.type_ === 'Follower'
         && (
           <div style={{ textAlign: 'center' }}>
@@ -93,12 +85,16 @@ const CardView = () => {
           </div>
         </StyledCardInformation>
         <AudioContainer cardJson={cardJson} cardId={cardId} />
-        <h2>Related Cards: </h2> <br />
-        <div style={{ display: 'flex' }}>
-          {cardJson.tokens_.map((token) => (
-            <TokenContainer token={token} />
-          ))}
-        </div>
+        {cardJson.tokens_[0] && (
+          <>
+            <h2>Related Cards: </h2> <br />
+            <div style={{ display: 'flex' }}>
+              {cardJson.tokens_.map((token) => (
+                <TokenContainer token={token} />
+              ))}
+            </div>
+          </>
+        )}
       </StyledCardContainer>
     );
   }

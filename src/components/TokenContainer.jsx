@@ -23,7 +23,7 @@ const TokenContainer = ({ token }) => {
           {tokenJson.type_ === 'Follower'
             ? (
               <span style={{
-                maxWidth: '200px', maxHeight: '200px', minHeight: '200px', minWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis',
+                maxWidth: '200px', maxHeight: '140px', minHeight: '140px', minWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis',
               }}
               >
                 <b>Base: </b><br />
@@ -33,7 +33,10 @@ const TokenContainer = ({ token }) => {
               </span>
             )
             : (
-              <span style={{ maxWidth: '250px', maxHeight: '250px' }}>
+              <span style={{
+                maxWidth: '200px', maxHeight: '140px', minHeight: '140px', minWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis',
+              }}
+              >
                 {tokenJson.baseEffect_}
               </span>
             )}
