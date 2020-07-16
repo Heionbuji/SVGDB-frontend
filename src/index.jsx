@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Root from './Root';
-import * as serviceWorker from './serviceWorker';
 import { GlobalStyle } from './styles/globalStyles';
 import './i18n';
 
@@ -15,4 +14,3 @@ ReactDOM.render(
   </Suspense>,
   document.getElementById('root'),
 );
-serviceWorker.unregister();
