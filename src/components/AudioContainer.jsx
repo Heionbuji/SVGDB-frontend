@@ -80,7 +80,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   </>
                   )}
               {cardJson.extras && cardJson.extras[0].charAt(5) === '4'
-                  && cardJson.extras.map((extra, index) => (
+                  && cardJson.extras.filter((card) => card.charAt(5) === '4').map((extra, index) => (
                     <React.Fragment key={`frag${extra}`}>
                       <tr>
                         <td>Accelerate {cardJson.extras.length !== 1 && index + 1}</td>
@@ -94,19 +94,21 @@ const AudioContainer = ({ cardJson, cardId }) => {
                     </React.Fragment>
                   ))}
               {cardJson.extras && (cardJson.extras[0].charAt(5) === '3' || cardJson.extras[0].charAt(5) === '2')
-                  && cardJson.extras.map((extra, index) => (
-                    <React.Fragment key={`frag${extra}`}>
-                      <tr>
-                        <td>Crystallize {cardJson.extras.length !== 1 && index + 1}</td>
-                        <td>
-                          <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${extra}_0.mp3`} />
-                        </td>
-                        <td>
-                          <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${extra}_0.mp3`} />
-                        </td>
-                      </tr>
-                    </React.Fragment>
-                  ))}
+                  && cardJson.extras
+                    .filter((card) => card.charAt(5) === '3' || card.charAt(5) === '2')
+                    .map((extra, index) => (
+                      <React.Fragment key={`frag${extra}`}>
+                        <tr>
+                          <td>Crystallize {cardJson.extras.length !== 1 && index + 1}</td>
+                          <td>
+                            <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${extra}_0.mp3`} />
+                          </td>
+                          <td>
+                            <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${extra}_0.mp3`} />
+                          </td>
+                        </tr>
+                      </React.Fragment>
+                    ))}
               {cardJson.extras && cardJson.extras[0] === 'ub'
                   && (
                     <>
