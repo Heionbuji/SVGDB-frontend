@@ -16,6 +16,9 @@ Then install the dependencies with
 ```
 npm ci
 ```
+Rename the .env.example file to just .env (and modify it if needed)
+
+
 And start a development server with
 ```
 npm run start
