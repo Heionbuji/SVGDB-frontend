@@ -48,7 +48,7 @@ const CardView = () => {
                 {showAlt ? 'Hide' : 'Show'} Alt Art
               </StyledButton>
               {cardJson.alts_.map((alt) => (
-                <CardImageContainer evo={evo} cardId={alt} hidden={!showAlt} />
+                <CardImageContainer evo={evo} cardId={alt} hidden={!showAlt} key={`img${alt}`} />
               ))}
             </>
           )}
@@ -101,7 +101,7 @@ const CardView = () => {
             <h2>Related Cards: </h2> <br />
             <div style={{ display: 'flex' }}>
               {cardJson.tokens_.map((token) => (
-                <TokenContainer token={token} />
+                <TokenContainer token={token} key={`token${token}`} />
               ))}
             </div>
           </>
