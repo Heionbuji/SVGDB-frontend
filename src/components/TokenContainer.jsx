@@ -17,7 +17,7 @@ const TokenContainer = ({ token }) => {
   return tokenJson && (
     <Link to={`/cards/${tokenJson.id_}`}>
       <div style={{ border: '1px solid pink', padding: '10px' }}>
-        <p>{tokenJson.name_}</p>
+        <p style={{ marginTop: '5px' }}><b>{tokenJson.name_}</b></p>
         <div style={{ display: 'flex' }}>
           <img src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_${tokenJson.id_}.png`} alt="" style={{ float: 'left', paddingRight: '5px' }} />
           {tokenJson.type_ === 'Follower'
