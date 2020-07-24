@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const DropdownTitle = styled.span`
   display: flex;
@@ -28,12 +29,16 @@ const DropdownItem = styled.li`
   padding-bottom: 10px;
   &:hover {
     background-color: #333;
+    cursor: pointer;
   }
 `;
 
 const propTypes = {
   text: PropTypes.string.isRequired,
-  choices: PropTypes.arrayOf({}).isRequired,
+  choices: PropTypes.arrayOf({
+    title: PropTypes.string,
+    linkTo: PropTypes.string,
+  }).isRequired,
 };
 
 const Dropdown = ({ text, choices }) => {
@@ -52,7 +57,9 @@ const Dropdown = ({ text, choices }) => {
         {dropdownVisible && (
           <DropdownContent>
             {choices.map((choice) => (
-              <DropdownItem>{choice}</DropdownItem>
+              <Link to={choice.linkTo}>
+                <DropdownItem>{choice.title}</DropdownItem>
+              </Link>
             ))}
           </DropdownContent>
         )}

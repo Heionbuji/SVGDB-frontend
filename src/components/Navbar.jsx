@@ -13,7 +13,7 @@ const Navbar = () => {
       <span className="spaced disabled">{t('cards')}</span>
       <span className="spaced disabled">{t('leaders')}</span>
       <span className="spaced"><Link to="/sleeves">{t('sleeves')}</Link></span>
-      <Dropdown text="Tournaments" choices={['asd', 'ddd']} />
+      <Dropdown text="Tournaments" choices={[{ title: 'JCG (rotation)', linkTo: '/jcg/r' }, { title: 'JCG (unlimited)', linkTo: '/jcg/u' }]} />
       <CardSearch />
       <span style={{ float: 'right', paddingRight: '20px', color: '#121212' }}>
         <a target="_blank" href="https://github.com/Heionbuji/SVGDB-frontend" rel="noopener noreferrer">GitHub</a>

@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import MainPage from './components/MainPage';
 import CardView from './components/CardView';
 import Sleeves from './components/Sleeves';
+import Tournaments from './components/Tournaments';
 
 const Root = () => (
   <>
@@ -19,6 +20,7 @@ const Root = () => (
         <Route exact path="/" component={MainPage} />
         <Route exact path="/cards/:cardId" component={CardView} />
         <Route exact path="/sleeves" component={Sleeves} />
+        <Route exact path="/jcg/:format" component={Tournaments} />
         <Redirect to="/" />
       </Switch>
     </Router>
