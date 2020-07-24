@@ -11,7 +11,8 @@ export const StyledNewsDiv = styled.div`
 export const StyledNewsTitle = styled.h1`
   padding-bottom: 0;
   margin-bottom: 0;
-  padding-top: 20px;
+  padding-top: 40px;
+  margin-top: 0px;
 `;
 
 export const StyledNewsTimestamp = styled.span`

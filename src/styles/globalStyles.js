@@ -42,7 +42,8 @@ export const StyledContentDiv = styled.div`
   max-width: 1400px;
   background-color: rgb(11,11,11,0.95);
   text-align: center;
-  min-height: 80vh;
+  min-height: 85vh;
+  color: white;
 `;
 
 export const StyledAutosuggest = styled.div`
