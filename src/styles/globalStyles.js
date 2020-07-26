@@ -24,6 +24,29 @@ a {
   text-decoration: none;
   color: inherit;
 }
+svg {
+  stroke: #fff;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+td, th {
+  padding: 10px;
+}
+
+tr:nth-child(even) {background-color: #555;}
+tr:nth-child(odd) {background-color: #333;}
+
 `;
 
 export const StyledDiv = styled.div`
