@@ -99,7 +99,7 @@ const CardView = () => {
         {cardJson.tokens_[0] && (
           <>
             <h2>Related Cards: </h2> <br />
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               {cardJson.tokens_.map((token) => (
                 <TokenContainer token={token} key={`token${token}`} />
               ))}
