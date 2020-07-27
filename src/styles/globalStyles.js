@@ -46,12 +46,74 @@ td, th {
 
 .subtr {
   background-color: #333;
-  position: relative;
-  left: 10px;
 }
 
 .maintr {
   background-color: #555;
+}
+
+.Forestcraft {
+  background-color: #1f5a3e;
+}
+
+.Forestcraft + .Forestcraft {
+  background-color: #1f3a2e;
+}
+
+.Swordcraft {
+  background-color: #aa9b05;
+}
+
+.Swordcraft + .Swordcraft {
+  background-color: #6a6b05;
+}
+
+.Runecraft {
+  background-color: #119;
+}
+
+.Runecraft + .Runecraft {
+  background-color: #116;
+}
+
+.Dragoncraft {
+  background-color: #864313;
+}
+
+.Dragoncraft + .Dragoncraft {
+  background-color: #562303;
+}
+
+.Shadowcraft {
+  background-color: #531e76;
+}
+
+.Shadowcraft + .Shadowcraft {
+  background-color: #331e46;
+}
+
+.Bloodcraft {
+  background-color: #860d1f;
+}
+
+.Bloodcraft + .Bloodcraft {
+  background-color: #560d1f;
+}
+
+.Havencraft {
+  background-color: #5c522f;
+}
+
+.Havencraft + .Havencraft {
+  background-color: #3c321f;
+}
+
+.Portalcraft {
+  background-color: #093f59;
+}
+
+.Portalcraft + .Portalcraft {
+  background-color: #091f29;
 }
 
 `;

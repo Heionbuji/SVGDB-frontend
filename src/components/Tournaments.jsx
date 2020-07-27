@@ -80,13 +80,13 @@ const Tournaments = () => {
                   <tbody>
                     {value.crafts.map((count, index) => (
                       <>
-                        <tr className="maintr">
+                        <tr className={`maintr ${id2class[index]}`}>
                           <td>{id2class[index]}</td>
                           <td>{count}</td>
                         </tr>
                         {value.archetypes && value.archetypes[index] && value.archetypes[index].map((arch) => (
-                          <tr className="subtr">
-                            <td style={{ borderRight: '1px solid black' }}>{arch.name}</td>
+                          <tr className={`subtr ${id2class[index]}`}>
+                            <td>{arch.name}</td>
                             <td>{arch.count}</td>
                           </tr>
                         ))}
