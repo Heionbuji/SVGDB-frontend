@@ -44,8 +44,15 @@ td, th {
   padding: 10px;
 }
 
-tr:nth-child(even) {background-color: #555;}
-tr:nth-child(odd) {background-color: #333;}
+.subtr {
+  background-color: #333;
+  position: relative;
+  left: 10px;
+}
+
+.maintr {
+  background-color: #555;
+}
 
 `;
 

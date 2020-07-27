@@ -7,6 +7,7 @@ const propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   width: PropTypes.string,
+  marginTop: PropTypes.string,
 };
 
 const TitleBox = styled.div`
@@ -14,6 +15,7 @@ const TitleBox = styled.div`
   border: 2px solid #444;
   height: 50px;
   margin: auto;
+  margin-top: ${(props) => props.marginTop};
   margin-bottom: 25px;
   background-color: #111;
   cursor: pointer;
@@ -33,11 +35,13 @@ const ContentDiv = styled.div`
   }
 `;
 
-const ExpandingBox = ({ title, content, width = '75%' }) => {
+const ExpandingBox = ({
+  title, content, width = '75%', marginTop = '0px',
+}) => {
   const [expanded, setExpanded] = useState(false);
   return (
     <>
-      <TitleBox width={width} onClick={() => setExpanded(!expanded)}>
+      <TitleBox width={width} marginTop={marginTop} onClick={() => setExpanded(!expanded)}>
         <div style={{ paddingTop: '15px', height: '100%' }}>
           <span style={{ float: 'left', marginLeft: '10%' }}>
             {expanded ? (

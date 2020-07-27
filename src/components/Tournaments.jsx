@@ -67,21 +67,31 @@ const Tournaments = () => {
       {Object.values(currentJson).reverse().map((value) => (
         <ExpandingBox
           title={value.title}
+          marginTop="25px"
           content={
             (
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '50px' }}>
                 <table>
                   <thead>
-                    <tr>
-                      <th colSpan="2">Class usage breakdown</th>
+                    <tr style={{ backgroundColor: '#444' }}>
+                      <th colSpan="2">Deck usage breakdown</th>
                     </tr>
                   </thead>
                   <tbody>
                     {value.crafts.map((count, index) => (
-                      <tr>
-                        <td>{id2class[index]}</td>
-                        <td>{count}</td>
-                      </tr>
+                      <>
+                        <tr className="maintr">
+                          <td>{id2class[index]}</td>
+                          <td>{count}</td>
+                        </tr>
+                        {value.archetypes && value.archetypes[index] && value.archetypes[index].map((arch) => (
+                          <tr className="subtr">
+                            <td style={{ borderRight: '1px solid black' }}>{arch.name}</td>
+                            <td>{arch.count}</td>
+                          </tr>
+                        ))}
+
+                      </>
                     ))}
                   </tbody>
                 </table>
