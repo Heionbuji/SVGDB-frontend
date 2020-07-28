@@ -172,10 +172,10 @@ const Tournaments = () => {
                       ? (
                         <>
                           <a href={value[1][0].decks[0]} target="blank_" rel="noopener nofollow">
-                            <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${value[1][0].decks[0][59]}`} alt="" style={{ padding: '10px' }} />
+                            <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${value[1][0].decks[0][59]}.png`} alt="" style={{ padding: '10px' }} />
                           </a>
                           <a href={value[1][0].decks[1]} target="blank_" rel="noopener nofollow">
-                            <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${value[1][0].decks[1][59]}`} alt="" style={{ padding: '10px' }} />
+                            <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${value[1][0].decks[1][59]}.png`} alt="" style={{ padding: '10px' }} />
                           </a>
                         </>
                       )
@@ -188,10 +188,10 @@ const Tournaments = () => {
                       ? (
                         <>
                           <a href={value[2][0].decks[0]} target="blank_" rel="noopener nofollow">
-                            <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${value[2][0].decks[0][59]}`} alt="" style={{ padding: '10px' }} />
+                            <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${value[2][0].decks[0][59]}.png`} alt="" style={{ padding: '10px' }} />
                           </a>
                           <a href={value[2][0].decks[1]} target="blank_" rel="noopener nofollow">
-                            <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${value[2][0].decks[1][59]}`} alt="" style={{ padding: '10px' }} />
+                            <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${value[2][0].decks[1][59]}.png`} alt="" style={{ padding: '10px' }} />
                           </a>
                         </>
                       )
@@ -215,10 +215,10 @@ const Tournaments = () => {
                                   <>
                                     <p>{val[index].player}</p>
                                     <a href={val[index].decks[0]} target="blank_" rel="noopener nofollow">
-                                      <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${val[index].decks[0][59]}`} alt="" style={{ padding: '10px' }} />
+                                      <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${val[index].decks[0][59]}.png`} alt="" style={{ padding: '10px' }} />
                                     </a>
                                     <a href={val[index].decks[1]} target="blank_" rel="noopener nofollow">
-                                      <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${val[index].decks[1][59]}`} alt="" style={{ padding: '10px' }} />
+                                      <img src={`${process.env.REACT_APP_ASSETS_URL}/icons/${val[index].decks[1][59]}.png`} alt="" style={{ padding: '10px' }} />
                                     </a>
                                   </>
                                 )
