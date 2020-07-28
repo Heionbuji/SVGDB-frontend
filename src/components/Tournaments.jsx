@@ -134,6 +134,7 @@ const Tournaments = () => {
         <ExpandingBox
           title={value.title}
           marginTop="25px"
+          key={`exp${value.title}`}
           content={
             (
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '50px' }}>
@@ -145,7 +146,9 @@ const Tournaments = () => {
                   </thead>
                   <tbody>
                     {value.crafts.map((count, index) => (
-                      <>
+                      // There can be duplicates with just count
+                      // eslint-disable-next-line react/no-array-index-key
+                      <React.Fragment key={`frag${count}${index}`}>
                         <tr className={`maintr ${id2class[index]}`}>
                           <td>{id2class[index]}</td>
                           <td>{count}</td>
@@ -153,13 +156,13 @@ const Tournaments = () => {
                         {value.archetypes
                         && value.archetypes[index]
                         && value.archetypes[index].map((arch) => (
-                          <tr className={`subtr ${id2class[index]}`}>
+                          <tr className={`subtr ${id2class[index]}`} key={`tr${arch}`}>
                             <td>{arch.name}</td>
                             <td>{arch.count}</td>
                           </tr>
                         ))}
 
-                      </>
+                      </React.Fragment>
                     ))}
                   </tbody>
                 </table>
@@ -206,7 +209,9 @@ const Tournaments = () => {
                       Object.values(value).map((val) => {
                         if (val[0].decks) {
                           return val.map((x, index) => (
-                            <div>
+                            // Again, there might be duplicates with just x
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={`div${x}${index}`}>
                               {val[index].decks[0] && val[index].decks[1]
                                 ? (
                                   <>
