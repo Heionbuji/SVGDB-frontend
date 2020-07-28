@@ -36,12 +36,20 @@ table {
   border-collapse: collapse;
 }
 
-table, th, td {
+.border {
   border: 1px solid black;
 }
 
-td, th {
-  padding: 10px;
+.border > tbody > tr > td {
+  border: 1px solid black;
+}
+
+.border > tbody > tr > td {
+  padding: 7px;
+}
+
+.border > thead > tr > th {
+  padding: 7px;
 }
 
 .subtr {
