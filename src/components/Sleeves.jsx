@@ -24,7 +24,7 @@ const Sleeves = () => {
           >
             <h2>{key}</h2>
             {sleevesJson[key].map((sleeve) => (
-              <a target="_blank" href={`${sleeveSrc}${sleeve}.png`} rel="noopener noreferrer">
+              <a target="_blank" href={`${sleeveSrc}${sleeve}.png`} rel="noopener noreferrer" key={`slv${sleeve}`}>
                 <LazyLoadedImage src={`${thumbnailSrc + sleeve}.png`} alt="" />
               </a>
             ))}
