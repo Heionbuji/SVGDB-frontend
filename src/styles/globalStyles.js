@@ -52,6 +52,10 @@ td, th {
   background-color: #555;
 }
 
+.faded {
+  opacity: 50%;
+}
+
 .Forestcraft {
   background-color: #1f5a3e;
 }

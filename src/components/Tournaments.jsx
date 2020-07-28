@@ -8,6 +8,7 @@ import ExpandingBox from './ExpandingBox';
 const Tournaments = () => {
   const [jcgs, setJcgs] = useState(null);
   const [currentJson, setCurrentJson] = useState(null);
+  const [filterByExpansion, setFilterByExpansion] = useState(false);
   const { format } = useParams();
   const start2020 = 1965;
   const start2019 = 1384;
@@ -25,19 +26,42 @@ const Tournaments = () => {
     8: 'Neutral',
   };
 
-  const spliceJson = (newYear) => {
+  const exp2season = {
+    'Fortunes Hand': '14th Season',
+    'World Uprooted': '13th Season',
+    'Ultimate Colosseum': '12th Season',
+    'Verdant Conflict': '11th Season',
+    'Rebirth of Glory': '10th Season',
+    'Steel Rebellion': '9th Season',
+    Altersphere: '8th Season',
+    'Omen of the Ten': '7th Season',
+    'Brigade of the Sky': '6th Season',
+    'Dawnbreak Nightedge': '5th Season',
+    Chronogenesis: '4th Season',
+    'Starforged Legends': '3rd Season',
+    'Wonderland Dreams': '2nd Season',
+    'Tempest of the Gods': '1st Season',
+  };
+
+  const spliceJson = (newVal) => {
     const temp = {};
-    if (newYear === '2020') {
+    // eslint-disable-next-line no-restricted-globals
+    if (isNaN(newVal)) {
+      Object.keys(jcgs).forEach((key) => {
+        if (jcgs[key].title.includes(exp2season[newVal])) { temp[key] = jcgs[key]; }
+      });
+    }
+    if (newVal === '2020') {
       Object.keys(jcgs).forEach((key) => {
         if (key >= start2020) { temp[key] = jcgs[key]; }
       });
     }
-    if (newYear === '2019') {
+    if (newVal === '2019') {
       Object.keys(jcgs).forEach((key) => {
         if (key >= start2019 && key < start2020) { temp[key] = jcgs[key]; }
       });
     }
-    if (newYear === '2018') {
+    if (newVal === '2018') {
       Object.keys(jcgs).forEach((key) => {
         if (key >= start2018 && key < start2019) { temp[key] = jcgs[key]; }
       });
@@ -57,13 +81,55 @@ const Tournaments = () => {
 
   return jcgs && currentJson && (
     <StyledContentDiv>
-      <label htmlFor="year">Year:
-        <select name="year" onChange={(e) => spliceJson(e.target.value)}>
-          <option value="2020">2020</option>
-          <option value="2019">2019</option>
-          <option value="2018">2018</option>
-        </select>
-      </label>
+      <div style={{ paddingTop: '10px' }}>
+        Filter by:
+        <label htmlFor="year"> Year
+          <select
+            name="year"
+            onChange={(e) => {
+              spliceJson(e.target.value);
+              setFilterByExpansion(false);
+            }}
+            style={{ margin: '0 5px' }}
+            className={filterByExpansion ? 'faded' : null}
+          >
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+          </select>
+        </label>
+        or
+        <label htmlFor="expansion"> Expansion
+          <select
+            name="expansion"
+            onChange={(e) => {
+              spliceJson(e.target.value);
+              setFilterByExpansion(true);
+            }}
+            style={{ margin: '0 5px' }}
+            className={!filterByExpansion ? 'faded' : null}
+          >
+            <option value="Select Expansion">-- Select Expansion --</option>
+            <option value="Fortunes Hand">Fortune&apos;s hand</option>
+            <option value="World Uprooted">World Uprooted</option>
+            <option value="Ultimate Colosseum">Ultimate Colosseum</option>
+            <option value="Verdant Conflict">Verdant Conflict</option>
+            <option value="Rebirth of Glory">Rebirth of Glory</option>
+            <option value="Steel Rebellion">Steel Rebellion</option>
+            <option value="Altersphere">Altersphere</option>
+            <option value="Omen of the Ten">Omen of the Ten</option>
+            <option value="Brigade of the Sky">Brigade of the Sky</option>
+            <option value="Dawnbreak Nightedge">Dawnbreak, Nightedge</option>
+            <option value="Chronogenesis">Chronogenesis</option>
+            <option value="Starforged Legends">Starforged Legends</option>
+            <option value="Wonderland Dreams">Wonderland Dreams</option>
+            <option value="Tempest of the Gods">Tempest of the Gods</option>
+            <option value="Rise of Bahamut">Rise of Bahamut</option>
+            <option value="Darkness Evolved">Darkness Evolved</option>
+            <option value="Classic">Classic</option>
+          </select>
+        </label>
+      </div>
       {Object.values(currentJson).reverse().map((value) => (
         <ExpandingBox
           title={value.title}
@@ -84,7 +150,9 @@ const Tournaments = () => {
                           <td>{id2class[index]}</td>
                           <td>{count}</td>
                         </tr>
-                        {value.archetypes && value.archetypes[index] && value.archetypes[index].map((arch) => (
+                        {value.archetypes
+                        && value.archetypes[index]
+                        && value.archetypes[index].map((arch) => (
                           <tr className={`subtr ${id2class[index]}`}>
                             <td>{arch.name}</td>
                             <td>{arch.count}</td>
