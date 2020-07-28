@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable jsx-a11y/control-has-associated-label */
@@ -87,7 +88,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   )}
                   {cardJson.extras && cardJson.extras[0].charAt(5) === '4'
                   && cardJson.extras.filter((card) => card.charAt(5) === '4').map((extra, index) => (
-                    <React.Fragment key={`frag${extra}`}>
+                    <React.Fragment key={`frag${extra}${index}`}>
                       <tr>
                         <td>{voiceIndex ? 'Alt ' : ''}Accelerate {cardJson.extras.length !== 1 && index + 1}</td>
                         <td>
@@ -103,7 +104,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   && cardJson.extras
                     .filter((card) => card.charAt(5) === '3' || card.charAt(5) === '2')
                     .map((extra, index) => (
-                      <React.Fragment key={`frag${extra}`}>
+                      <React.Fragment key={`frag${extra}${index}`}>
                         <tr>
                           <td>{voiceIndex ? 'Alt ' : ''}Crystallize {cardJson.extras.length !== 1 && index + 1}</td>
                           <td>
@@ -141,7 +142,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   {cardJson.extras && cardJson.extras.includes('enh') && cardJson.extras
                     .filter((el) => el === 'enh')
                     .map((el, index, arr) => (
-                      <React.Fragment key={`frag${el}`}>
+                      <React.Fragment key={`frag${el}${index}`}>
                         <tr>
                           <td>{voiceIndex ? 'Alt ' : ''}Enhance {arr.length > 1 && index + 1}</td>
                           <td>
@@ -156,7 +157,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   {cardJson.extras && cardJson.extras.includes('eff') && cardJson.extras
                     .filter((el) => el === 'eff')
                     .map((el, index, arr) => (
-                      <React.Fragment key={`frag${el}`}>
+                      <React.Fragment key={`frag${el}${index}`}>
                         <tr>
                           <td>{voiceIndex ? 'Alt ' : ''}Effect/Special {arr.length > 1 && index + 1}</td>
                           <td>

@@ -35,10 +35,10 @@ const DropdownItem = styled.li`
 
 const propTypes = {
   text: PropTypes.string.isRequired,
-  choices: PropTypes.arrayOf({
+  choices: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     linkTo: PropTypes.string,
-  }).isRequired,
+  })).isRequired,
 };
 
 const Dropdown = ({ text, choices }) => {
@@ -57,7 +57,7 @@ const Dropdown = ({ text, choices }) => {
         {dropdownVisible && (
           <DropdownContent>
             {choices.map((choice) => (
-              <Link to={choice.linkTo}>
+              <Link to={choice.linkTo} key={`link${choice.title}`}>
                 <DropdownItem>{choice.title}</DropdownItem>
               </Link>
             ))}

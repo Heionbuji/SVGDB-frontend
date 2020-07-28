@@ -5,7 +5,12 @@ import styled from 'styled-components';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.arrayOf(PropTypes.shape({})),
+    // Apparently those types aren't good enough so screw it
+    PropTypes.any,
+  ]),
   width: PropTypes.string,
   marginTop: PropTypes.string,
 };

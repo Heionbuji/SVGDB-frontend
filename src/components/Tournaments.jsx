@@ -138,7 +138,7 @@ const Tournaments = () => {
           content={
             (
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '50px' }}>
-                <table>
+                <table className="border">
                   <thead>
                     <tr style={{ backgroundColor: '#444' }}>
                       <th colSpan="2">Deck usage breakdown</th>
@@ -153,15 +153,13 @@ const Tournaments = () => {
                           <td>{id2class[index]}</td>
                           <td>{count}</td>
                         </tr>
-                        {value.archetypes
-                        && value.archetypes[index]
-                        && value.archetypes[index].map((arch) => (
-                          <tr className={`subtr ${id2class[index]}`} key={`tr${arch}`}>
-                            <td>{arch.name}</td>
-                            <td>{arch.count}</td>
-                          </tr>
-                        ))}
-
+                        {(value.archetypes && value.archetypes[index])
+                          ? value.archetypes[index].map((arch) => (
+                            <tr className={`subtr ${id2class[index]}`} key={`tr${arch.name}`}>
+                              <td>{arch.name}</td>
+                              <td>{arch.count}</td>
+                            </tr>
+                          )) : null}
                       </React.Fragment>
                     ))}
                   </tbody>
