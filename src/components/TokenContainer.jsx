@@ -10,7 +10,7 @@ const propTypes = {
 const TokenContainer = ({ token }) => {
   const [tokenJson, setTokenJson] = useState(null);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/cards/${token.replace(/[^a-zA-Z0-9_-]*/gi, '')}`)
+    fetch(`${process.env.REACT_APP_API_URL}/cards/${token}`)
       .then((res) => res.json())
       .then((resJson) => setTokenJson(resJson));
   }, [token]);
