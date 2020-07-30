@@ -11,7 +11,7 @@ const propTypes = {
     type_: PropTypes.string,
     id_: PropTypes.number,
     extras: PropTypes.arrayOf(PropTypes.string),
-    altVoices: PropTypes.arrayOf(PropTypes.number),
+    alts_: PropTypes.arrayOf(PropTypes.number),
   }),
   cardId: PropTypes.oneOfType([
     PropTypes.string,
@@ -28,7 +28,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
     return sum;
   };
   const allVoices = [cardJson.id_];
-  if (cardJson.altVoices) allVoices.push(cardJson.altVoices);
+  if (cardJson.alts_) allVoices.push(cardJson.alts_);
 
   if (cardJson && cardId) {
     return (
