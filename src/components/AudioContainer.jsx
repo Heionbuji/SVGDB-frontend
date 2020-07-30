@@ -28,7 +28,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
     return sum;
   };
   const allVoices = [cardJson.id_];
-  if (cardJson.alts_) allVoices.push(cardJson.alts_);
+  if (cardJson.alts_[0]) allVoices.push(cardJson.alts_);
 
   if (cardJson && cardId) {
     return (
