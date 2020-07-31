@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import { StyledContentDiv } from '../styles/globalStyles';
 import LazyLoadedImage from './LazyLoadedImage';
 
 const Sleeves = () => {
   const [sleevesJson, setSleevesJson] = useState(null);
+  const { t } = useTranslation('sleeves');
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/sleeves`)
       .then((res) => res.json())
@@ -22,7 +23,7 @@ const Sleeves = () => {
               maxWidth: '80%', margin: 'auto', color: 'white', padding: '10px',
             }}
           >
-            <h2>{key}</h2>
+            <h2>{t(key)}</h2>
             {sleevesJson[key].map((sleeve) => (
               <a target="_blank" href={`${sleeveSrc}${sleeve}.png`} rel="noopener noreferrer" key={`slv${sleeve}`}>
                 <LazyLoadedImage src={`${thumbnailSrc + sleeve}.png`} alt="" />

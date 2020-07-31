@@ -34,5 +34,13 @@
     "art": "イラスト",
     "hideAltArt": "Alt イラスト非表示",
     "showAltArt": "Alt イラスト表示"
+  },
+  "sleeves": {
+    "Collab and Event": "コラボとイベント",
+    "Story": "ストーリー",
+    "Default and Default Leaders": "デフォルト",
+    "Leader and Special": "リーダー",
+    "GM": "グラマス",
+    "Characters": "キャラクター"
   }
 }
