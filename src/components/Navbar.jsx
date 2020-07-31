@@ -18,8 +18,8 @@ const Navbar = () => {
       <span className="spaced disabled">{t('leaders')}</span>
       <span className="spaced"><Link to="/sleeves">{t('sleeves')}</Link></span>
       <Dropdown
-        text="Tournaments"
-        choices={[{ title: 'JCG (rotation)', linkTo: '/jcg/rotation' }, { title: 'JCG (unlimited)', linkTo: '/jcg/unlimited' }]}
+        text={t('tournaments')}
+        choices={[{ title: `JCG (${t('rotation')})`, linkTo: '/jcg/rotation' }, { title: `JCG (${t('unlimited')})`, linkTo: '/jcg/unlimited' }]}
       />
       <CardSearch />
       <span style={{ float: 'right', paddingRight: '20px', color: '#121212' }}>

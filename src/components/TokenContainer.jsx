@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  token: PropTypes.string.isRequired,
+  token: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired,
 };
 
-const TokenContainer = ({ token }) => {
+const TokenContainer = ({ token, language }) => {
   const [tokenJson, setTokenJson] = useState(null);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/cards/${token}`)
+    fetch(`${process.env.REACT_APP_API_URL}/cards/${language}/${token}`)
       .then((res) => res.json())
       .then((resJson) => setTokenJson(resJson));
-  }, [token]);
+  }, [token, language]);
   return tokenJson && (
     <Link to={`/cards/${tokenJson.id_}`}>
       <div style={{ border: '1px solid pink', padding: '10px' }}>

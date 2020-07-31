@@ -8,6 +8,7 @@ const DropdownTitle = styled.span`
   align-items: center;
   justify-content: space-between;
   position: relative;
+  min-width: 100px;
 `;
 
 const DropdownContent = styled.ul`
@@ -25,8 +26,7 @@ const DropdownContent = styled.ul`
 
 const DropdownItem = styled.li`
   list-style: none;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 5px;
   &:hover {
     background-color: #333;
     cursor: pointer;
@@ -52,7 +52,7 @@ const Dropdown = ({ text, choices }) => {
         className="spaced"
       >
         <DropdownTitle>
-          <div>{text}</div>
+          <div style={{ margin: 'auto' }}>{text}</div>
         </DropdownTitle>
         {dropdownVisible && (
           <DropdownContent>

@@ -43,16 +43,16 @@ const CardView = ({ t, i18n }) => {
         </StyledCardName>
         <CardImageContainer evo={evo} cardId={cardId} />
         <div style={{ textAlign: 'center' }}>
-          {cardJson.type_ === 'Follower'
+          {cardJson.type_ === t('follower')
           && (
             <StyledButton type="button" onClick={() => setEvo(!evo)}>
-              {evo ? 'Base' : 'Evo'} Art
+              {evo ? `${t('base')}` : `${t('evolved')}`} {t('art')}
             </StyledButton>
           )}
           {cardJson.alts_[0] && (
             <>
               <StyledButton type="button" onClick={() => setShowAlt(!showAlt)} style={{ margin: '5px' }}>
-                {showAlt ? 'Hide' : 'Show'} Alt Art
+                {showAlt ? `${t('hideAltArt')}` : `${t('showAltArt')}`}
               </StyledButton>
               {cardJson.alts_.map((alt) => (
                 <CardImageContainer evo={evo} cardId={alt} hidden={!showAlt} key={`img${alt}`} />
@@ -63,25 +63,24 @@ const CardView = ({ t, i18n }) => {
         <StyledCardInformation>
           <div style={{ maxWidth: '40%' }}>
             <div style={{ textAlign: 'left', fontSize: '1.2rem', marginTop: '19.2px' }}>
-              <b>Type: </b>{cardJson.type_} <br />
-              {cardJson.trait_ !== '-' && <><b>Trait: </b>{cardJson.trait_} <br /></>}
-              <b>Rarity: </b>{cardJson.rarity_} <br />
-              <b>Set: </b>{cardJson.expansion_} {cardJson.rotation_ ? '(Rotation)' : '(Unlimited)'} <br />
-              <b>Cost: </b>{cardJson.pp_} <br />
+              <b>{t('type')}: </b>{cardJson.type_} {cardJson.trait_ !== '-' && <>/ {cardJson.trait_} <br /></>} <br />
+              <b>{t('rarity')}: </b>{cardJson.rarity_} <br />
+              <b>{t('set')}: </b>{cardJson.expansion_} {cardJson.rotation_ ? `(${t('rotation')})` : `(${t('unlimited')})`} <br />
+              <b>{t('cost')}: </b>{cardJson.pp_} <br />
               <br />
-              <b>Base: </b><br />
+              <b>{t('base')}: </b><br />
               <div style={{ paddingLeft: '10px' }}>
-                {cardJson.type_ === 'Follower' && <><b>Stats: </b>{cardJson.baseAtk_}/{cardJson.baseDef_} <br /></>}
-                <b>Effect: </b>{cardJson.baseEffect_} <br />
+                {cardJson.type_ === t('follower') && <><b>{t('stats')}: </b>{cardJson.baseAtk_}/{cardJson.baseDef_} <br /></>}
+                <b>{t('effect')}</b>{cardJson.baseEffect_} <br />
               </div>
               <br />
-              {cardJson.type_ === 'Follower'
+              {cardJson.type_ === t('follower')
               && (
                 <>
-                  <b>Evolved: </b><br />
+                  <b>{t('evolved')}: </b><br />
                   <div style={{ paddingLeft: '10px' }}>
-                    <b>Stats: </b>{cardJson.evoAtk_}/{cardJson.evoDef_} <br />
-                    <b>Effect: </b>{cardJson.evoEffect_}
+                    <b>{t('stats')}: </b>{cardJson.evoAtk_}/{cardJson.evoDef_} <br />
+                    <b>{t('effect')}</b>{cardJson.evoEffect_}
                   </div>
                 </>
               )}
@@ -89,13 +88,13 @@ const CardView = ({ t, i18n }) => {
           </div>
           <div style={{ maxWidth: '45%' }}>
             <p style={{ textAlign: 'right', fontSize: '1.2rem' }}>
-              <b>Base Flair</b> <br />
+              <b>{t('baseFlair')}</b> <br />
               {cardJson.baseFlair_} <br />
               <br />
-              {cardJson.type_ === 'Follower'
+              {cardJson.type_ === t('follower')
               && (
               <>
-                <b>Evolved Flair</b> <br />
+                <b>{t('evolvedFlair')}</b> <br />
                 {cardJson.evoFlair_}
               </>
               )}
@@ -105,10 +104,10 @@ const CardView = ({ t, i18n }) => {
         <AudioContainer cardJson={cardJson} cardId={cardId} />
         {cardJson.tokens_[0] && (
           <>
-            <h2>Related Cards: </h2> <br />
+            <h2>{t('relatedCards')}: </h2> <br />
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               {cardJson.tokens_.map((token) => (
-                <TokenContainer token={token} key={`token${token}`} />
+                <TokenContainer token={token} language={i18n.language} key={`token${token}`} />
               ))}
             </div>
           </>

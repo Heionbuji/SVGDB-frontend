@@ -5,6 +5,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 
 const propTypes = {
   cardJson: PropTypes.shape({
@@ -17,9 +18,10 @@ const propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  t: PropTypes.func.isRequired,
 };
 
-const AudioContainer = ({ cardJson, cardId }) => {
+const AudioContainer = ({ cardJson, cardId, t }) => {
   const sumArray = (arr) => {
     let sum = 0;
     arr.forEach((el) => {
@@ -32,21 +34,21 @@ const AudioContainer = ({ cardJson, cardId }) => {
 
   if (cardJson && cardId) {
     return (
-      cardJson.type_ !== 'Amulet' && (
+      cardJson.type_ !== t('amulet') && (
         <>
           <table style={{ margin: 'auto' }}>
             <thead>
               <tr>
                 <th style={{ width: 'auto' }} />
-                <th>Japanese</th>
-                <th>English</th>
+                <th>{t('japanese')}</th>
+                <th>{t('english')}</th>
               </tr>
             </thead>
             <tbody>
               {allVoices.map((voiceId, voiceIndex) => (
                 <React.Fragment key={`frag${voiceId}`}>
                   <tr>
-                    <td>{voiceIndex ? 'Alt ' : ''}Play </td>
+                    <td>{voiceIndex ? 'Alt ' : ''}{t('play')} </td>
                     <td>
                       <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${voiceId}_0.mp3`} />
                     </td>
@@ -54,11 +56,11 @@ const AudioContainer = ({ cardJson, cardId }) => {
                       <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${voiceId}_0.mp3`} />
                     </td>
                   </tr>
-                  {cardJson.type_ === 'Follower'
+                  {cardJson.type_ === t('follower')
                   && (
                   <>
                     <tr>
-                      <td>{voiceIndex ? 'Alt ' : ''}Attack </td>
+                      <td>{voiceIndex ? 'Alt ' : ''}{t('attack')} </td>
                       <td>
                         <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${voiceId}_1.mp3`} />
                       </td>
@@ -67,7 +69,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                       </td>
                     </tr>
                     <tr>
-                      <td>{voiceIndex ? 'Alt ' : ''}Evolve </td>
+                      <td>{voiceIndex ? 'Alt ' : ''}{t('evolve')} </td>
                       <td>
                         <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${voiceId}_2.mp3`} />
                       </td>
@@ -76,7 +78,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                       </td>
                     </tr>
                     <tr>
-                      <td>{voiceIndex ? 'Alt ' : ''}Death </td>
+                      <td>{voiceIndex ? 'Alt ' : ''}{t('death')} </td>
                       <td>
                         <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${voiceId}_3.mp3`} />
                       </td>
@@ -90,7 +92,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   && cardJson.extras.filter((card) => card.charAt(5) === '4').map((extra, index) => (
                     <React.Fragment key={`frag${extra}${index}`}>
                       <tr>
-                        <td>{voiceIndex ? 'Alt ' : ''}Accelerate {cardJson.extras.length !== 1 && index + 1}</td>
+                        <td>{voiceIndex ? 'Alt ' : ''}{t('accelerate')} {cardJson.extras.length !== 1 && index + 1}</td>
                         <td>
                           <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${extra}_0.mp3`} />
                         </td>
@@ -106,7 +108,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                     .map((extra, index) => (
                       <React.Fragment key={`frag${extra}${index}`}>
                         <tr>
-                          <td>{voiceIndex ? 'Alt ' : ''}Crystallize {cardJson.extras.length !== 1 && index + 1}</td>
+                          <td>{voiceIndex ? 'Alt ' : ''}{t('crystallize')} {cardJson.extras.length !== 1 && index + 1}</td>
                           <td>
                             <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${extra}_0.mp3`} />
                           </td>
@@ -120,7 +122,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                   && (
                     <>
                       <tr>
-                        <td>{voiceIndex ? 'Alt ' : ''}Union Burst 1</td>
+                        <td>{voiceIndex ? 'Alt ' : ''}{t('unionBurst')} 1</td>
                         <td>
                           <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${voiceId}_ub1.mp3`} />
                         </td>
@@ -129,7 +131,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                         </td>
                       </tr>
                       <tr>
-                        <td>{voiceIndex ? 'Alt ' : ''}Union Burst 2</td>
+                        <td>{voiceIndex ? 'Alt ' : ''}{t('unionBurst')} 2</td>
                         <td>
                           <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${voiceId}_ub2.mp3`} />
                         </td>
@@ -144,7 +146,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                     .map((el, index, arr) => (
                       <React.Fragment key={`frag${el}${index}`}>
                         <tr>
-                          <td>{voiceIndex ? 'Alt ' : ''}Enhance {arr.length > 1 && index + 1}</td>
+                          <td>{voiceIndex ? 'Alt ' : ''}{t('enhance')} {arr.length > 1 && index + 1}</td>
                           <td>
                             <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${voiceId}_enh${index}.mp3`} />
                           </td>
@@ -159,7 +161,7 @@ const AudioContainer = ({ cardJson, cardId }) => {
                     .map((el, index, arr) => (
                       <React.Fragment key={`frag${el}${index}`}>
                         <tr>
-                          <td>{voiceIndex ? 'Alt ' : ''}Effect/Special {arr.length > 1 && index + 1}</td>
+                          <td>{voiceIndex ? 'Alt ' : ''}{t('effectSpecial')} {arr.length > 1 && index + 1}</td>
                           <td>
                             <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${voiceId}_${cardJson.extras.includes('enh') ? index + 4 + sumArray(cardJson.extras.map((elem) => elem === 'enh')) : index + 4}.mp3`} />
                           </td>
@@ -182,4 +184,4 @@ const AudioContainer = ({ cardJson, cardId }) => {
 
 AudioContainer.propTypes = propTypes;
 
-export default AudioContainer;
+export default withTranslation()(AudioContainer);
