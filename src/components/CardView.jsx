@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import {
   StyledCardContainer,
   StyledCardName,
@@ -11,21 +13,26 @@ import AudioContainer from './AudioContainer';
 import TokenContainer from './TokenContainer';
 import CardImageContainer from './CardImageContainer';
 
-const CardView = () => {
+const propTypes = {
+  t: PropTypes.func.isRequired,
+  i18n: PropTypes.shape({
+    language: PropTypes.string,
+  }).isRequired,
+};
+
+const CardView = ({ t, i18n }) => {
   const [cardJson, setCardJson] = useState(null);
   const [evo, setEvo] = useState(false);
   const [showAlt, setShowAlt] = useState(false);
   const { cardId } = useParams();
   useEffect(() => {
-    if (!cardJson || (cardJson && parseInt(cardId, 10) !== cardJson.id_)) {
-      window.scrollTo(0, 0);
-      fetch(`${process.env.REACT_APP_API_URL}/cards/${cardId}`)
-        .then((res) => res.json())
-        .then((resjson) => {
-          setCardJson(resjson);
-        });
-    }
-  }, [cardId, cardJson]);
+    window.scrollTo(0, 0);
+    fetch(`${process.env.REACT_APP_API_URL}/cards/${i18n.language}/${cardId}`)
+      .then((res) => res.json())
+      .then((resjson) => {
+        setCardJson(resjson);
+      });
+  }, [cardId, i18n.language]);
 
   if (cardJson && cardJson.id_ && !Number.isNaN(+cardId)) {
     return (
@@ -112,4 +119,6 @@ const CardView = () => {
   return null;
 };
 
-export default CardView;
+CardView.propTypes = propTypes;
+
+export default withTranslation()(CardView);
