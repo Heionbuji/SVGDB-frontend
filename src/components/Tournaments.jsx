@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { StyledContentDiv } from '../styles/globalStyles';
 import ExpandingBox from './ExpandingBox';
@@ -10,6 +11,7 @@ const Tournaments = () => {
   const [currentJson, setCurrentJson] = useState(null);
   const [filterByExpansion, setFilterByExpansion] = useState(false);
   const { format } = useParams();
+  const { t } = useTranslation('tournaments');
   const start2020 = 1965;
   const start2019 = 1384;
   const start2018 = 719;
@@ -82,8 +84,8 @@ const Tournaments = () => {
   return jcgs && currentJson && (
     <StyledContentDiv>
       <div style={{ paddingTop: '10px' }}>
-        Filter by:
-        <label htmlFor="year"> Year
+        {t('Filter')}:
+        <label htmlFor="year">
           <select
             name="year"
             onChange={(e) => {
@@ -93,13 +95,13 @@ const Tournaments = () => {
             style={{ margin: '0 5px' }}
             className={filterByExpansion ? 'faded' : null}
           >
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-            <option value="2018">2018</option>
+            <option value="2020">{t('2020')}</option>
+            <option value="2019">{t('2019')}</option>
+            <option value="2018">{t('2018')}</option>
           </select>
         </label>
-        or
-        <label htmlFor="expansion"> Expansion
+        {t('or')}
+        <label htmlFor="expansion">
           <select
             name="expansion"
             onChange={(e) => {
@@ -109,24 +111,24 @@ const Tournaments = () => {
             style={{ margin: '0 5px' }}
             className={!filterByExpansion ? 'faded' : null}
           >
-            <option value="Select Expansion">-- Select Expansion --</option>
-            <option value="Fortunes Hand">Fortune&apos;s hand</option>
-            <option value="World Uprooted">World Uprooted</option>
-            <option value="Ultimate Colosseum">Ultimate Colosseum</option>
-            <option value="Verdant Conflict">Verdant Conflict</option>
-            <option value="Rebirth of Glory">Rebirth of Glory</option>
-            <option value="Steel Rebellion">Steel Rebellion</option>
-            <option value="Altersphere">Altersphere</option>
-            <option value="Omen of the Ten">Omen of the Ten</option>
-            <option value="Brigade of the Sky">Brigade of the Sky</option>
-            <option value="Dawnbreak Nightedge">Dawnbreak, Nightedge</option>
-            <option value="Chronogenesis">Chronogenesis</option>
-            <option value="Starforged Legends">Starforged Legends</option>
-            <option value="Wonderland Dreams">Wonderland Dreams</option>
-            <option value="Tempest of the Gods">Tempest of the Gods</option>
-            <option value="Rise of Bahamut">Rise of Bahamut</option>
-            <option value="Darkness Evolved">Darkness Evolved</option>
-            <option value="Classic">Classic</option>
+            <option value="Select Expansion">{t('-- Select Expansion --')}</option>
+            <option value="Fortunes Hand">{t("Fortune's hand")}</option>
+            <option value="World Uprooted">{t('World Uprooted')}</option>
+            <option value="Ultimate Colosseum">{t('Ultimate Colosseum')}</option>
+            <option value="Verdant Conflict">{t('Verdant Conflict')}</option>
+            <option value="Rebirth of Glory">{t('Rebirth of Glory')}</option>
+            <option value="Steel Rebellion">{t('Steel Rebellion')}</option>
+            <option value="Altersphere">{t('Altersphere')}</option>
+            <option value="Omen of the Ten">{t('Omen of the Ten')}</option>
+            <option value="Brigade of the Sky">{t('Brigade of the Sky')}</option>
+            <option value="Dawnbreak Nightedge">{t('Dawnbreak, Nightedge')}</option>
+            <option value="Chronogenesis">{t('Chronogenesis')}</option>
+            <option value="Starforged Legends">{t('Starforged Legends')}</option>
+            <option value="Wonderland Dreams">{t('Wonderland Dreams')}</option>
+            <option value="Tempest of the Gods">{t('Tempest of the Gods')}</option>
+            <option value="Rise of Bahamut">{t('Rise of Bahamut')}</option>
+            <option value="Darkness Evolved">{t('Darkness Evolved')}</option>
+            <option value="Classic">{t('Classic')}</option>
           </select>
         </label>
       </div>
@@ -141,7 +143,7 @@ const Tournaments = () => {
                 <table className="border">
                   <thead>
                     <tr style={{ backgroundColor: '#444' }}>
-                      <th colSpan="2">Deck usage breakdown</th>
+                      <th colSpan="2">{t('Deck usage breakdown')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -150,7 +152,7 @@ const Tournaments = () => {
                       // eslint-disable-next-line react/no-array-index-key
                       <React.Fragment key={`frag${count}${index}`}>
                         <tr className={`maintr ${id2class[index]}`}>
-                          <td>{id2class[index]}</td>
+                          <td>{t(id2class[index])}</td>
                           <td>{count}</td>
                         </tr>
                         {(value.archetypes && value.archetypes[index])
@@ -179,7 +181,7 @@ const Tournaments = () => {
                           </a>
                         </>
                       )
-                      : <p>No deck data for this tournament.</p>}
+                      : <p>{t('No deck data for this tournament.')}</p>}
 
                   </div>
                   <div>
@@ -195,13 +197,13 @@ const Tournaments = () => {
                           </a>
                         </>
                       )
-                      : <p>No deck data for this tournament.</p>}
+                      : <p>{t('No deck data for this tournament.')}</p>}
                   </div>
                 </div>
                 <div>
                   <ExpandingBox
                     width="300px"
-                    title="All decks"
+                    title={`${t('All decks')}`}
                     content={
                     (
                       Object.values(value).map((val) => {
@@ -222,7 +224,7 @@ const Tournaments = () => {
                                     </a>
                                   </>
                                 )
-                                : <p>No deck data for this tournament.</p>}
+                                : <p>{t('No deck data for this tournament.')}</p>}
                             </div>
                           ));
                         } return null;
