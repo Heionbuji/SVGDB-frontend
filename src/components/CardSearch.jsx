@@ -23,11 +23,11 @@ const CardSearch = () => {
   const [searchValue, setSearchValue] = useState('');
   const [json, setJson] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/json`).then((res) => res.json()).then((data) => setJson(data));
-  }, []);
+    fetch(`${process.env.REACT_APP_API_URL}/json/${i18n.language}`).then((res) => res.json()).then((data) => setJson(data));
+  }, [i18n.language]);
 
   const onChange = (event, { newValue }) => {
     switch (event.type) {
