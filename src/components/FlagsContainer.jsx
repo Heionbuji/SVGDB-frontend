@@ -3,11 +3,17 @@ import { useTranslation } from 'react-i18next';
 
 const FlagsContainer = () => {
   const { i18n } = useTranslation();
+
+  const swapLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    window.localStorage.setItem('lang', lang);
+  };
+
   return (
     <div style={{ float: 'right', marginRight: '20px' }}>
       <svg
         style={{ paddingRight: '10px', opacity: i18n.language === 'en' ? '90%' : '30%', cursor: 'pointer' }}
-        onClick={() => i18n.changeLanguage('en')}
+        onClick={() => swapLanguage('en')}
         width="50"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 5850 3900"
@@ -38,7 +44,7 @@ const FlagsContainer = () => {
       </svg>
       <svg
         style={{ paddingRight: '10px', opacity: i18n.language === 'jp' ? '90%' : '30%', cursor: 'pointer' }}
-        onClick={() => i18n.changeLanguage('jp')}
+        onClick={() => swapLanguage('jp')}
         width="50"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 900 600"
