@@ -158,7 +158,10 @@ const Tournaments = () => {
                         {(value.archetypes && value.archetypes[index])
                           ? value.archetypes[index].map((arch) => (
                             <tr className={`subtr ${id2class[index]}`} key={`tr${arch.name}`}>
-                              <td>{arch.name}</td>
+                              <td>{arch.name.map((name, nameIndex) => (
+                                nameIndex >= 1 ? `+${t(name)}` : `${t(name)}`
+                              ))}
+                              </td>
                               <td>{arch.count}</td>
                             </tr>
                           )) : null}
