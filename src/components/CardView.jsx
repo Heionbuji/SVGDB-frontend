@@ -12,6 +12,7 @@ import {
 import AudioContainer from './AudioContainer';
 import TokenContainer from './TokenContainer';
 import CardImageContainer from './CardImageContainer';
+import HistoryContainer from './HistoryContainer';
 
 const propTypes = {
   t: PropTypes.func.isRequired,
@@ -103,15 +104,16 @@ const CardView = ({ t, i18n }) => {
         </StyledCardInformation>
         <AudioContainer cardJson={cardJson} cardId={cardId} />
         {cardJson.tokens_[0] && (
-          <>
+          <div style={{ paddingLeft: '10%' }}>
             <h2>{t('relatedCards')}: </h2> <br />
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               {cardJson.tokens_.map((token) => (
                 <TokenContainer token={token} language={i18n.language} key={`token${token}`} />
               ))}
             </div>
-          </>
+          </div>
         )}
+        <HistoryContainer cardId={cardId} />
       </StyledCardContainer>
     );
   }
