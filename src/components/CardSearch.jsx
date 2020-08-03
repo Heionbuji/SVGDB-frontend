@@ -11,12 +11,6 @@ const getSuggestions = (value, json) => {
   return inputLength < 2 ? [] : names.filter((card) =>
     card.toLowerCase().includes(inputValue));
 };
-const getSuggestionValue = (suggestion) => suggestion;
-const renderSuggestion = (suggestion) => (
-  <div>
-    {suggestion}
-  </div>
-);
 
 const CardSearch = () => {
   const history = useHistory();
@@ -25,9 +19,26 @@ const CardSearch = () => {
   const [suggestions, setSuggestions] = useState([]);
   const { t, i18n } = useTranslation();
 
+  const onSuggestionClick = () => {
+    if (json[searchValue]) { history.push(`/cards/${json[searchValue]}`); }
+  };
+  const getSuggestionValue = (suggestion) => suggestion;
+  const renderSuggestion = (suggestion) => (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      onMouseUp={() => onSuggestionClick()}
+    >
+      {suggestion}
+    </div>
+  );
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/json/${i18n.language}`).then((res) => res.json()).then((data) => setJson(data));
   }, [i18n.language]);
+
+  useEffect(() => {
+    setSearchValue('');
+  }, [history]);
 
   const onChange = (event, { newValue }) => {
     switch (event.type) {
@@ -50,12 +61,14 @@ const CardSearch = () => {
     }
   };
   const onKeyDown = (event) => {
-    if (!event.target.attributes['aria-activedescendant'] && suggestions[0]) {
-      if (event.keyCode === 13) {
-        const newValue = suggestions[0];
-        setSearchValue(newValue);
-        history.push(`/cards/${json[newValue]}`);
-      }
+    if ((!event.target.attributes['aria-activedescendant']
+    && suggestions[0]
+    && event.keyCode === 13)
+    || (json[event.target.value]
+    && event.keyCode === 13)) {
+      const newValue = suggestions[0];
+      setSearchValue(newValue);
+      history.push(`/cards/${json[newValue]}`);
     }
   };
 
