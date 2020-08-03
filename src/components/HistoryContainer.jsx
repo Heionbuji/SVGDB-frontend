@@ -30,14 +30,14 @@ const HistoryContainer = ({ cardId }) => {
     <div style={{ paddingLeft: '10%', paddingRight: '10%' }}>
       <h2>Change History:</h2>
       {history.map((item) => (
-        <>
+        <React.Fragment key={`frag${item.date}`}>
           <h3>{item.date}</h3>
           {Object.keys(item).map((key) => {
             if (key.substring(0, 4) === 'Old_') {
               const param = key.substring(4, key.length);
               const newParam = item[`New_${param}`];
               return (
-                <div style={{ display: 'flex', maxWidth: '95%', verticalAlign: 'middle' }}>
+                <div style={{ display: 'flex', maxWidth: '95%', verticalAlign: 'middle' }} key={`div${key}`}>
                   <HistoryItem><b style={{ marginRight: '10px' }}>{param}</b>{`${item[key]}`}</HistoryItem>
                   <HistoryItem>-&gt;</HistoryItem>
                   <HistoryItem>{newParam} <br />
@@ -48,7 +48,7 @@ const HistoryContainer = ({ cardId }) => {
             }
             return null;
           })}
-        </>
+        </React.Fragment>
       ))}
     </div>
   ) : null;

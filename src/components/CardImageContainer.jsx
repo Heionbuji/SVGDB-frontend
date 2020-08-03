@@ -5,7 +5,10 @@ import { StyledCardImageContainer, StyledArtImg } from '../styles/cardStyles';
 
 const propTypes = {
   evo: PropTypes.bool.isRequired,
-  cardId: PropTypes.string.isRequired,
+  cardId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   hidden: PropTypes.bool,
 };
 
