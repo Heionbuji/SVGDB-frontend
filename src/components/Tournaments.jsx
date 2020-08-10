@@ -202,6 +202,16 @@ const Tournaments = () => {
                       )
                       : <p>{t('No deck data for this tournament.')}</p>}
                   </div>
+                  <div style={{ paddingTop: '50px' }}>
+                    <a href={`https://sv.j-cg.com/compe/${value.code}`} target="_blank" rel="noreferrer noopener">
+                      View all details
+                      <img
+                        src={`${process.env.PUBLIC_URL}/svgs/openNew.svg`}
+                        alt=""
+                        style={{ width: '15px', marginLeft: '5px', marginTop: '3px' }}
+                      />
+                    </a>
+                  </div>
                 </div>
                 <div>
                   <ExpandingBox
