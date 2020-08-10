@@ -203,8 +203,13 @@ const Tournaments = () => {
                       : <p>{t('No deck data for this tournament.')}</p>}
                   </div>
                   <div style={{ paddingTop: '50px' }}>
-                    <a href={`https://sv.j-cg.com/compe/${value.code}`} target="_blank" rel="noreferrer noopener">
-                      View all details
+                    <a
+                      href={`https://sv.j-cg.com/compe/${value.code}`}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      style={{ textDecoration: 'underline' }}
+                    >
+                      {t('View all details')}
                       <img
                         src={`${process.env.PUBLIC_URL}/svgs/openNew.svg`}
                         alt=""
