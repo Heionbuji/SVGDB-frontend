@@ -15,7 +15,7 @@ const Navbar = () => {
         <FlagsContainer />
       </h1>
       <span className="spaced disabled">{t('cards')}</span>
-      <span className="spaced disabled">{t('leaders')}</span>
+      <span className="spaced"><Link to="/leaders">{t('leaders')}</Link></span>
       <span className="spaced"><Link to="/sleeves">{t('sleeves')}</Link></span>
       <Dropdown
         text={t('tournaments')}

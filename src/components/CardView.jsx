@@ -52,7 +52,7 @@ const CardView = ({ t, i18n }) => {
           )}
           {cardJson.alts_[0] && (
             <>
-              <StyledButton type="button" onClick={() => setShowAlt(!showAlt)} style={{ margin: '5px' }}>
+              <StyledButton type="button" onClick={() => setShowAlt(!showAlt)}>
                 {showAlt ? `${t('hideAltArt')}` : `${t('showAltArt')}`}
               </StyledButton>
               {cardJson.alts_.map((alt) => (

@@ -33,7 +33,9 @@ const CardSearch = () => {
   );
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/json/${i18n.language}`).then((res) => res.json()).then((data) => setJson(data));
+    fetch(`${process.env.REACT_APP_API_URL}/json/${i18n.language}`)
+      .then((res) => res.json())
+      .then((data) => setJson(data));
   }, [i18n.language]);
 
   useEffect(() => {

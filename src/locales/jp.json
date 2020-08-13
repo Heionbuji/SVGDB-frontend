@@ -33,7 +33,21 @@
     "effectSpecial": "エフェクト/特別",
     "art": "イラスト",
     "hideAltArt": "Alt イラスト非表示",
-    "showAltArt": "Alt イラスト表示"
+    "showAltArt": "Alt イラスト表示",
+    "Toggle Zoom": "ズームトグル",
+    "Toggle Win/Lose": "勝利/敗北トグル",
+    "Greeting": "挨拶",
+    "Thanks": "感謝",
+    "Apology": "謝罪",
+    "Impressed": "称賛",
+    "Shocked": "驚き",
+    "Thinking": "思考中",
+    "Taunt": "決め台詞",
+    "Start": "開始",
+    "Victory": "勝利",
+    "Concede": "リタイア",
+    "Evolve": "進化",
+    "Hurt": "殴られる時"
   },
   "sleeves": {
     "Collab and Event": "コラボとイベント",

@@ -39,7 +39,7 @@ export const StyledArtImg = styled.img`
 `;
 
 export const StyledButton = styled.button`
-  margin: auto;
+  margin: 5px;
   color: white;
   padding: 20px;
   border: 0;

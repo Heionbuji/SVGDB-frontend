@@ -12,6 +12,8 @@ import MainPage from './components/MainPage';
 import CardView from './components/CardView';
 import Sleeves from './components/Sleeves';
 import Tournaments from './components/Tournaments';
+import Leaders from './components/Leaders';
+import Leader from './components/Leader';
 
 const Root = () => {
   const { i18n } = useTranslation();
@@ -29,6 +31,8 @@ const Root = () => {
           <Route exact path="/cards/:cardId" component={CardView} />
           <Route exact path="/sleeves" component={Sleeves} />
           <Route exact path="/jcg/:format" component={Tournaments} />
+          <Route exact path="/leaders" component={Leaders} />
+          <Route exact path="/leaders/:leaderId" component={Leader} />
           <Redirect to="/" />
         </Switch>
       </Router>
