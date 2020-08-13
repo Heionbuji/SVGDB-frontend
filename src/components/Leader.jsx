@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
@@ -16,6 +16,7 @@ const Leader = ({ t }) => {
   const { leaderId } = useParams();
   const [win, setWin] = useState('win');
   const [zoom, setZoom] = useState('profile');
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   return leaderId && (
     <StyledContentDiv>
       <StyledCardImageContainer>
