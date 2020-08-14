@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { StyledContentDiv } from '../styles/globalStyles';
 import { StyledCardImageContainer, StyledButton } from '../styles/cardStyles';
+import { ForegroundDiv } from '../styles/leaderAnimationStyles';
 import LeaderAudioContainer from './LeaderAudioContainer';
+
+const LeaderAnimations = React.lazy(() => import('./LeaderAnimations'));
 
 const propTypes = {
   t: PropTypes.func.isRequired,
@@ -16,6 +19,7 @@ const Leader = ({ t }) => {
   const { leaderId } = useParams();
   const [win, setWin] = useState('win');
   const [zoom, setZoom] = useState('profile');
+  const [showAnimations, setShowAnimations] = useState(false);
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return leaderId && (
     <StyledContentDiv>
@@ -55,7 +59,18 @@ const Leader = ({ t }) => {
       >
         {t('Toggle Win/Lose')}
       </StyledButton>
+      <StyledButton
+        style={{ marginTop: '20px' }}
+        onClick={() => setShowAnimations(true)}
+      >
+        {t('View Leader Animations')}
+      </StyledButton>
       <LeaderAudioContainer leaderId={leaderId} />
+      {showAnimations && (
+        <Suspense fallback={<ForegroundDiv />}>
+          <LeaderAnimations classId={leaderId} />
+        </Suspense>
+      )}
     </StyledContentDiv>
   );
 };

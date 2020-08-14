@@ -13,11 +13,13 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
   },
   parserOptions: {
+    parser: 'babel-eslint',
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
+    allowImportExportEverywhere: true,
   },
   plugins: [
     'react',
