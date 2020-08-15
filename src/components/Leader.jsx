@@ -68,7 +68,7 @@ const Leader = ({ t }) => {
       <LeaderAudioContainer leaderId={leaderId} />
       {showAnimations && (
         <Suspense fallback={<ForegroundDiv />}>
-          <LeaderAnimations classId={leaderId} height="612" width="612" />
+          <LeaderAnimations classId={leaderId} close={() => setShowAnimations(false)} height="612" width="612" />
         </Suspense>
       )}
     </StyledContentDiv>
