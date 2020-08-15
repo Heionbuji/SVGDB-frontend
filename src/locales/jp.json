@@ -47,7 +47,10 @@
     "Victory": "勝利",
     "Concede": "リタイア",
     "Evolve": "進化",
-    "Hurt": "殴られる時"
+    "Hurt": "殴られる時",
+    "View Leader Animations": "モーションを見る",
+    "Close": "閉じる",
+    "Switch animation": "モーションを変える"
   },
   "sleeves": {
     "Collab and Event": "コラボとイベント",

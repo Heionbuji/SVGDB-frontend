@@ -1,5 +1,6 @@
 import React from 'react';
 import * as PIXI from 'pixi.js';
+import { withTranslation } from 'react-i18next';
 import { ForegroundDiv, DimBackground } from '../styles/leaderAnimationStyles';
 import { StyledButton } from '../styles/cardStyles';
 
@@ -68,7 +69,7 @@ class LeaderAnimations extends React.Component {
           { this.loading && <p style={{ position: 'absolute', top: '50%', left: '50%' }}>Loading...</p> }
           <div ref={this.updatePixiCnt} style={{ display: this.loading ? 'hidden' : 'inline', padding: '50px 100px' }} />
           <div style={{ display: 'inline', flex: '1' }}>
-            <p style={{ marginBottom: '20px', borderBottom: '2px solid pink', paddingTop: '14px' }}>Switch animation</p>
+            <p style={{ marginBottom: '20px', borderBottom: '2px solid pink', paddingTop: '14px' }}>{this.props.t('Switch animation')}</p>
             {this.renderButtons()}
           </div>
           <StyledButton
@@ -76,7 +77,7 @@ class LeaderAnimations extends React.Component {
             style={{ alignSelf: 'flex-end', margin: '0 50px 50px 0' }}
             onClick={() => this.props.close()}
           >
-            Close
+            {this.props.t('Close')}
           </StyledButton>
         </ForegroundDiv>
       </DimBackground>
@@ -84,4 +85,4 @@ class LeaderAnimations extends React.Component {
   }
 };
 
-export default LeaderAnimations;
+export default withTranslation()(LeaderAnimations);
