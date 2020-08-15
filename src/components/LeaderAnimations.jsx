@@ -39,10 +39,6 @@ class LeaderAnimations extends React.Component {
         animation.state.setAnimation(0, 'extra', true);
     });
   };
-  initialize = () => {
-     this.avatar = new window.PIXI.Sprite(this.app.loader.resources["avatar"].texture);
-     this.app.stage.addChild(this.avatar);
-  };
 
   render() {
     return (

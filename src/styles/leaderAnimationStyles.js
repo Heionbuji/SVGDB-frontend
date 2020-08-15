@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ForegroundDiv = styled.div`
   display: flex;
-  background-color: #101010;
+  background-color: #141414;
   z-index: 100;
   width: 75vw;
   max-height: 75vh;
