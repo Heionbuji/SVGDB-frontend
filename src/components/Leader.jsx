@@ -48,10 +48,16 @@ const Leader = ({ t }) => {
         </a>
       </StyledCardImageContainer>
       <StyledButton
-        style={{ marginRight: '25vw', marginTop: '20px' }}
+        style={{ marginTop: '20px' }}
         onClick={() => (zoom === 'profile' ? setZoom('base') : setZoom('profile'))}
       >
         {t('Toggle Zoom')}
+      </StyledButton>
+      <StyledButton
+        style={{ margin: '20px 10vw 0 10vw' }}
+        onClick={() => setShowAnimations(true)}
+      >
+        {t('View Leader Animations')}
       </StyledButton>
       <StyledButton
         style={{ marginTop: '20px' }}
@@ -59,12 +65,7 @@ const Leader = ({ t }) => {
       >
         {t('Toggle Win/Lose')}
       </StyledButton>
-      <StyledButton
-        style={{ marginTop: '20px' }}
-        onClick={() => setShowAnimations(true)}
-      >
-        {t('View Leader Animations')}
-      </StyledButton>
+
       <LeaderAudioContainer leaderId={leaderId} />
       {showAnimations && (
         <Suspense fallback={<ForegroundDiv />}>
