@@ -11,6 +11,7 @@ class LeaderAnimations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.loading = true;
     this.pixi_cnt = null;
     this.app = new PIXI.Application({width: this.props.width, height: this.props.height, transparent:false});
     this.animation = null;
@@ -38,6 +39,7 @@ class LeaderAnimations extends React.Component {
         this.app.stage.addChild(this.animation);
 
         this.animation.state.setAnimation(0, 'idle', true);
+        this.loading = false;
         this.setState(this.state);
     });
   };
@@ -63,7 +65,8 @@ class LeaderAnimations extends React.Component {
     return (
       <DimBackground>
         <ForegroundDiv>
-          <div ref={this.updatePixiCnt} style={{ display: 'inline', padding: '50px 100px' }} />
+          { this.loading && <p style={{ position: 'absolute', top: '50%', left: '50%' }}>Loading...</p> }
+          <div ref={this.updatePixiCnt} style={{ display: this.loading ? 'hidden' : 'inline', padding: '50px 100px' }} />
           <div style={{ display: 'inline', flex: '1' }}>
             <p style={{ marginBottom: '20px', borderBottom: '2px solid pink', paddingTop: '14px' }}>Switch animation</p>
             {this.renderButtons()}

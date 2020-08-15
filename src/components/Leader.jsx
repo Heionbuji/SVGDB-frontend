@@ -6,7 +6,7 @@ import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { StyledContentDiv } from '../styles/globalStyles';
 import { StyledCardImageContainer, StyledButton } from '../styles/cardStyles';
-import { ForegroundDiv } from '../styles/leaderAnimationStyles';
+import { ForegroundDiv, DimBackground } from '../styles/leaderAnimationStyles';
 import LeaderAudioContainer from './LeaderAudioContainer';
 
 const LeaderAnimations = React.lazy(() => import('./LeaderAnimations'));
@@ -77,7 +77,7 @@ const Leader = ({ t }) => {
 
       <LeaderAudioContainer leaderId={leaderId} />
       {showAnimations && (
-        <Suspense fallback={<ForegroundDiv />}>
+        <Suspense fallback={<DimBackground><ForegroundDiv /></DimBackground>}>
           <LeaderAnimations classId={removeZeroPad(leaderId)} close={() => setShowAnimations(false)} height="612" width="612" />
         </Suspense>
       )}
