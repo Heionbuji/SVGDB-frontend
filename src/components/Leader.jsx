@@ -21,6 +21,15 @@ const Leader = ({ t }) => {
   const [zoom, setZoom] = useState('profile');
   const [showAnimations, setShowAnimations] = useState(false);
   useEffect(() => { window.scrollTo(0, 0); }, []);
+
+  const removeZeroPad = (string) => {
+    while (String(string).charAt(0) === '0') {
+      // eslint-disable-next-line no-param-reassign
+      string = string.substring(1, string.length);
+    }
+    return string;
+  };
+
   return leaderId && (
     <StyledContentDiv>
       <StyledCardImageContainer>
@@ -69,7 +78,7 @@ const Leader = ({ t }) => {
       <LeaderAudioContainer leaderId={leaderId} />
       {showAnimations && (
         <Suspense fallback={<ForegroundDiv />}>
-          <LeaderAnimations classId={leaderId} close={() => setShowAnimations(false)} height="612" width="612" />
+          <LeaderAnimations classId={removeZeroPad(leaderId)} close={() => setShowAnimations(false)} height="612" width="612" />
         </Suspense>
       )}
     </StyledContentDiv>

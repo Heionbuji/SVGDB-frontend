@@ -50,6 +50,7 @@ class LeaderAnimations extends React.Component {
             type="button"
             onClick={() => this.animation.state.setAnimation(0, animation.name, true)}
             style={{ margin: '5px', width: '200px' }}
+            key={`button${animation.name}`}
           >
             {animation.name}
           </StyledButton>
