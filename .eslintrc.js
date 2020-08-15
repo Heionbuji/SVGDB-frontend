@@ -19,7 +19,6 @@ module.exports = {
     },
     ecmaVersion: 2020,
     sourceType: 'module',
-    allowImportExportEverywhere: true,
   },
   plugins: [
     'react',

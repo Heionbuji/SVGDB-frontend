@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PIXI from 'pixi.js';
-import { ForegroundDiv } from '../styles/leaderAnimationStyles';
+import { ForegroundDiv, DimBackground } from '../styles/leaderAnimationStyles';
 
 window.PIXI = PIXI;
 require("pixi-spine")
@@ -9,7 +9,7 @@ class LeaderAnimations extends React.Component {
   constructor(props) {
     super(props); 
     this.pixi_cnt = null;
-    this.app = new PIXI.Application({width: 1000, height: 1000, transparent:false});
+    this.app = new PIXI.Application({width: this.props.width, height: this.props.height, transparent:false});
   };
 
   updatePixiCnt = (element) => {
@@ -30,7 +30,8 @@ class LeaderAnimations extends React.Component {
         var animation = new window.PIXI.spine.Spine(resources['class_' + this.props.classId + '.json'].spineData);
 
         animation.x = this.app.screen.width / 2;
-        animation.y = this.app.screen.height / 4;
+        animation.y = this.app.screen.height / 2;
+        animation.scale.set(0.5)
 
         this.app.stage.addChild(animation);
         console.log(animation);
@@ -45,9 +46,14 @@ class LeaderAnimations extends React.Component {
 
   render() {
     return (
-      <ForegroundDiv>
-        <div ref={this.updatePixiCnt} />
-      </ForegroundDiv>
+      <DimBackground>
+        <ForegroundDiv>
+          <div ref={this.updatePixiCnt} style={{ display: 'inline', padding: '50px 100px' }} />
+          <div style={{ display: 'inline', flex: '1' }}>
+            <p style={{ marginBottom: '10px', borderBottom: '2px solid pink', paddingTop: '14px' }}>Switch animation</p>
+          </div>
+        </ForegroundDiv>
+      </DimBackground>
     );
   }
 };
