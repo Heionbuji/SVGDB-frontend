@@ -64,7 +64,7 @@ const CardView = ({ t, i18n }) => {
         <StyledCardInformation>
           <div style={{ maxWidth: '40%' }}>
             <div style={{ textAlign: 'left', fontSize: '1.2rem', marginTop: '19.2px' }}>
-              <b>{t('type')}: </b>{cardJson.type_} {cardJson.trait_ !== '-' && <>/ {cardJson.trait_} <br /></>} <br />
+              <b>{t('type')}: </b>{cardJson.type_} {cardJson.trait_ !== '-' && <>/ {cardJson.trait_} </>} <br />
               <b>{t('rarity')}: </b>{cardJson.rarity_} <br />
               <b>{t('set')}: </b>{cardJson.expansion_} {cardJson.rotation_ ? `(${t('rotation')})` : `(${t('unlimited')})`} <br />
               <b>{t('cost')}: </b>{cardJson.pp_} <br />
