@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
 export const ForegroundDiv = styled.div`
+  position: relative;
   display: flex;
   background-color: #141414;
   z-index: 100;
   width: 75vw;
-  min-height: 75vh;
+  max-height: 100vh;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 5rem;
   @media only screen and (max-width: 1330px) {
     margin-top: 0;
     flex-direction: column;
+  }
+  @media (min-resolution: 100dpi) {
+    margin-top: 1rem;
   }
 `;
 
@@ -55,15 +59,7 @@ export const ResponsiveButton = styled.button`
     width: 100px;
     padding: 10px;
   }
-`;
-
-export const CloseButton = styled.button`
-  color: white;
-  padding: 20px;
-  border: 0;
-  background-color: rgb(31, 52, 71);
-  outline: none;
-  cursor: pointer;
-  align-self: flex-end;
-  margin: 0 50px 50px 0;
+  @media (min-resolution: 100dpi) {
+    width: 100px;
+  }
 `;

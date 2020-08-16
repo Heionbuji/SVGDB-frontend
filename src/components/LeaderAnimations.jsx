@@ -6,7 +6,6 @@ import {
   DimBackground,
   StyledDiv,
   ResponsiveButton,
-  CloseButton
 } from '../styles/leaderAnimationStyles';
 
 window.PIXI = PIXI;
@@ -76,13 +75,15 @@ class LeaderAnimations extends React.Component {
           <div style={{ display: 'inline', flex: '1' }}>
             <p style={{ marginBottom: '20px', borderBottom: '2px solid pink', paddingTop: '14px' }}>{this.props.t('Switch animation')}</p>
             {this.renderButtons()}
+            <ResponsiveButton
+              type="button"
+              onClick={() => this.props.close()}
+              style={{ backgroundColor: '#502020' }}
+            >
+              {this.props.t('Close')}
+            </ResponsiveButton>
           </div>
-          <CloseButton
-            type="button"
-            onClick={() => this.props.close()}
-          >
-            {this.props.t('Close')}
-          </CloseButton>
+
         </ForegroundDiv>
       </DimBackground>
     );
