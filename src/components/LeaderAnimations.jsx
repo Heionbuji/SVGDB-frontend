@@ -1,8 +1,13 @@
 import React from 'react';
 import * as PIXI from 'pixi.js';
 import { withTranslation } from 'react-i18next';
-import { ForegroundDiv, DimBackground } from '../styles/leaderAnimationStyles';
-import { StyledButton } from '../styles/cardStyles';
+import {
+  ForegroundDiv,
+  DimBackground,
+  StyledDiv,
+  ResponsiveButton,
+  CloseButton
+} from '../styles/leaderAnimationStyles';
 
 window.PIXI = PIXI;
 require("pixi-spine")
@@ -49,14 +54,14 @@ class LeaderAnimations extends React.Component {
     if(this.animation) {
       return(
         this.animation.spineData.animations.map((animation) => (
-          <StyledButton
+          <ResponsiveButton
             type="button"
             onClick={() => this.animation.state.setAnimation(0, animation.name, true)}
-            style={{ margin: '5px', width: '200px' }}
+            style={{ margin: '5px' }}
             key={`button${animation.name}`}
           >
             {animation.name}
-          </StyledButton>
+          </ResponsiveButton>
         ))
       )
     }
@@ -67,18 +72,17 @@ class LeaderAnimations extends React.Component {
       <DimBackground>
         <ForegroundDiv>
           { this.loading && <p style={{ position: 'absolute', top: '50%', left: '50%' }}>Loading...</p> }
-          <div ref={this.updatePixiCnt} style={{ display: this.loading ? 'hidden' : 'inline', padding: '50px 100px' }} />
+          <StyledDiv ref={this.updatePixiCnt} style={{ display: this.loading ? 'hidden' : 'inline' }} />
           <div style={{ display: 'inline', flex: '1' }}>
             <p style={{ marginBottom: '20px', borderBottom: '2px solid pink', paddingTop: '14px' }}>{this.props.t('Switch animation')}</p>
             {this.renderButtons()}
           </div>
-          <StyledButton
+          <CloseButton
             type="button"
-            style={{ alignSelf: 'flex-end', margin: '0 50px 50px 0' }}
             onClick={() => this.props.close()}
           >
             {this.props.t('Close')}
-          </StyledButton>
+          </CloseButton>
         </ForegroundDiv>
       </DimBackground>
     );
