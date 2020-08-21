@@ -27,12 +27,12 @@ const Deckbuilder = ({ t, i18n }) => {
         Select class:
       </div>
       <div style={{ display: 'flex' }}>
-        <div style={{ flex: '1' }}>
+        <div style={{ flex: '1', margin: '20px' }}>
           {cardsJson && Object.keys(cardsJson).map((key) => (
             <LazyLoadedImage src={`${thumbnailUrl}${key}.png`} alt="" />
           ))}
         </div>
-        <div style={{ width: '400px' }}>
+        <div style={{ width: '400px', color: 'white' }}>
           Deck and stuff
         </div>
       </div>
