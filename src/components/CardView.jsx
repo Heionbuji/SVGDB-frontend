@@ -68,8 +68,8 @@ const CardView = ({ t, i18n }) => {
               <b>{t('rarity')}: </b>{cardJson.rarity_} <br />
               <b>{t('set')}: </b>{cardJson.expansion_} {cardJson.rotation_ ? `(${t('rotation')})` : `(${t('unlimited')})`} <br />
               <b>{t('cost')}: </b>{cardJson.pp_} <br />
-              { cardJson.cv_ && <><b>CV: </b>{cardJson.cv_}</> }
-              <br />
+              { cardJson.cv_ && <><b>CV: </b>{cardJson.cv_} <br /></> }
+              { cardJson.artist && <><b>{t('Artist')}: </b>{cardJson.artist} <br /></> }
               <b>{t('base')}: </b><br />
               <div style={{ paddingLeft: '10px' }}>
                 {cardJson.type_ === t('follower') && <><b>{t('stats')}: </b>{cardJson.baseAtk_}/{cardJson.baseDef_} <br /></>}
