@@ -39,7 +39,7 @@ class LeaderAnimations extends React.Component {
 
         this.animation.x = this.app.screen.width / 2;
         this.animation.y = this.app.screen.height / 2;
-        this.animation.scale.set(0.5)
+        this.animation.scale.set(0.5);
 
         this.app.stage.addChild(this.animation);
 

@@ -16,6 +16,7 @@ export const ForegroundDiv = styled.div`
   @media (min-resolution: 100dpi) {
     margin-top: 1rem;
   }
+
 `;
 
 export const DimBackground = styled.div`
@@ -43,7 +44,7 @@ export const StyledDiv = styled.div`
 `;
 
 export const ResponsiveButton = styled.button`
-  width: 200px;
+  width: 10vw;
   margin: 5px;
   color: white;
   padding: 20px;
@@ -52,14 +53,10 @@ export const ResponsiveButton = styled.button`
   outline: none;
   cursor: pointer;
   @media only screen and (max-width: 1330px) {
-    width: 100px;
     padding: 10px;
   }
   @media only screen and (max-width: 1500px) {
-    width: 100px;
+    
     padding: 10px;
-  }
-  @media (min-resolution: 100dpi) {
-    width: 100px;
   }
 `;
