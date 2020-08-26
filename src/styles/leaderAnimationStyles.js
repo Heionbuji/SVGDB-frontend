@@ -5,16 +5,17 @@ export const ForegroundDiv = styled.div`
   display: flex;
   background-color: #141414;
   z-index: 100;
-  width: 75vw;
-  max-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   margin: auto;
-  margin-top: 5rem;
-  @media only screen and (max-width: 1330px) {
-    margin-top: 0;
+
+  @media screen and (max-aspect-ratio: 4/3) {
     flex-direction: column;
   }
-  @media (min-resolution: 100dpi) {
-    margin-top: 1rem;
+
+  canvas {
+    width: 50vw;
+    height: 50vw;
   }
 
 `;
@@ -37,7 +38,7 @@ export const StyledButton = styled.button`
 `;
 
 export const StyledDiv = styled.div`
-  padding: 50px 100px;
+  padding: 0 100px;
   @media only screen and (max-width: 1200px) {
     padding: 0;
   }

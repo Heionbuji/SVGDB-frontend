@@ -18,7 +18,7 @@ class LeaderAnimations extends React.Component {
     this.state = {};
     this.loading = true;
     this.pixi_cnt = null;
-    this.app = new PIXI.Application({width: this.props.width, height: this.props.height, transparent:false});
+    this.app = new PIXI.Application({width: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, height: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, transparent:false});
     this.animation = null;
   };
 
@@ -39,7 +39,7 @@ class LeaderAnimations extends React.Component {
 
         this.animation.x = this.app.screen.width / 2;
         this.animation.y = this.app.screen.height / 2;
-        this.animation.scale.set(0.5);
+        this.animation.scale.set(1);
 
         this.app.stage.addChild(this.animation);
 
@@ -72,13 +72,15 @@ class LeaderAnimations extends React.Component {
         <ForegroundDiv>
           { this.loading && <p style={{ position: 'absolute', top: '50%', left: '50%' }}>Loading...</p> }
           <StyledDiv ref={this.updatePixiCnt} style={{ display: this.loading ? 'hidden' : 'inline' }} />
-          <div style={{ display: 'inline', flex: '1' }}>
+          <div style={{ display: 'inline' }}>
             <p style={{ marginBottom: '20px', borderBottom: '2px solid pink', paddingTop: '14px' }}>{this.props.t('Switch animation')}</p>
-            {this.renderButtons()}
+            <div>
+              {this.renderButtons()}
+            </div>
             <ResponsiveButton
               type="button"
               onClick={() => this.props.close()}
-              style={{ backgroundColor: '#502020' }}
+              style={{ backgroundColor: '#502020', position: 'relative' }}
             >
               {this.props.t('Close')}
             </ResponsiveButton>
