@@ -20,6 +20,7 @@ class LeaderAnimations extends React.Component {
     this.pixi_cnt = null;
     this.app = new PIXI.Application({width: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, height: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, transparent:false});
     this.animation = null;
+    this.animScale = 0.5;
   };
 
   updatePixiCnt = (element) => {
@@ -39,7 +40,7 @@ class LeaderAnimations extends React.Component {
 
         this.animation.x = this.app.screen.width / 2;
         this.animation.y = this.app.screen.height / 2;
-        this.animation.scale.set(1);
+        this.animation.scale.set(0.6);
 
         this.app.stage.addChild(this.animation);
 
@@ -77,6 +78,22 @@ class LeaderAnimations extends React.Component {
             <div>
               {this.renderButtons()}
             </div>
+            <ResponsiveButton
+              style={{ width: '5vw' }}
+              onClick={() => {
+                this.animScale += 0.1
+                this.animation.scale.set(this.animScale);
+                }}>
+              Zoom +
+            </ResponsiveButton>
+            <ResponsiveButton
+              style={{ width: '5vw' }}
+              onClick={() => {
+                this.animScale -= 0.1
+                this.animation.scale.set(this.animScale);
+                }}>
+              Zoom -
+            </ResponsiveButton>
             <ResponsiveButton
               type="button"
               onClick={() => this.props.close()}
