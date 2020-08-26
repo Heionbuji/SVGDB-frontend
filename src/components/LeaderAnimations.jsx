@@ -20,7 +20,7 @@ class LeaderAnimations extends React.Component {
     this.pixi_cnt = null;
     this.app = new PIXI.Application({width: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, height: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, transparent:false});
     this.animation = null;
-    this.animScale = 0.5;
+    this.animScale = 0.6;
   };
 
   updatePixiCnt = (element) => {
@@ -40,7 +40,7 @@ class LeaderAnimations extends React.Component {
 
         this.animation.x = this.app.screen.width / 2;
         this.animation.y = this.app.screen.height / 2;
-        this.animation.scale.set(0.6);
+        this.animation.scale.set(this.animScale);
 
         this.app.stage.addChild(this.animation);
 
