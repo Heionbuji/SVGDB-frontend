@@ -23,7 +23,7 @@ const Deckbuilder = ({ t, i18n }) => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
       .then((res) => res.json())
       .then((resJson) => setCardsJson(resJson));
-  }, []);
+  }, [i18n.language]);
 
   const updateTooltip = (id) => {
     const card = cardsJson[id];
