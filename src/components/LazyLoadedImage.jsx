@@ -8,8 +8,8 @@ const propTypes = {
 };
 
 const Image = styled.img`
-  width: 107px;
-  height: 140px;
+  width: 199px;
+  height: 259px;
 `;
 
 const placeHolder = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=';
