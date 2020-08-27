@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
 import LazyLoadedImage from './LazyLoadedImage';
-import { Container } from '../styles/deckbuilderStyles';
+import { Container, Tooltip, Divider } from '../styles/deckbuilderStyles';
 
 const propTypes = {
   t: PropTypes.func.isRequired,
@@ -16,12 +16,37 @@ const propTypes = {
 const Deckbuilder = ({ t, i18n }) => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [cardsJson, setCardsJson] = useState(null);
+  const [tooltip, setTooltip] = useState(null);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
       .then((res) => res.json())
       .then((resJson) => setCardsJson(resJson));
   }, []);
+
+  const updateTooltip = (id) => {
+    const card = cardsJson[id];
+    setTooltip(
+      <Tooltip>
+        <b>{card.name_}</b>
+        <span>{card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}</span>
+        <span>Expansion: {card.expansion_}</span>
+        <span>Rotation: {card.rotation_.toString()}</span>
+        <Divider />
+        <span>Base:</span>
+        <span style={{ paddingLeft: '10px' }}>{card.baseEffect_}</span>
+        {card.type_ === 'Follower' && (
+          <>
+            <span>Evo:</span>
+            <span style={{ paddingLeft: '10px' }}>{card.evoEffect_}</span>
+          </>
+        )}
+      </Tooltip>,
+    );
+    setTooltipVisible(true);
+  };
+
   return (
     <Container>
       <div style={{ backgroundColor: '#555' }}>
@@ -49,12 +74,19 @@ const Deckbuilder = ({ t, i18n }) => {
           })
             .sort((a, b) => cardsJson[a].pp_ > cardsJson[b].pp_)
             .map((key) => (
-              <LazyLoadedImage key={`img${key}`} src={`${thumbnailUrl}${key}.png`} alt="" />
+              <span key={`div${key}`} onMouseEnter={() => updateTooltip(key)}>
+                <LazyLoadedImage
+                  key={`img${key}`}
+                  src={`${thumbnailUrl}${key}.png`}
+                  alt=""
+                />
+              </span>
             ))}
         </div>
-        <div style={{ width: '400px', color: 'white' }}>
+        <div style={{ width: '20vw', color: 'white' }}>
           Deck and stuff
         </div>
+        {tooltipVisible && (tooltip)}
       </div>
     </Container>
   );
