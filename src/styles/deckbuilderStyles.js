@@ -24,6 +24,7 @@ export const Tooltip = styled.div`
   padding: 5px;
   color: #ddd;
   max-width: 300px;
+  pointer-events: none;
 `;
 
 export const Divider = styled.div`
