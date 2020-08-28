@@ -25,10 +25,10 @@ const Deckbuilder = ({ t, i18n }) => {
       .then((resJson) => setCardsJson(resJson));
   }, [i18n.language]);
 
-  const updateTooltip = (id) => {
+  const updateTooltip = (e, id) => {
     const card = cardsJson[id];
     setTooltip(
-      <Tooltip>
+      <Tooltip style={{ left: e.target.x + e.target.width + 10, top: e.target.y }}>
         <b>{card.name_}</b>
         <span>{card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}</span>
         <span>Expansion: {card.expansion_}</span>
@@ -74,7 +74,7 @@ const Deckbuilder = ({ t, i18n }) => {
           })
             .sort((a, b) => cardsJson[a].pp_ > cardsJson[b].pp_)
             .map((key) => (
-              <span key={`div${key}`} onMouseEnter={() => updateTooltip(key)} className="cardhover">
+              <span key={`div${key}`} onMouseEnter={(e) => updateTooltip(e, key)} className="cardhover">
                 <LazyLoadedImage
                   key={`img${key}`}
                   src={`${thumbnailUrl}${key}.png`}
