@@ -74,7 +74,7 @@ const Deckbuilder = ({ t, i18n }) => {
           })
             .sort((a, b) => cardsJson[a].pp_ > cardsJson[b].pp_)
             .map((key) => (
-              <span key={`div${key}`} onMouseEnter={() => updateTooltip(key)}>
+              <span key={`div${key}`} onMouseEnter={() => updateTooltip(key)} className="cardhover">
                 <LazyLoadedImage
                   key={`img${key}`}
                   src={`${thumbnailUrl}${key}.png`}
