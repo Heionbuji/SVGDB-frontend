@@ -20,10 +20,10 @@ export const Tooltip = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  background-color: grey;
-  top: 50vh;
-  left: 50vw;
+  background-color: rgba(15, 20, 25, 0.98);
   padding: 5px;
+  color: #ddd;
+  max-width: 300px;
 `;
 
 export const Divider = styled.div`
