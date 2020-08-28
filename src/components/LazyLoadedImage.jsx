@@ -10,6 +10,7 @@ const propTypes = {
 const Image = styled.img`
   width: 199px;
   height: 259px;
+  pointer-events: auto;
 `;
 
 const placeHolder = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=';
