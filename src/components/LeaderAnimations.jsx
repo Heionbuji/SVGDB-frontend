@@ -42,6 +42,11 @@ class LeaderAnimations extends React.Component {
         this.animation.y = this.app.screen.height / 2;
         this.animation.scale.set(this.animScale);
 
+        if (this.animation.spineData.skins.length > 1) {
+          console.log(this.animation.spineData.skins);
+          this.animation.skeleton.setSkinByName(this.animation.spineData.skins[1].name);
+        }
+
         this.app.stage.addChild(this.animation);
 
         this.animation.state.setAnimation(0, 'idle', true);
@@ -67,6 +72,27 @@ class LeaderAnimations extends React.Component {
     }
   };
 
+  renderSkinButtons = () => {
+    if(this.animation
+      && this.animation.spineData.skins.length > 1
+      && this.animation.spineData.skins[1].attachments.length !== 0) {
+      return(
+        <>
+          <p style={{ marginBottom: '20px', borderBottom: '2px solid pink', paddingTop: '14px' }}>{this.props.t('Switch expression')}</p>
+          {this.animation.spineData.skins.map((skin) => (
+            <ResponsiveButton
+              type="button"
+              onClick={() => this.animation.skeleton.setSkinByName(skin.name)}
+              key={`skin${skin.name}`}
+            >
+              {skin.name}
+            </ResponsiveButton>
+          ))}
+        </>
+      )
+    }
+  }
+
   render() {
     return (
       <DimBackground>
@@ -77,6 +103,9 @@ class LeaderAnimations extends React.Component {
             <p style={{ marginBottom: '20px', borderBottom: '2px solid pink', paddingTop: '14px' }}>{this.props.t('Switch animation')}</p>
             <div>
               {this.renderButtons()}
+            </div>
+            <div>
+              {this.renderSkinButtons()}
             </div>
             <ResponsiveButton
               style={{ width: '5vw' }}
