@@ -90,6 +90,7 @@ const Deckbuilder = ({ t, i18n }) => {
             .sort((a, b) => cardsJson[a].pp_ > cardsJson[b].pp_)
             .map((key) => (
               <span
+                style={{ pointerEvents: 'none' }}
                 key={`div${key}`}
                 onMouseEnter={(e) => updateTooltip(e, key)}
                 onMouseLeave={() => setTooltipVisible(false)}
