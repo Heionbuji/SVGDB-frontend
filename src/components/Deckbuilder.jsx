@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
+import Deck from './Deck';
 import LazyLoadedImage from './LazyLoadedImage';
 import { Container, Tooltip, Divider } from '../styles/deckbuilderStyles';
 
@@ -16,6 +17,7 @@ const propTypes = {
 const Deckbuilder = ({ t, i18n }) => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [cardsJson, setCardsJson] = useState(null);
+  const [currentDeck, setCurrentDeck] = useState({});
   const [tooltip, setTooltip] = useState(null);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
@@ -47,6 +49,19 @@ const Deckbuilder = ({ t, i18n }) => {
     setTooltipVisible(true);
   };
 
+  const addToDeck = (card) => {
+    if (currentDeck[card]) {
+      if (currentDeck[card] >= 3) { return; }
+      const curr = { ...currentDeck };
+      curr[card] += 1;
+      setCurrentDeck(curr);
+    } else {
+      const curr = { ...currentDeck };
+      curr[card] = 1;
+      setCurrentDeck(curr);
+    }
+  };
+
   return (
     <Container>
       <div style={{ backgroundColor: '#555' }}>
@@ -75,10 +90,10 @@ const Deckbuilder = ({ t, i18n }) => {
             .sort((a, b) => cardsJson[a].pp_ > cardsJson[b].pp_)
             .map((key) => (
               <span
-                style={{ pointerEvents: 'none' }}
                 key={`div${key}`}
                 onMouseEnter={(e) => updateTooltip(e, key)}
                 onMouseLeave={() => setTooltipVisible(false)}
+                onClick={() => addToDeck(key)}
                 className="cardhover"
               >
                 <LazyLoadedImage
@@ -89,9 +104,7 @@ const Deckbuilder = ({ t, i18n }) => {
               </span>
             ))}
         </div>
-        <div style={{ width: '20vw', color: 'white' }}>
-          Deck and stuff
-        </div>
+        <Deck deck={currentDeck} cards={cardsJson} />
         {tooltipVisible && (tooltip)}
       </div>
     </Container>
