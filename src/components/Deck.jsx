@@ -11,13 +11,25 @@ const propTypes = {
   }).isRequired,
 };
 
-const Deck = ({ deck, cards }) => {
-  return (
-    <div style={{ width: '20vw', color: 'white' }}>
-      {deck && (
-        Object.keys(deck).map((card, index) => (
+const Deck = ({ deck, cards }) => (
+  <div style={{ width: '20vw', color: 'white' }}>
+    {deck && (
+      Object.keys(deck)
+        .sort((a, b) => {
+          if (cards[a].pp_ === cards[b].pp_) {
+            let iter = 1;
+            while (cards[a].name_.substring(0, iter) === cards[b].name_.substring(0, iter)) {
+              iter += 1;
+            }
+            return (
+              cards[a].name_.substring(iter - 1, iter) > cards[b].name_.substring(iter - 1, iter)
+            );
+          }
+          return (cards[a].pp_ > cards[b].pp_);
+        })
+        .map((card, index) => (
           <div
-            // eslint-disable-next-line react/no-array-index-key
+              // eslint-disable-next-line react/no-array-index-key
             key={`${card}+${index}`}
             style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '3px' }}
           >
@@ -34,10 +46,9 @@ const Deck = ({ deck, cards }) => {
             </div>
           </div>
         ))
-      )}
-    </div>
-  );
-};
+    )}
+  </div>
+);
 
 Deck.propTypes = propTypes;
 
