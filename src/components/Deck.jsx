@@ -19,6 +19,7 @@ const Deck = ({ deck, cards }) => (
           if (cards[a].pp_ === cards[b].pp_) {
             let iter = 1;
             while (cards[a].name_.substring(0, iter) === cards[b].name_.substring(0, iter)) {
+              if (iter > cards[a].name_.length) { break; }
               iter += 1;
             }
             return (
