@@ -165,7 +165,12 @@ const Deckbuilder = ({ t, i18n }) => {
             ))}
         </div>
         <div style={{ width: '20%', position: 'fixed', display: 'inline' }}>
-          <Deck deck={currentDeck} cards={allCards} />
+          <Deck
+            deck={currentDeck}
+            setDeck={setCurrentDeck}
+            cards={allCards}
+            setTooltip={setTooltip}
+          />
         </div>
         {tooltip && (tooltip)}
       </div>
