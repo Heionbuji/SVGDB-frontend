@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
@@ -18,6 +20,9 @@ const Deckbuilder = ({ t, i18n }) => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [expansionFilter, setExpansionFilter] = useState(null);
   const [includeNeutrals, setIncludeNeutrals] = useState(true);
+  const [rarityFilter, setRarityFilter] = useState(null);
+  const [costFilter, setCostFilter] = useState(null);
+  const [typeFilter, setTypeFilter] = useState(null);
   const [allCards, setAllCards] = useState(null);
   const [shownCards, setShownCards] = useState(null);
   const [currentDeck, setCurrentDeck] = useState({});
@@ -42,13 +47,26 @@ const Deckbuilder = ({ t, i18n }) => {
           ? filter
             && (id.substring(3, 4) === selectedClass || id.substring(3, 4) === filters.NEUTRAL)
           : filter && id.substring(3, 4) === selectedClass;
+        // THESE NEED TO BE MULTI CHOICE
         filter = expansionFilter ? filter && id.substring(0, 3) === expansionFilter : filter;
+        filter = typeFilter ? filter && id.substring(5, 6) === typeFilter : filter;
+        filter = rarityFilter ? filter && id.substring(4, 5) === rarityFilter : filter;
+        filter = costFilter ? filter && allCards[id].pp_.toString() === costFilter : filter;
+
         return (filter);
       });
       keys.forEach((key) => { newShown[key] = allCards[key]; });
       setShownCards(newShown);
     }
-  }, [allCards, selectedClass, expansionFilter, includeNeutrals]);
+  }, [
+    allCards,
+    selectedClass,
+    expansionFilter,
+    costFilter,
+    typeFilter,
+    rarityFilter,
+    includeNeutrals,
+  ]);
 
   useEffect(() => { // reset deck whenever class is changed (maybe add confirmation later)
     setCurrentDeck({});
@@ -102,7 +120,7 @@ const Deckbuilder = ({ t, i18n }) => {
           <button type="button" onClick={() => setSelectedClass('7')}>Haven</button>
           <button type="button" onClick={() => setSelectedClass('8')}>Portal</button>
         </span>
-        <span>Filter by:</span>
+        <span>Expansion:</span>
         <label htmlFor="filterExpansion">
           <select
             name="expansion"
@@ -110,7 +128,7 @@ const Deckbuilder = ({ t, i18n }) => {
               setExpansionFilter(e.target.value);
             }}
           >
-            <option value="">{t('None')}</option>
+            <option value="">{t('All')}</option>
             <option value="117">{t("Fortune's hand")}</option>
             <option value="116">{t('World Uprooted')}</option>
             <option value="115">{t('Ultimate Colosseum')}</option>
@@ -140,6 +158,56 @@ const Deckbuilder = ({ t, i18n }) => {
           >
             <option value="Yes">{t('Yes')}</option>
             <option value="">{t('No')}</option>
+          </select>
+        </label>
+        <span>Cost:</span>
+        <label htmlFor="filterCost">
+          <select
+            name="cost"
+            onChange={(e) => {
+              setCostFilter(e.target.value);
+            }}
+          >
+            <option value="">{t('All')}</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8+</option>
+          </select>
+        </label>
+        <span>Rarity:</span>
+        <label htmlFor="filterRarity">
+          <select
+            name="rarity"
+            onChange={(e) => {
+              setRarityFilter(e.target.value);
+            }}
+          >
+            <option value="">{t('All')}</option>
+            <option value="1">{t('Bronze')}</option>
+            <option value="2">{t('Silver')}</option>
+            <option value="3">{t('Gold')}</option>
+            <option value="4">{t('Legendary')}</option>
+          </select>
+        </label>
+        <span>Type:</span>
+        <label htmlFor="filterType">
+          <select
+            name="type"
+            onChange={(e) => {
+              setTypeFilter(e.target.value);
+            }}
+          >
+            <option value="">{t('All')}</option>
+            <option value="1">{t('Follower')}</option>
+            <option value="2">{t('Amulet')}</option>
+            <option value="3">{t('Countdown Amulet')}</option>
+            <option value="4">{t('Spell')}</option>
           </select>
         </label>
       </div>
