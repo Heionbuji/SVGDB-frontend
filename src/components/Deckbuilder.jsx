@@ -16,19 +16,43 @@ const propTypes = {
 
 const Deckbuilder = ({ t, i18n }) => {
   const [selectedClass, setSelectedClass] = useState(null);
-  const [cardsJson, setCardsJson] = useState(null);
+  const [allCards, setAllCards] = useState(null);
+  const [shownCards, setShownCards] = useState(null);
   const [currentDeck, setCurrentDeck] = useState({});
   const [tooltip, setTooltip] = useState(null);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
+  const filters = {
+    NEUTRAL: '0',
+  };
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
       .then((res) => res.json())
-      .then((resJson) => setCardsJson(resJson));
+      .then((resJson) => { setAllCards(resJson); setShownCards(resJson); });
   }, [i18n.language]);
 
+  useEffect(() => { // filter shown cards
+    if (allCards) {
+      const newShown = {};
+      const keys = Object.keys(allCards).filter((card) => {
+        const id = allCards[card].id_.toString();
+        return (
+          (id.substring(3, 4) === selectedClass || id.substring(3, 4) === filters.NEUTRAL)
+          && id.substring(0, 1) !== '9'
+          && id.substring(0, 1) !== '7'
+        );
+      });
+      keys.forEach((key) => { newShown[key] = allCards[key]; });
+      setShownCards(newShown);
+    }
+  }, [allCards, selectedClass]);
+
+  useEffect(() => { // reset deck whenever class is changed (maybe add confirmation later)
+    setCurrentDeck({});
+  }, [selectedClass]);
+
   const updateTooltip = (e, id) => {
-    const card = cardsJson[id];
+    const card = allCards[id];
     setTooltip(
       <Tooltip style={{ left: e.target.x + e.target.width + 10, top: e.target.y }}>
         <b>{card.name_}</b>
@@ -79,15 +103,8 @@ const Deckbuilder = ({ t, i18n }) => {
       </div>
       <div style={{ display: 'flex' }}>
         <div style={{ flex: '1', margin: '20px' }}>
-          {cardsJson && selectedClass && Object.keys(cardsJson).filter((item) => {
-            const id = cardsJson[item].id_.toString();
-            return (
-              id.substring(3, 4) === selectedClass
-              && id.substring(0, 1) !== '9'
-              && id.substring(0, 1) !== '7'
-            );
-          })
-            .sort((a, b) => cardsJson[a].pp_ > cardsJson[b].pp_)
+          {shownCards && selectedClass && Object.keys(shownCards)
+            .sort((a, b) => shownCards[a].pp_ > shownCards[b].pp_)
             .map((key) => (
               <span
                 style={{ pointerEvents: 'none' }}
@@ -105,7 +122,7 @@ const Deckbuilder = ({ t, i18n }) => {
               </span>
             ))}
         </div>
-        <Deck deck={currentDeck} cards={cardsJson} />
+        <Deck deck={currentDeck} cards={allCards} />
         {tooltipVisible && (tooltip)}
       </div>
     </Container>
