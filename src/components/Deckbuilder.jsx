@@ -16,6 +16,8 @@ const propTypes = {
 
 const Deckbuilder = ({ t, i18n }) => {
   const [selectedClass, setSelectedClass] = useState(null);
+  const [expansionFilter, setExpansionFilter] = useState(null);
+  const [includeNeutrals, setIncludeNeutrals] = useState(true);
   const [allCards, setAllCards] = useState(null);
   const [shownCards, setShownCards] = useState(null);
   const [currentDeck, setCurrentDeck] = useState({});
@@ -32,20 +34,22 @@ const Deckbuilder = ({ t, i18n }) => {
   }, [i18n.language]);
 
   useEffect(() => { // filter shown cards
-    if (allCards) {
+    if (allCards && selectedClass) {
       const newShown = {};
       const keys = Object.keys(allCards).filter((card) => {
         const id = allCards[card].id_.toString();
-        return (
-          (id.substring(3, 4) === selectedClass || id.substring(3, 4) === filters.NEUTRAL)
-          && id.substring(0, 1) !== '9'
-          && id.substring(0, 1) !== '7'
-        );
+        let filter = id.substring(0, 1) !== '9' && id.substring(0, 1) !== '7';
+        filter = includeNeutrals
+          ? filter
+            && (id.substring(3, 4) === selectedClass || id.substring(3, 4) === filters.NEUTRAL)
+          : filter && id.substring(3, 4) === selectedClass;
+        filter = expansionFilter ? filter && id.substring(0, 3) === expansionFilter : filter;
+        return (filter);
       });
       keys.forEach((key) => { newShown[key] = allCards[key]; });
       setShownCards(newShown);
     }
-  }, [allCards, selectedClass]);
+  }, [allCards, selectedClass, expansionFilter, includeNeutrals]);
 
   useEffect(() => { // reset deck whenever class is changed (maybe add confirmation later)
     setCurrentDeck({});
@@ -100,6 +104,46 @@ const Deckbuilder = ({ t, i18n }) => {
           <button type="button" onClick={() => setSelectedClass('7')}>Haven</button>
           <button type="button" onClick={() => setSelectedClass('8')}>Portal</button>
         </span>
+        <span>Filter by:</span>
+        <label htmlFor="filterExpansion">
+          <select
+            name="expansion"
+            onChange={(e) => {
+              setExpansionFilter(e.target.value);
+            }}
+          >
+            <option value="">{t('None')}</option>
+            <option value="117">{t("Fortune's hand")}</option>
+            <option value="116">{t('World Uprooted')}</option>
+            <option value="115">{t('Ultimate Colosseum')}</option>
+            <option value="114">{t('Verdant Conflict')}</option>
+            <option value="113">{t('Rebirth of Glory')}</option>
+            <option value="112">{t('Steel Rebellion')}</option>
+            <option value="111">{t('Altersphere')}</option>
+            <option value="110">{t('Omen of the Ten')}</option>
+            <option value="109">{t('Brigade of the Sky')}</option>
+            <option value="108">{t('Dawnbreak, Nightedge')}</option>
+            <option value="107">{t('Chronogenesis')}</option>
+            <option value="106">{t('Starforged Legends')}</option>
+            <option value="105">{t('Wonderland Dreams')}</option>
+            <option value="104">{t('Tempest of the Gods')}</option>
+            <option value="103">{t('Rise of Bahamut')}</option>
+            <option value="102">{t('Darkness Evolved')}</option>
+            <option value="101">{t('Classic')}</option>
+          </select>
+        </label>
+        <span>Include neutrals:</span>
+        <label htmlFor="filterNeutral">
+          <select
+            name="neutral"
+            onChange={(e) => {
+              setIncludeNeutrals(e.target.value);
+            }}
+          >
+            <option value="Yes">{t('Yes')}</option>
+            <option value="">{t('No')}</option>
+          </select>
+        </label>
       </div>
       <div style={{ display: 'flex' }}>
         <div style={{ flex: '1', margin: '20px' }}>
