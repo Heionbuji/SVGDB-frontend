@@ -32,18 +32,33 @@ const Deck = ({ deck, cards }) => (
           <div
               // eslint-disable-next-line react/no-array-index-key
             key={`${card}+${index}`}
-            style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '3px' }}
+            className="loghover"
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              paddingTop: '3px',
+              background: `url(${process.env.REACT_APP_ASSETS_URL}/thumbnails/log_${card}0.png)`,
+              backgroundSize: '256px 42px',
+              width: '256px',
+              height: '32px',
+              marginTop: '8px',
+            }}
           >
             <ManaCircle>
               <span style={{ textShadow: '2px 2px 2px black', marginTop: '4px' }}>
                 {cards[card].pp_}
               </span>
             </ManaCircle>
-            <div>
-              {cards[card].name_}
+            <div style={{ marginTop: '4px', padding: '0 5px' }}>
+              {deck[card]}x
             </div>
-            <div>
-              x{deck[card]}
+            <div style={{
+              marginTop: '4px',
+              overflow: 'hidden',
+              textShadow: '1px 0px 2px #993366, -1px 0px 2px #993366, 0 1px 2px #993366, 0 -1px 2px #993366',
+            }}
+            >
+              {cards[card].name_}
             </div>
           </div>
         ))

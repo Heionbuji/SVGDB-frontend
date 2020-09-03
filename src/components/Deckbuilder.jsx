@@ -22,7 +22,6 @@ const Deckbuilder = ({ t, i18n }) => {
   const [shownCards, setShownCards] = useState(null);
   const [currentDeck, setCurrentDeck] = useState({});
   const [tooltip, setTooltip] = useState(null);
-  const [tooltipVisible, setTooltipVisible] = useState(false);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
   const filters = {
     NEUTRAL: '0',
@@ -74,7 +73,6 @@ const Deckbuilder = ({ t, i18n }) => {
         )}
       </Tooltip>,
     );
-    setTooltipVisible(true);
   };
 
   const addToDeck = (card) => {
@@ -145,8 +143,8 @@ const Deckbuilder = ({ t, i18n }) => {
           </select>
         </label>
       </div>
-      <div style={{ display: 'flex' }}>
-        <div style={{ flex: '1', margin: '20px' }}>
+      <div style={{ margin: '15px 0 0 15px' }}>
+        <div style={{ width: '70%', display: 'inline-block' }}>
           {shownCards && selectedClass && Object.keys(shownCards)
             .sort((a, b) => shownCards[a].pp_ > shownCards[b].pp_)
             .map((key) => (
@@ -154,7 +152,7 @@ const Deckbuilder = ({ t, i18n }) => {
                 style={{ pointerEvents: 'none' }}
                 key={`div${key}`}
                 onMouseEnter={(e) => updateTooltip(e, key)}
-                onMouseLeave={() => setTooltipVisible(false)}
+                onMouseLeave={() => setTooltip(null)}
                 onClick={() => addToDeck(key)}
                 className="cardhover"
               >
@@ -166,8 +164,10 @@ const Deckbuilder = ({ t, i18n }) => {
               </span>
             ))}
         </div>
-        <Deck deck={currentDeck} cards={allCards} />
-        {tooltipVisible && (tooltip)}
+        <div style={{ width: '20%', position: 'fixed', display: 'inline' }}>
+          <Deck deck={currentDeck} cards={allCards} />
+        </div>
+        {tooltip && (tooltip)}
       </div>
     </Container>
   );

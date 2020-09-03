@@ -14,6 +14,16 @@ export const Container = styled.div`
   .cardhover:hover img {
     cursor: pointer;
   }
+
+  .loghover:hover {
+    filter: drop-shadow(0 0 7px cyan);
+  }
+  .loghover {
+    transition: filter .2s;
+  }
+  .loghover:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Tooltip = styled.div`
