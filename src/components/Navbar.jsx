@@ -18,6 +18,7 @@ const Navbar = () => {
       <span className="spaced"><Link to="/leaders">{t('leaders')}</Link></span>
       <span className="spaced"><Link to="/sleeves">{t('sleeves')}</Link></span>
       <Dropdown
+        type="nav"
         text={t('tournaments')}
         choices={[{ title: `JCG (${t('rotation')})`, linkTo: '/jcg/rotation' }, { title: `JCG (${t('unlimited')})`, linkTo: '/jcg/unlimited' }]}
       />
