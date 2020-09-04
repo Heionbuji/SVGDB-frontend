@@ -21,7 +21,7 @@ const DropdownContent = styled.ul`
   display: block;
   position: absolute;
   z-index: 3;
-  width: 100%;
+  width: ${(props) => (props.Extended ? '200px' : '100%')};
 `;
 
 const DropdownItem = styled.li`
@@ -72,17 +72,19 @@ const Dropdown = ({
           </DropdownContent>
         )}
         {dropdownVisible && type === 'select' && (
-        <DropdownContent>
+        <DropdownContent Extended>
           {choices.map((choice) => (
-            <FlexDiv>
+            <FlexDiv key={choice.title}>
               <DropdownItem noHover>
-                <input
-                  type="checkbox"
-                  name={choice}
-                  value={choice.title}
-                  onChange={(e) => handleChange(e.target.value)}
-                />
-                {choice.title}
+                <label htmlFor={choice.title} style={{ cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    id={choice.title}
+                    value={choice.title}
+                    onChange={(e) => handleChange(e.target.value)}
+                  />
+                  {choice.title}
+                </label>
               </DropdownItem>
             </FlexDiv>
           ))}
