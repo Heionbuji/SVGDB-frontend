@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import Deck from './Deck';
 import LazyLoadedImage from './LazyLoadedImage';
+import Dropdown from './Dropdown';
 import { Container, Tooltip, Divider } from '../styles/deckbuilderStyles';
 
 const propTypes = {
@@ -31,6 +32,25 @@ const Deckbuilder = ({ t, i18n }) => {
   const filters = {
     NEUTRAL: '0',
   };
+  const expansions = {
+    "Fortune's Hand": '117',
+    'World Uprooted': '116',
+    'Ultimate Colosseum': '115',
+    'Verdant Conflict': '114',
+    'Rebirth of Glory': '113',
+    'Steel Rebellion': '112',
+    Altersphere: '111',
+    'Omen of the Ten': '110',
+    'Brigade of the Sky': '109',
+    'Dawnbreak, Nightedge': '108',
+    Chronogenesis: '107',
+    'Starforged Legends': '106',
+    'Wonderland Dreams': '105',
+    'Tempest of the Gods': '104',
+    'Rise of Bahamut': '103',
+    'Darkness Evolved': '102',
+    Classic: '101',
+  };
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
       .then((res) => res.json())
@@ -52,11 +72,14 @@ const Deckbuilder = ({ t, i18n }) => {
               && (id.substring(3, 4) === selectedClass || id.substring(3, 4) === filters.NEUTRAL);
           }
         } else {
-          filter = filter && filter && id.substring(3, 4) === selectedClass;
+          filter = filter && id.substring(3, 4) === selectedClass;
         }
 
         // THESE NEED TO BE MULTI CHOICE
-        filter = expansionFilter ? filter && id.substring(0, 3) === expansionFilter : filter;
+        filter = expansionFilter
+          ? filter
+          && expansionFilter.some((item) => id.substring(0, 3) === expansions[item])
+          : filter;
         filter = typeFilter ? filter && id.substring(5, 6) === typeFilter : filter;
         filter = rarityFilter ? filter && id.substring(4, 5) === rarityFilter : filter;
         filter = costFilter ? filter && allCards[id].pp_.toString() === costFilter : filter;
@@ -114,6 +137,21 @@ const Deckbuilder = ({ t, i18n }) => {
     }
   };
 
+  const handleExpansionChange = (expansion) => {
+    if (!expansionFilter) {
+      setExpansionFilter([expansion]);
+    } else {
+      const index = expansionFilter.indexOf(expansion);
+      if (index !== -1) {
+        const temp = [...expansionFilter];
+        temp.splice(index, 1);
+        setExpansionFilter(temp.length === 0 ? null : temp);
+      } else {
+        setExpansionFilter([...expansionFilter, expansion]);
+      }
+    }
+  };
+
   return (
     <Container>
       <div style={{ backgroundColor: '#555' }}>
@@ -128,34 +166,12 @@ const Deckbuilder = ({ t, i18n }) => {
           <button type="button" onClick={() => setSelectedClass('7')}>Haven</button>
           <button type="button" onClick={() => setSelectedClass('8')}>Portal</button>
         </span>
-        <span>Expansion:</span>
-        <label htmlFor="filterExpansion">
-          <select
-            name="expansion"
-            onChange={(e) => {
-              setExpansionFilter(e.target.value);
-            }}
-          >
-            <option value="">{t('All')}</option>
-            <option value="117">{t("Fortune's hand")}</option>
-            <option value="116">{t('World Uprooted')}</option>
-            <option value="115">{t('Ultimate Colosseum')}</option>
-            <option value="114">{t('Verdant Conflict')}</option>
-            <option value="113">{t('Rebirth of Glory')}</option>
-            <option value="112">{t('Steel Rebellion')}</option>
-            <option value="111">{t('Altersphere')}</option>
-            <option value="110">{t('Omen of the Ten')}</option>
-            <option value="109">{t('Brigade of the Sky')}</option>
-            <option value="108">{t('Dawnbreak, Nightedge')}</option>
-            <option value="107">{t('Chronogenesis')}</option>
-            <option value="106">{t('Starforged Legends')}</option>
-            <option value="105">{t('Wonderland Dreams')}</option>
-            <option value="104">{t('Tempest of the Gods')}</option>
-            <option value="103">{t('Rise of Bahamut')}</option>
-            <option value="102">{t('Darkness Evolved')}</option>
-            <option value="101">{t('Classic')}</option>
-          </select>
-        </label>
+        <Dropdown
+          type="select"
+          text={t('Expansion')}
+          choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
+          handleChange={handleExpansionChange}
+        />
         <span>Include neutrals:</span>
         <label htmlFor="filterNeutral">
           <select
