@@ -274,56 +274,6 @@ const Deckbuilder = ({ t, i18n }) => {
             <option value="Only">{t('Neutrals only')}</option>
           </select>
         </label>
-        <span>Cost:</span>
-        <label htmlFor="filterCost">
-          <select
-            name="cost"
-            onChange={(e) => {
-              setCostFilter(e.target.value);
-            }}
-          >
-            <option value="">{t('All')}</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8+</option>
-          </select>
-        </label>
-        <span>Rarity:</span>
-        <label htmlFor="filterRarity">
-          <select
-            name="rarity"
-            onChange={(e) => {
-              setRarityFilter(e.target.value);
-            }}
-          >
-            <option value="">{t('All')}</option>
-            <option value="1">{t('Bronze')}</option>
-            <option value="2">{t('Silver')}</option>
-            <option value="3">{t('Gold')}</option>
-            <option value="4">{t('Legendary')}</option>
-          </select>
-        </label>
-        <span>Type:</span>
-        <label htmlFor="filterType">
-          <select
-            name="type"
-            onChange={(e) => {
-              setTypeFilter(e.target.value);
-            }}
-          >
-            <option value="">{t('All')}</option>
-            <option value="1">{t('Follower')}</option>
-            <option value="2">{t('Amulet')}</option>
-            <option value="3">{t('Countdown Amulet')}</option>
-            <option value="4">{t('Spell')}</option>
-          </select>
-        </label>
       </div>
       <div style={{ margin: '15px 0 0 15px' }}>
         <div style={{ width: '70%', display: 'inline-block' }}>
