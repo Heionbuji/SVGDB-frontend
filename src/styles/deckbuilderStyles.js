@@ -9,7 +9,7 @@ export const Container = styled.div`
     filter: drop-shadow(0 0 7px cyan);
   }
   .cardhover img {
-    transition: filter .2s;
+    transition: filter .1s;
   }
   .cardhover:hover img {
     cursor: pointer;
@@ -19,7 +19,7 @@ export const Container = styled.div`
     filter: drop-shadow(0 0 7px cyan);
   }
   .loghover {
-    transition: filter .2s;
+    transition: filter .1s;
   }
   .loghover:hover {
     cursor: pointer;

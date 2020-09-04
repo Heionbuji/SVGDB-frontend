@@ -43,10 +43,18 @@ const Deckbuilder = ({ t, i18n }) => {
       const keys = Object.keys(allCards).filter((card) => {
         const id = allCards[card].id_.toString();
         let filter = id.substring(0, 1) !== '9' && id.substring(0, 1) !== '7';
-        filter = includeNeutrals
-          ? filter
-            && (id.substring(3, 4) === selectedClass || id.substring(3, 4) === filters.NEUTRAL)
-          : filter && id.substring(3, 4) === selectedClass;
+
+        if (includeNeutrals) {
+          if (includeNeutrals === 'Only') {
+            filter = filter && id.substring(3, 4) === filters.NEUTRAL;
+          } else {
+            filter = filter
+              && (id.substring(3, 4) === selectedClass || id.substring(3, 4) === filters.NEUTRAL);
+          }
+        } else {
+          filter = filter && filter && id.substring(3, 4) === selectedClass;
+        }
+
         // THESE NEED TO BE MULTI CHOICE
         filter = expansionFilter ? filter && id.substring(0, 3) === expansionFilter : filter;
         filter = typeFilter ? filter && id.substring(5, 6) === typeFilter : filter;
@@ -157,7 +165,8 @@ const Deckbuilder = ({ t, i18n }) => {
             }}
           >
             <option value="Yes">{t('Yes')}</option>
-            <option value="">{t('No')}</option>
+            <option value="">{t('Class cards only')}</option>
+            <option value="Only">{t('Neutrals only')}</option>
           </select>
         </label>
         <span>Cost:</span>
