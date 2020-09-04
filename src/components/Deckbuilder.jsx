@@ -51,6 +51,23 @@ const Deckbuilder = ({ t, i18n }) => {
     'Darkness Evolved': '102',
     Classic: '101',
   };
+  const cardTypes = {
+    Follower: '1',
+    Amulet: '2',
+    Spell: '4',
+  };
+  const allCardTypes = {
+    Follower: '1',
+    Amulet: '2',
+    AmuletCD: '3',
+    Spell: '4',
+  };
+  const rarities = {
+    Bronze: '1',
+    Silver: '2',
+    Gold: '3',
+    Legendary: '4',
+  };
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
       .then((res) => res.json())
@@ -75,14 +92,22 @@ const Deckbuilder = ({ t, i18n }) => {
           filter = filter && id.substring(3, 4) === selectedClass;
         }
 
-        // THESE NEED TO BE MULTI CHOICE
         filter = expansionFilter
           ? filter
           && expansionFilter.some((item) => id.substring(0, 3) === expansions[item])
           : filter;
-        filter = typeFilter ? filter && id.substring(5, 6) === typeFilter : filter;
-        filter = rarityFilter ? filter && id.substring(4, 5) === rarityFilter : filter;
-        filter = costFilter ? filter && allCards[id].pp_.toString() === costFilter : filter;
+        filter = typeFilter ? filter
+          && typeFilter.some((type) => (type === 'Amulet' ? id.substring(5, 6) === allCardTypes.Amulet
+            || id.substring(5, 6) === allCardTypes.AmuletCD
+            : id.substring(5, 6) === allCardTypes[type]))
+          : filter;
+        filter = rarityFilter ? filter
+          && rarityFilter.some((rarity) => id.substring(4, 5) === rarities[rarity])
+          : filter;
+        filter = costFilter
+          ? filter
+          && costFilter.some((cost) => (cost === '8+' ? allCards[id].pp_ >= 8 : allCards[id].pp_.toString() === cost))
+          : filter;
 
         return (filter);
       });
@@ -152,6 +177,51 @@ const Deckbuilder = ({ t, i18n }) => {
     }
   };
 
+  const handleCostChange = (cost) => {
+    if (!costFilter) {
+      setCostFilter([cost]);
+    } else {
+      const index = costFilter.indexOf(cost);
+      if (index !== -1) {
+        const temp = [...costFilter];
+        temp.splice(index, 1);
+        setCostFilter(temp.length === 0 ? null : temp);
+      } else {
+        setCostFilter([...costFilter, cost]);
+      }
+    }
+  };
+
+  const handleTypeChange = (type) => {
+    if (!typeFilter) {
+      setTypeFilter([type]);
+    } else {
+      const index = typeFilter.indexOf(type);
+      if (index !== -1) {
+        const temp = [...typeFilter];
+        temp.splice(index, 1);
+        setTypeFilter(temp.length === 0 ? null : temp);
+      } else {
+        setTypeFilter([...typeFilter, type]);
+      }
+    }
+  };
+
+  const handleRarityChange = (rarity) => {
+    if (!typeFilter) {
+      setRarityFilter([rarity]);
+    } else {
+      const index = rarityFilter.indexOf(rarity);
+      if (index !== -1) {
+        const temp = [...rarityFilter];
+        temp.splice(index, 1);
+        setRarityFilter(temp.length === 0 ? null : temp);
+      } else {
+        setRarityFilter([...rarityFilter, rarity]);
+      }
+    }
+  };
+
   return (
     <Container>
       <div style={{ backgroundColor: '#555' }}>
@@ -171,6 +241,25 @@ const Deckbuilder = ({ t, i18n }) => {
           text={t('Expansion')}
           choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
           handleChange={handleExpansionChange}
+          extended
+        />
+        <Dropdown
+          type="select"
+          text={t('Cost')}
+          choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
+          handleChange={handleCostChange}
+        />
+        <Dropdown
+          type="select"
+          text={t('Type')}
+          choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
+          handleChange={handleTypeChange}
+        />
+        <Dropdown
+          type="select"
+          text={t('Rarity')}
+          choices={Object.keys(rarities).map((type) => ({ title: type }))}
+          handleChange={handleRarityChange}
         />
         <span>Include neutrals:</span>
         <label htmlFor="filterNeutral">
