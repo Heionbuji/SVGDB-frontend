@@ -27,14 +27,14 @@ const DropdownContent = styled.ul`
 const DropdownItem = styled.li`
   list-style: none;
   padding: 10px 5px;
+  user-select: none;
   &:hover {
     background-color: ${(props) => (props.noHover ? 'auto' : '#333')};
     cursor: ${(props) => (props.noHover ? 'auto' : 'pointer')};
   }
-`;
-
-const FlexDiv = styled.div`
-  display: flex;
+  input:hover {
+    cursor: pointer;
+  }
 `;
 
 const propTypes = {
@@ -45,10 +45,11 @@ const propTypes = {
   })).isRequired,
   type: PropTypes.string.isRequired,
   handleChange: PropTypes.func,
+  extended: PropTypes.bool,
 };
 
 const Dropdown = ({
-  text, choices, type, handleChange,
+  text, choices, type, handleChange, extended,
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   return (
@@ -62,8 +63,8 @@ const Dropdown = ({
         <DropdownTitle>
           <div style={{ margin: 'auto' }}>{text}</div>
         </DropdownTitle>
-        {dropdownVisible && type === 'nav' && (
-          <DropdownContent>
+        {type === 'nav' && (
+          <DropdownContent Visible={dropdownVisible}>
             {choices.map((choice) => (
               <Link to={choice.linkTo} key={`link${choice.title}`}>
                 <DropdownItem>{choice.title}</DropdownItem>
@@ -72,21 +73,19 @@ const Dropdown = ({
           </DropdownContent>
         )}
         {type === 'select' && (
-        <DropdownContent Extended Visible={dropdownVisible}>
+        <DropdownContent Extended={extended} Visible={dropdownVisible}>
           {choices.map((choice) => (
-            <FlexDiv key={choice.title}>
-              <DropdownItem noHover>
-                <label htmlFor={choice.title} style={{ cursor: 'pointer' }}>
-                  <input
-                    type="checkbox"
-                    id={choice.title}
-                    value={choice.title}
-                    onChange={(e) => handleChange(e.target.value)}
-                  />
-                  {choice.title}
-                </label>
+            <label htmlFor={choice.title} key={choice.title}>
+              <DropdownItem>
+                <input
+                  type="checkbox"
+                  id={choice.title}
+                  value={choice.title}
+                  onChange={(e) => handleChange(e.target.value)}
+                />
+                {choice.title}
               </DropdownItem>
-            </FlexDiv>
+            </label>
           ))}
         </DropdownContent>
         )}
@@ -99,6 +98,7 @@ Dropdown.propTypes = propTypes;
 
 Dropdown.defaultProps = {
   handleChange: () => {},
+  extended: false,
 };
 
 export default Dropdown;
