@@ -18,7 +18,7 @@ const DropdownContent = styled.ul`
   margin-top: -1px;
   background-color: black;
   color: white;
-  display: block;
+  display: ${(props) => (props.Visible ? 'block' : 'none')};
   position: absolute;
   z-index: 3;
   width: ${(props) => (props.Extended ? '200px' : '100%')};
@@ -71,8 +71,8 @@ const Dropdown = ({
             ))}
           </DropdownContent>
         )}
-        {dropdownVisible && type === 'select' && (
-        <DropdownContent Extended>
+        {type === 'select' && (
+        <DropdownContent Extended Visible={dropdownVisible}>
           {choices.map((choice) => (
             <FlexDiv key={choice.title}>
               <DropdownItem noHover>
