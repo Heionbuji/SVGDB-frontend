@@ -28,9 +28,13 @@ const DropdownItem = styled.li`
   list-style: none;
   padding: 10px 5px;
   &:hover {
-    background-color: #333;
-    cursor: pointer;
+    background-color: ${(props) => (props.noHover ? 'auto' : '#333')};
+    cursor: ${(props) => (props.noHover ? 'auto' : 'pointer')};
   }
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
 `;
 
 const propTypes = {
@@ -39,9 +43,13 @@ const propTypes = {
     title: PropTypes.string,
     linkTo: PropTypes.string,
   })).isRequired,
+  type: PropTypes.string.isRequired,
+  handleChange: PropTypes.func,
 };
 
-const Dropdown = ({ text, choices }) => {
+const Dropdown = ({
+  text, choices, type, handleChange,
+}) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   return (
     <>
@@ -54,7 +62,7 @@ const Dropdown = ({ text, choices }) => {
         <DropdownTitle>
           <div style={{ margin: 'auto' }}>{text}</div>
         </DropdownTitle>
-        {dropdownVisible && (
+        {dropdownVisible && type === 'nav' && (
           <DropdownContent>
             {choices.map((choice) => (
               <Link to={choice.linkTo} key={`link${choice.title}`}>
@@ -63,11 +71,32 @@ const Dropdown = ({ text, choices }) => {
             ))}
           </DropdownContent>
         )}
+        {dropdownVisible && type === 'select' && (
+        <DropdownContent>
+          {choices.map((choice) => (
+            <FlexDiv>
+              <DropdownItem noHover>
+                <input
+                  type="checkbox"
+                  name={choice}
+                  value={choice.title}
+                  onChange={(e) => handleChange(e.target.value)}
+                />
+                {choice.title}
+              </DropdownItem>
+            </FlexDiv>
+          ))}
+        </DropdownContent>
+        )}
       </div>
     </>
   );
 };
 
 Dropdown.propTypes = propTypes;
+
+Dropdown.defaultProps = {
+  handleChange: () => {},
+};
 
 export default Dropdown;
