@@ -29,6 +29,8 @@ const Deckbuilder = ({ t, i18n }) => {
   const [currentDeck, setCurrentDeck] = useState({});
   const [tooltip, setTooltip] = useState(null);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
+  const DECK_MAX = 30;
+  const CARD_DUPE_MAX = 3;
   const filters = {
     NEUTRAL: '0',
   };
@@ -151,7 +153,7 @@ const Deckbuilder = ({ t, i18n }) => {
 
   const addToDeck = (card) => {
     if (currentDeck[card]) {
-      if (currentDeck[card] >= 3) { return; }
+      if (currentDeck[card] >= CARD_DUPE_MAX) { return; }
       const curr = { ...currentDeck };
       curr[card] += 1;
       setCurrentDeck(curr);
