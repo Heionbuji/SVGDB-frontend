@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import Deck from './Deck';
 import LazyLoadedImage from './LazyLoadedImage';
 import Dropdown from './Dropdown';
+import DeckHeader from './DeckHeader';
 import { Container, Tooltip, Divider } from '../styles/deckbuilderStyles';
 
 const propTypes = {
@@ -314,10 +315,11 @@ const Deckbuilder = ({ t, i18n }) => {
         </label>
       </div>
       <div style={{ margin: '15px 0 0 15px' }}>
-        <div style={{ width: '70%', display: 'inline-block', minHeight: '80vh' }}>
+        <div style={{ width: '80%', display: 'inline-block', minHeight: '80vh' }}>
           {shownCards && selectedClass && cardList}
         </div>
-        <div style={{ width: '20%', position: 'fixed', display: 'inline' }}>
+        <div style={{ width: '15%', position: 'fixed', display: 'inline', margin: 'auto' }}>
+          <DeckHeader deck={currentDeck} />
           <Deck
             deck={currentDeck}
             setDeck={handleCardRemoval}
