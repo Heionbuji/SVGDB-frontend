@@ -21,7 +21,7 @@ const Deck = ({ deck, setDeck, cards, setTooltip }) => {
   const updateTooltip = (e, id) => {
     const card = cards[id];
     setTooltip(
-      <Tooltip style={{ left: e.clientX + 150, top: e.clientY - 100 }}>
+      <Tooltip style={{ left: e.clientX + 150, top: e.clientY + window.scrollY - 100 }}>
         <b>{card.name_}</b>
         <span>{card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}</span>
         <span>Expansion: {card.expansion_}</span>
