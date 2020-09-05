@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState, useMemo } from 'react';
+import React, {
+  useEffect, useState, useMemo, useRef,
+} from 'react';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
@@ -29,7 +31,8 @@ const Deckbuilder = ({ t, i18n }) => {
   const [currentDeck, setCurrentDeck] = useState({});
   const [tooltip, setTooltip] = useState(null);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
-  const DECK_MAX = 30;
+  const currDeckCount = useRef(0);
+  const DECK_MAX = 40;
   const CARD_DUPE_MAX = 3;
   const filters = {
     NEUTRAL: '0',
@@ -152,6 +155,7 @@ const Deckbuilder = ({ t, i18n }) => {
   };
 
   const addToDeck = (card) => {
+    if (currDeckCount.current >= DECK_MAX) { return; }
     if (currentDeck[card]) {
       if (currentDeck[card] >= CARD_DUPE_MAX) { return; }
       const curr = { ...currentDeck };
@@ -162,6 +166,7 @@ const Deckbuilder = ({ t, i18n }) => {
       curr[card] = 1;
       setCurrentDeck(curr);
     }
+    currDeckCount.current += 1;
   };
 
   const renderImages = () => (
@@ -250,6 +255,11 @@ const Deckbuilder = ({ t, i18n }) => {
     }
   };
 
+  const handleCardRemoval = (deck) => {
+    currDeckCount.current -= 1;
+    setCurrentDeck(deck);
+  };
+
   return (
     <Container>
       <div style={{ backgroundColor: '#555' }}>
@@ -310,7 +320,7 @@ const Deckbuilder = ({ t, i18n }) => {
         <div style={{ width: '20%', position: 'fixed', display: 'inline' }}>
           <Deck
             deck={currentDeck}
-            setDeck={setCurrentDeck}
+            setDeck={handleCardRemoval}
             cards={allCards}
             setTooltip={setTooltip}
           />
