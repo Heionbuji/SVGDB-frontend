@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
@@ -164,6 +164,31 @@ const Deckbuilder = ({ t, i18n }) => {
     }
   };
 
+  const renderImages = () => (
+    shownCards && Object.keys(shownCards)
+      .map((key) => (
+        <span
+          style={{ pointerEvents: 'none' }}
+          key={`div${key}`}
+          onMouseEnter={(e) => updateTooltip(e, key)}
+          onMouseLeave={() => setTooltip(null)}
+          onClick={() => addToDeck(key)}
+          className="cardhover"
+        >
+          <LazyLoadedImage
+            key={`img${key}`}
+            src={`${thumbnailUrl}${key}.png`}
+            alt=""
+          />
+        </span>
+      ))
+  );
+
+  // Without currentDeck in the dependencies, the deck won't render properly.
+  // Not sure why, adding to the deck is now slow (50-90ms),
+  // but nothing's really moving when you do that so it's not noticeable.
+  const cardList = useMemo(() => renderImages(), [shownCards, currentDeck]);
+
   const handleExpansionChange = (expansion) => {
     if (!expansionFilter) {
       setExpansionFilter([expansion]);
@@ -279,23 +304,7 @@ const Deckbuilder = ({ t, i18n }) => {
       </div>
       <div style={{ margin: '15px 0 0 15px' }}>
         <div style={{ width: '70%', display: 'inline-block' }}>
-          {shownCards && selectedClass && Object.keys(shownCards)
-            .map((key) => (
-              <span
-                style={{ pointerEvents: 'none' }}
-                key={`div${key}`}
-                onMouseEnter={(e) => updateTooltip(e, key)}
-                onMouseLeave={() => setTooltip(null)}
-                onClick={() => addToDeck(key)}
-                className="cardhover"
-              >
-                <LazyLoadedImage
-                  key={`img${key}`}
-                  src={`${thumbnailUrl}${key}.png`}
-                  alt=""
-                />
-              </span>
-            ))}
+          {shownCards && selectedClass && cardList}
         </div>
         <div style={{ width: '20%', position: 'fixed', display: 'inline' }}>
           <Deck
