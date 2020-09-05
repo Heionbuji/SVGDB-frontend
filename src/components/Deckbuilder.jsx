@@ -280,7 +280,6 @@ const Deckbuilder = ({ t, i18n }) => {
       <div style={{ margin: '15px 0 0 15px' }}>
         <div style={{ width: '70%', display: 'inline-block' }}>
           {shownCards && selectedClass && Object.keys(shownCards)
-            .sort((a, b) => shownCards[a].pp_ > shownCards[b].pp_)
             .map((key) => (
               <span
                 style={{ pointerEvents: 'none' }}
