@@ -166,6 +166,7 @@ const Deckbuilder = ({ t, i18n }) => {
 
   const renderImages = () => (
     shownCards && Object.keys(shownCards)
+      .sort((a, b) => shownCards[a].pp_ > shownCards[b].pp_)
       .map((key) => (
         <span
           style={{ pointerEvents: 'none' }}
@@ -303,7 +304,7 @@ const Deckbuilder = ({ t, i18n }) => {
         </label>
       </div>
       <div style={{ margin: '15px 0 0 15px' }}>
-        <div style={{ width: '70%', display: 'inline-block' }}>
+        <div style={{ width: '70%', display: 'inline-block', minHeight: '80vh' }}>
           {shownCards && selectedClass && cardList}
         </div>
         <div style={{ width: '20%', position: 'fixed', display: 'inline' }}>
