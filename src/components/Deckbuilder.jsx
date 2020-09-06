@@ -132,6 +132,7 @@ const Deckbuilder = ({ t, i18n }) => {
 
   useEffect(() => { // reset deck whenever class is changed (maybe add confirmation later)
     setCurrentDeck({});
+    currDeckCount.current = 0;
   }, [selectedClass]);
 
   const updateTooltip = (e, id) => {
@@ -318,7 +319,7 @@ const Deckbuilder = ({ t, i18n }) => {
         <div style={{ width: '80%', display: 'inline-block', minHeight: '80vh' }}>
           {shownCards && selectedClass && cardList}
         </div>
-        <div style={{ width: '15%', position: 'fixed', display: 'inline', margin: 'auto' }}>
+        <div style={{ width: '15%', position: 'fixed', display: 'inline', marginLeft: '10px' }}>
           <DeckHeader deck={currentDeck} />
           <Deck
             deck={currentDeck}
