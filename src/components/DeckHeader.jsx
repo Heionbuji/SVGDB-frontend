@@ -21,15 +21,13 @@ const DeckHeader = ({ deck }) => {
     return (ret.substring(0, ret.length - 1));
   };
 
-  const openInPortal = () => {
-    const hash = computeDeckHash();
-    window.open(portalUrl + hash);
-  };
   return (
     <div style={{ backgroundColor: 'grey', minHeight: '100px' }}>
-      <button type="button" onClick={() => openInPortal()}>
-        Open in portal
-      </button>
+      <a target="_blank" href={portalUrl + computeDeckHash()} rel="noopener noreferrer">
+        <button type="button" onHover={() => computeDeckHash()}>
+          Open in portal
+        </button>
+      </a>
     </div>
   );
 };
