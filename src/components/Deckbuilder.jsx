@@ -352,7 +352,7 @@ const Deckbuilder = ({ t, i18n }) => {
           {shownCards && selectedClass && cardList}
         </div>
         <div style={{ width: '15%', position: 'fixed', display: 'inline', marginLeft: '10px' }}>
-          <DeckHeader deck={currentDeck} />
+          <DeckHeader deck={currentDeck} craft={selectedClass} />
           <Deck
             deck={currentDeck}
             setDeck={handleCardRemoval}
