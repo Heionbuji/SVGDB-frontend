@@ -28,5 +28,6 @@ module.exports = {
     'import/prefer-default-export': 0,
     'implicit-arrow-linebreak': 0,
     'react/jsx-one-expression-per-line': 0,
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
   },
 };
