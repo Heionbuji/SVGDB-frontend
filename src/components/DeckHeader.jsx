@@ -1,14 +1,14 @@
 /* eslint-disable no-restricted-syntax */
 import React from 'react';
 
-const DeckHeader = ({ deck }) => {
+const DeckHeader = ({ deck, craft }) => {
   const portalUrl = 'https://shadowverse-portal.com/deck/';
 
   const computeDeckHash = () => {
     // starts with something like 1.1., first one is mode (1 = unlimi, 3 = rot)
     // second one is class id
     const radix = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
-    let ret = '1.1.';
+    let ret = `1.${craft}.`;
     Object.keys(deck).forEach((key) => {
       let temp = '';
       let tempKey = key;
