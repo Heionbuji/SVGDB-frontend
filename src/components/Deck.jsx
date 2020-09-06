@@ -53,19 +53,12 @@ const Deck = ({ deck, setDeck, cards, setTooltip }) => {
   };
 
   return (
-    <div style={{ width: '20vw', color: 'white' }}>
+    <div style={{ height: '70vh', color: 'white', overflow: 'hidden auto' }}>
       {deck && (
         Object.keys(deck)
           .sort((a, b) => {
             if (cards[a].pp_ === cards[b].pp_) {
-              let iter = 1;
-              while (cards[a].name_.substring(0, iter) === cards[b].name_.substring(0, iter)) {
-                if (iter > cards[a].name_.length) { break; }
-                iter += 1;
-              }
-              return (
-                cards[a].name_.substring(iter - 1, iter) > cards[b].name_.substring(iter - 1, iter)
-              );
+              return (cards[a].id_ > cards[b].id_);
             }
             return (cards[a].pp_ > cards[b].pp_);
           })
