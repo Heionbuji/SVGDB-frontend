@@ -2,6 +2,8 @@
 import React from 'react';
 
 const DeckHeader = ({ deck }) => {
+  const portalUrl = 'https://shadowverse-portal.com/deck/';
+
   const computeDeckHash = () => {
     // starts with something like 1.1., first one is mode (1 = unlimi, 3 = rot)
     // second one is class id
@@ -21,7 +23,7 @@ const DeckHeader = ({ deck }) => {
 
   const openInPortal = () => {
     const hash = computeDeckHash();
-    console.log(hash);
+    window.open(portalUrl + hash);
   };
   return (
     <div style={{ backgroundColor: 'grey', minHeight: '100px' }}>
