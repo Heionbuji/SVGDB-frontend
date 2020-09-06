@@ -24,7 +24,7 @@ const DeckHeader = ({ deck }) => {
   return (
     <div style={{ backgroundColor: 'grey', minHeight: '100px' }}>
       <a target="_blank" href={portalUrl + computeDeckHash()} rel="noopener noreferrer">
-        <button type="button" onHover={() => computeDeckHash()}>
+        <button type="button">
           Open in portal
         </button>
       </a>

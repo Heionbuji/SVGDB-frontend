@@ -54,7 +54,7 @@ const Deck = ({ deck, setDeck, cards, setTooltip }) => {
 
   return (
     <div style={{ height: '70vh', color: 'white', overflow: 'hidden auto' }}>
-      {deck && (
+      {deck && cards && (
         Object.keys(deck)
           .sort((a, b) => {
             if (cards[a].pp_ === cards[b].pp_) {

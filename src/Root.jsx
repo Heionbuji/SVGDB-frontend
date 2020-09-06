@@ -34,6 +34,7 @@ const Root = () => {
           <Route exact path="/jcg/:format" component={Tournaments} />
           <Route exact path="/leaders" component={Leaders} />
           <Route exact path="/leaders/:leaderId" component={Leader} />
+          <Route exact path="/deckbuilder/:deckHash" component={Deckbuilder} />
           <Route exact path="/deckbuilder" component={Deckbuilder} />
           <Redirect to="/" />
         </Switch>

@@ -4,6 +4,7 @@
 import React, {
   useEffect, useState, useMemo, useRef,
 } from 'react';
+import { useParams } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
@@ -33,6 +34,7 @@ const Deckbuilder = ({ t, i18n }) => {
   const [tooltip, setTooltip] = useState(null);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
   const currDeckCount = useRef(0);
+  const deckHashRef = useRef(null);
   const DECK_MAX = 40;
   const CARD_DUPE_MAX = 3;
   const filters = {
@@ -74,6 +76,35 @@ const Deckbuilder = ({ t, i18n }) => {
     Gold: '3',
     Legendary: '4',
   };
+  const parseHash = () => {
+    if (!/\d\.\d\./.test(deckHashRef.current.substring(0, 4))) { return; }
+    const radix = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
+    const craft = deckHashRef.current.substring(2, 3);
+    const hashes = deckHashRef.current.substring(4).split('.');
+    const newDeck = {};
+    hashes.forEach((hash) => {
+      let cardId = 0;
+      // eslint-disable-next-line no-param-reassign
+      hash = hash.split('').reverse().join('');
+      for (let i = 0; i < hash.length; i++) {
+        cardId += radix.indexOf(hash.charAt(i)) * 64 ** i;
+      }
+      cardId = cardId.toString();
+      if (newDeck[cardId]) {
+        if (newDeck[cardId] >= CARD_DUPE_MAX) { return; }
+        newDeck[cardId] += 1;
+      } else {
+        newDeck[cardId] = 1;
+      }
+      currDeckCount.current += 1;
+    });
+    setCurrentDeck(newDeck);
+    setSelectedClass(craft);
+  };
+  deckHashRef.current = useParams().deckHash;
+  useEffect(() => {
+    if (deckHashRef.current) { parseHash(); }
+  }, [deckHashRef]);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
       .then((res) => res.json())
@@ -130,10 +161,11 @@ const Deckbuilder = ({ t, i18n }) => {
     includeNeutrals,
   ]);
 
-  useEffect(() => { // reset deck whenever class is changed (maybe add confirmation later)
+  const changeClass = (craft) => {
     setCurrentDeck({});
     currDeckCount.current = 0;
-  }, [selectedClass]);
+    setSelectedClass(craft);
+  };
 
   const updateTooltip = (e, id) => {
     const card = allCards[id];
@@ -267,14 +299,14 @@ const Deckbuilder = ({ t, i18n }) => {
       <div style={{ backgroundColor: '#555' }}>
         <span>Select class:</span>
         <span>
-          <button type="button" onClick={() => setSelectedClass('1')}>Forest</button>
-          <button type="button" onClick={() => setSelectedClass('2')}>Sword</button>
-          <button type="button" onClick={() => setSelectedClass('3')}>Rune</button>
-          <button type="button" onClick={() => setSelectedClass('4')}>Dragon</button>
-          <button type="button" onClick={() => setSelectedClass('5')}>Shadow</button>
-          <button type="button" onClick={() => setSelectedClass('6')}>Blood</button>
-          <button type="button" onClick={() => setSelectedClass('7')}>Haven</button>
-          <button type="button" onClick={() => setSelectedClass('8')}>Portal</button>
+          <button type="button" onClick={() => changeClass('1')}>Forest</button>
+          <button type="button" onClick={() => changeClass('2')}>Sword</button>
+          <button type="button" onClick={() => changeClass('3')}>Rune</button>
+          <button type="button" onClick={() => changeClass('4')}>Dragon</button>
+          <button type="button" onClick={() => changeClass('5')}>Shadow</button>
+          <button type="button" onClick={() => changeClass('6')}>Blood</button>
+          <button type="button" onClick={() => changeClass('7')}>Haven</button>
+          <button type="button" onClick={() => changeClass('8')}>Portal</button>
         </span>
         <Dropdown
           type="select"
