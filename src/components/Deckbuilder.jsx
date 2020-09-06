@@ -58,6 +58,7 @@ const Deckbuilder = ({ t, i18n }) => {
     'Rise of Bahamut': '103',
     'Darkness Evolved': '102',
     Classic: '101',
+    Basic: '100',
   };
   const cardTypes = {
     Follower: '1',
