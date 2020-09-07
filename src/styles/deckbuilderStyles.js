@@ -42,3 +42,17 @@ export const Divider = styled.div`
   margin: 5px 0;
   background: white;
 `;
+
+export const FilterContainer = styled.span`
+  display: inline-block;
+  height: 100%;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+`;
+
+export const TopBar = styled.div`
+  background-color: #555;
+  height: 25px;
+  display: flex;
+  justify-content: space-around;
+`;

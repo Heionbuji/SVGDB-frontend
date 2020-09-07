@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const DropdownTitle = styled.span`
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,13 +56,13 @@ const Dropdown = ({
   return (
     <>
       <div
-        style={{ position: 'relative', display: 'inline-block' }}
+        style={{ position: 'relative', display: 'inline-block', height: '100%' }}
         onMouseEnter={() => setDropdownVisible(true)}
         onMouseLeave={() => setDropdownVisible(false)}
         className="spaced"
       >
         <DropdownTitle>
-          <div style={{ margin: 'auto' }}>{text}</div>
+          <div style={{ margin: 'auto', height: '100%', padding: '0 10px' }}>{text}</div>
         </DropdownTitle>
         {type === 'nav' && (
           <DropdownContent Visible={dropdownVisible}>

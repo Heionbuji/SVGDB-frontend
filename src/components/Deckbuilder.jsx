@@ -12,7 +12,13 @@ import Deck from './Deck';
 import LazyLoadedImage from './LazyLoadedImage';
 import Dropdown from './Dropdown';
 import DeckHeader from './DeckHeader';
-import { Container, Tooltip, Divider } from '../styles/deckbuilderStyles';
+import {
+  Container,
+  Tooltip,
+  Divider,
+  FilterContainer,
+  TopBar,
+} from '../styles/deckbuilderStyles';
 
 const propTypes = {
   t: PropTypes.func.isRequired,
@@ -295,62 +301,85 @@ const Deckbuilder = ({ t, i18n }) => {
 
   return (
     <Container>
-      <div style={{ backgroundColor: '#555' }}>
-        <span>Select class:</span>
+      <TopBar>
         <span>
-          <button type="button" onClick={() => changeClass('1')}>Forest</button>
-          <button type="button" onClick={() => changeClass('2')}>Sword</button>
-          <button type="button" onClick={() => changeClass('3')}>Rune</button>
-          <button type="button" onClick={() => changeClass('4')}>Dragon</button>
-          <button type="button" onClick={() => changeClass('5')}>Shadow</button>
-          <button type="button" onClick={() => changeClass('6')}>Blood</button>
-          <button type="button" onClick={() => changeClass('7')}>Haven</button>
-          <button type="button" onClick={() => changeClass('8')}>Portal</button>
+          <span>Select class:</span>
+          <span>
+            <button type="button" onClick={() => changeClass('1')}>Forest</button>
+            <button type="button" onClick={() => changeClass('2')}>Sword</button>
+            <button type="button" onClick={() => changeClass('3')}>Rune</button>
+            <button type="button" onClick={() => changeClass('4')}>Dragon</button>
+            <button type="button" onClick={() => changeClass('5')}>Shadow</button>
+            <button type="button" onClick={() => changeClass('6')}>Blood</button>
+            <button type="button" onClick={() => changeClass('7')}>Haven</button>
+            <button type="button" onClick={() => changeClass('8')}>Portal</button>
+          </span>
         </span>
-        <Dropdown
-          type="select"
-          text={t('Expansion')}
-          choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
-          handleChange={handleExpansionChange}
-          extended
-        />
-        <Dropdown
-          type="select"
-          text={t('Cost')}
-          choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
-          handleChange={handleCostChange}
-        />
-        <Dropdown
-          type="select"
-          text={t('Type')}
-          choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
-          handleChange={handleTypeChange}
-        />
-        <Dropdown
-          type="select"
-          text={t('Rarity')}
-          choices={Object.keys(rarities).map((type) => ({ title: type }))}
-          handleChange={handleRarityChange}
-        />
-        <span>Include neutrals:</span>
-        <label htmlFor="filterNeutral">
-          <select
-            name="neutral"
-            onChange={(e) => {
-              setIncludeNeutrals(e.target.value);
-            }}
-          >
-            <option value="Yes">{t('Yes')}</option>
-            <option value="">{t('Class cards only')}</option>
-            <option value="Only">{t('Neutrals only')}</option>
-          </select>
-        </label>
-      </div>
+        <FilterContainer>
+          <input type="checkbox" />
+          <span>NOT</span>
+          <Dropdown
+            type="select"
+            text={t('Expansion')}
+            choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
+            handleChange={handleExpansionChange}
+            extended
+          />
+        </FilterContainer>
+        <FilterContainer>
+          <input type="checkbox" />
+          <span>NOT</span>
+          <Dropdown
+            type="select"
+            text={t('Cost')}
+            choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
+            handleChange={handleCostChange}
+          />
+        </FilterContainer>
+        <FilterContainer>
+          <input type="checkbox" />
+          <span>NOT</span>
+          <Dropdown
+            type="select"
+            text={t('Type')}
+            choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
+            handleChange={handleTypeChange}
+          />
+        </FilterContainer>
+        <FilterContainer>
+          <input type="checkbox" />
+          <span>NOT</span>
+          <Dropdown
+            type="select"
+            text={t('Rarity')}
+            choices={Object.keys(rarities).map((type) => ({ title: type }))}
+            handleChange={handleRarityChange}
+          />
+        </FilterContainer>
+        <span>
+          <span>Include neutrals:</span>
+          <label htmlFor="filterNeutral">
+            <select
+              name="neutral"
+              onChange={(e) => {
+                setIncludeNeutrals(e.target.value);
+              }}
+            >
+              <option value="Yes">{t('Yes')}</option>
+              <option value="">{t('Class cards only')}</option>
+              <option value="Only">{t('Neutrals only')}</option>
+            </select>
+          </label>
+        </span>
+      </TopBar>
       <div style={{ margin: '15px 0 0 15px' }}>
         <div style={{ width: '80%', display: 'inline-block', minHeight: '80vh' }}>
           {shownCards && selectedClass && cardList}
         </div>
-        <div style={{ width: '15%', position: 'fixed', display: 'inline', marginLeft: '10px' }}>
+        <div style={{
+          width: '15%', position: 'fixed', display: 'inline', marginLeft: '10px',
+        }}
+        >
           <DeckHeader
             deck={currentDeck}
             craft={selectedClass}
