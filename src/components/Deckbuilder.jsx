@@ -135,9 +135,9 @@ const Deckbuilder = ({ t, i18n }) => {
           filter = filter && id.substring(3, 4) === selectedClass;
         }
 
-        if (expansionFilter && expansionFilter.filter && !expansionFilter.reverse) {
+        if (expansionFilter && expansionFilter.filter.length > 0 && !expansionFilter.reverse) {
           filter = filter && expansionFilter.filter.some((item) => id.substring(0, 3) === expansions[item]);
-        } else if (expansionFilter && expansionFilter.filter && expansionFilter.reverse) {
+        } else if (expansionFilter && expansionFilter.filter.length > 0 && expansionFilter.reverse) {
           filter = filter && expansionFilter.filter.every((item) => id.substring(0, 3) !== expansions[item]);
         }
 
@@ -237,6 +237,7 @@ const Deckbuilder = ({ t, i18n }) => {
   const cardList = useMemo(() => renderImages(), [shownCards, currentDeck]);
 
   const handleExpansionChange = (expansion) => {
+    console.log(expansionFilter);
     if (!expansionFilter) {
       setExpansionFilter({ filter: [expansion], reverse: false });
     } else if (!expansionFilter.filter && expansionFilter.reverse) {
@@ -246,7 +247,7 @@ const Deckbuilder = ({ t, i18n }) => {
       if (index !== -1) {
         const temp = [...expansionFilter.filter];
         temp.splice(index, 1);
-        setExpansionFilter({ ...expansionFilter, filter: temp.length === 0 ? null : temp });
+        setExpansionFilter({ ...expansionFilter, filter: temp.length === 0 ? [] : temp });
       } else {
         setExpansionFilter({ ...expansionFilter, filter: [...expansionFilter.filter, expansion] });
       }
@@ -306,7 +307,7 @@ const Deckbuilder = ({ t, i18n }) => {
   return (
     <Container>
       <TopBar>
-        <span>
+        <span style={{ paddingTop: '10px' }}>
           <span>Select class:</span>
           <span>
             <button type="button" onClick={() => changeClass('1')}>Forest</button>
@@ -320,47 +321,74 @@ const Deckbuilder = ({ t, i18n }) => {
           </span>
         </span>
         <FilterContainer>
-          <input type="checkbox" onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked})} />
-          <span>NOT</span>
-          <Dropdown
-            type="select"
-            text={t('Expansion')}
-            choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
-            handleChange={handleExpansionChange}
-            extended
-          />
+          <span>
+            <input
+              type="checkbox"
+              onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked })}
+              className="ExpansionCheckbox"
+            />
+            <span>NOT</span>
+            <Dropdown
+              type="select"
+              text={t('Expansion')}
+              checkboxClass="ExpansionCheckbox"
+              choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
+              handleChange={handleExpansionChange}
+              extended
+            />
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setExpansionFilter(null);
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.ExpansionCheckbox').forEach((el) => { el.checked = false; });
+              // Not the best way to do this but it'll work at least for now
+            }}
+          >
+            Reset
+          </button>
         </FilterContainer>
         <FilterContainer>
-          <input type="checkbox" />
-          <span>NOT</span>
-          <Dropdown
-            type="select"
-            text={t('Cost')}
-            choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
-            handleChange={handleCostChange}
-          />
+          <span>
+            <input type="checkbox" />
+            <span>NOT</span>
+            <Dropdown
+              type="select"
+              text={t('Cost')}
+              choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
+              handleChange={handleCostChange}
+            />
+          </span>
+          <button type="button">Reset</button>
         </FilterContainer>
         <FilterContainer>
-          <input type="checkbox" />
-          <span>NOT</span>
-          <Dropdown
-            type="select"
-            text={t('Type')}
-            choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
-            handleChange={handleTypeChange}
-          />
+          <span>
+            <input type="checkbox" />
+            <span>NOT</span>
+            <Dropdown
+              type="select"
+              text={t('Type')}
+              choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
+              handleChange={handleTypeChange}
+            />
+          </span>
+          <button type="button">Reset</button>
         </FilterContainer>
         <FilterContainer>
-          <input type="checkbox" />
-          <span>NOT</span>
-          <Dropdown
-            type="select"
-            text={t('Rarity')}
-            choices={Object.keys(rarities).map((type) => ({ title: type }))}
-            handleChange={handleRarityChange}
-          />
+          <span>
+            <input type="checkbox" />
+            <span>NOT</span>
+            <Dropdown
+              type="select"
+              text={t('Rarity')}
+              choices={Object.keys(rarities).map((type) => ({ title: type }))}
+              handleChange={handleRarityChange}
+            />
+          </span>
+          <button type="button">Reset</button>
         </FilterContainer>
-        <span>
+        <span style={{ paddingTop: '10px' }}>
           <span>Include neutrals:</span>
           <label htmlFor="filterNeutral">
             <select

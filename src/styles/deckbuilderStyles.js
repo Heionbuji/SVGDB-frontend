@@ -44,7 +44,8 @@ export const Divider = styled.div`
 `;
 
 export const FilterContainer = styled.span`
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   border-left: 2px solid black;
   border-right: 2px solid black;
@@ -52,7 +53,7 @@ export const FilterContainer = styled.span`
 
 export const TopBar = styled.div`
   background-color: #555;
-  height: 25px;
+  height: 50px;
   display: flex;
   justify-content: space-around;
 `;

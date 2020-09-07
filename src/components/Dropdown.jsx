@@ -47,10 +47,11 @@ const propTypes = {
   type: PropTypes.string.isRequired,
   handleChange: PropTypes.func,
   extended: PropTypes.bool,
+  checkboxClass: PropTypes.string,
 };
 
 const Dropdown = ({
-  text, choices, type, handleChange, extended,
+  text, choices, type, handleChange, extended, checkboxClass
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   return (
@@ -83,6 +84,7 @@ const Dropdown = ({
                   id={choice.title}
                   value={choice.title}
                   onChange={(e) => handleChange(e.target.value)}
+                  className={checkboxClass}
                 />
                 {choice.title}
               </DropdownItem>
@@ -100,6 +102,7 @@ Dropdown.propTypes = propTypes;
 Dropdown.defaultProps = {
   handleChange: () => {},
   extended: false,
+  checkboxClass: null,
 };
 
 export default Dropdown;
