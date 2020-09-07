@@ -33,9 +33,8 @@ const Deckbuilder = ({ t, i18n }) => {
   const [currentDeck, setCurrentDeck] = useState({});
   const [tooltip, setTooltip] = useState(null);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
-  const currDeckCount = useRef(0);
+  const [currDeckCount, setCurrDeckCount] = useState(0);
   const deckHashRef = useRef(null);
-  const DECK_MAX = 40;
   const CARD_DUPE_MAX = 3;
   const filters = {
     NEUTRAL: '0',
@@ -97,7 +96,7 @@ const Deckbuilder = ({ t, i18n }) => {
       } else {
         newDeck[cardId] = 1;
       }
-      currDeckCount.current += 1;
+      setCurrDeckCount(currDeckCount + 1);
     });
     setCurrentDeck(newDeck);
     setSelectedClass(craft);
@@ -164,7 +163,7 @@ const Deckbuilder = ({ t, i18n }) => {
 
   const changeClass = (craft) => {
     setCurrentDeck({});
-    currDeckCount.current = 0;
+    setCurrDeckCount(0);
     setSelectedClass(craft);
   };
 
@@ -190,7 +189,6 @@ const Deckbuilder = ({ t, i18n }) => {
   };
 
   const addToDeck = (card) => {
-    if (currDeckCount.current >= DECK_MAX) { return; }
     if (currentDeck[card]) {
       if (currentDeck[card] >= CARD_DUPE_MAX) { return; }
       const curr = { ...currentDeck };
@@ -201,7 +199,7 @@ const Deckbuilder = ({ t, i18n }) => {
       curr[card] = 1;
       setCurrentDeck(curr);
     }
-    currDeckCount.current += 1;
+    setCurrDeckCount(currDeckCount + 1);
   };
 
   const renderImages = () => (
@@ -291,7 +289,7 @@ const Deckbuilder = ({ t, i18n }) => {
   };
 
   const handleCardRemoval = (deck) => {
-    currDeckCount.current -= 1;
+    setCurrDeckCount(currDeckCount - 1);
     setCurrentDeck(deck);
   };
 
@@ -353,7 +351,11 @@ const Deckbuilder = ({ t, i18n }) => {
           {shownCards && selectedClass && cardList}
         </div>
         <div style={{ width: '15%', position: 'fixed', display: 'inline', marginLeft: '10px' }}>
-          <DeckHeader deck={currentDeck} craft={selectedClass} />
+          <DeckHeader
+            deck={currentDeck}
+            craft={selectedClass}
+            deckCount={currDeckCount}
+          />
           <Deck
             deck={currentDeck}
             setDeck={handleCardRemoval}
