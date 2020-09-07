@@ -135,10 +135,12 @@ const Deckbuilder = ({ t, i18n }) => {
           filter = filter && id.substring(3, 4) === selectedClass;
         }
 
-        filter = expansionFilter
-          ? filter
-          && expansionFilter.some((item) => id.substring(0, 3) === expansions[item])
-          : filter;
+        if (expansionFilter && expansionFilter.filter && !expansionFilter.reverse) {
+          filter = filter && expansionFilter.filter.some((item) => id.substring(0, 3) === expansions[item]);
+        } else if (expansionFilter && expansionFilter.filter && expansionFilter.reverse) {
+          filter = filter && expansionFilter.filter.every((item) => id.substring(0, 3) !== expansions[item]);
+        }
+
         filter = typeFilter ? filter
           && typeFilter.some((type) => (type === 'Amulet' ? id.substring(5, 6) === allCardTypes.Amulet
             || id.substring(5, 6) === allCardTypes.AmuletCD
@@ -236,15 +238,17 @@ const Deckbuilder = ({ t, i18n }) => {
 
   const handleExpansionChange = (expansion) => {
     if (!expansionFilter) {
-      setExpansionFilter([expansion]);
+      setExpansionFilter({ filter: [expansion], reverse: false });
+    } else if (!expansionFilter.filter && expansionFilter.reverse) {
+      setExpansionFilter({ ...expansionFilter, filter: [expansion] });
     } else {
-      const index = expansionFilter.indexOf(expansion);
+      const index = expansionFilter.filter.indexOf(expansion);
       if (index !== -1) {
-        const temp = [...expansionFilter];
+        const temp = [...expansionFilter.filter];
         temp.splice(index, 1);
-        setExpansionFilter(temp.length === 0 ? null : temp);
+        setExpansionFilter({ ...expansionFilter, filter: temp.length === 0 ? null : temp });
       } else {
-        setExpansionFilter([...expansionFilter, expansion]);
+        setExpansionFilter({ ...expansionFilter, filter: [...expansionFilter.filter, expansion] });
       }
     }
   };
@@ -316,7 +320,7 @@ const Deckbuilder = ({ t, i18n }) => {
           </span>
         </span>
         <FilterContainer>
-          <input type="checkbox" />
+          <input type="checkbox" onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked})} />
           <span>NOT</span>
           <Dropdown
             type="select"
