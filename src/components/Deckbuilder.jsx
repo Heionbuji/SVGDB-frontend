@@ -197,7 +197,9 @@ const Deckbuilder = ({ t, i18n }) => {
     setTooltip(
       <Tooltip style={{ left: e.target.x + e.target.width + 10, top: e.target.y }}>
         <b>{card.name_}</b>
-        <span>{card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}</span>
+        <span>
+          {card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}
+        </span>
         <span>Expansion: {card.expansion_}</span>
         <span>Rotation: {card.rotation_.toString()}</span>
         <Divider />
