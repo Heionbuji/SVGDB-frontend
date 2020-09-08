@@ -141,18 +141,35 @@ const Deckbuilder = ({ t, i18n }) => {
           filter = filter && expansionFilter.filter.every((item) => id.substring(0, 3) !== expansions[item]);
         }
 
-        filter = typeFilter ? filter
-          && typeFilter.some((type) => (type === 'Amulet' ? id.substring(5, 6) === allCardTypes.Amulet
+        if (costFilter && costFilter.filter.length > 0 && !costFilter.reverse) {
+          filter = filter && costFilter.filter.some((cost) => (
+            cost === '8+' ? allCards[id].pp_ >= 8 : allCards[id].pp_.toString() === cost
+          ));
+        } else if (costFilter && costFilter.filter.length > 0 && costFilter.reverse) {
+          filter = filter && costFilter.filter.every((cost) => (
+            cost === '8+' ? allCards[id].pp_ < 8 : allCards[id].pp_.toString() !== cost
+          ));
+        }
+
+        if (typeFilter && typeFilter.filter.length > 0 && !typeFilter.reverse) {
+          filter = filter && typeFilter.filter.some((type) => (
+            (type === 'Amulet' ? id.substring(5, 6) === allCardTypes.Amulet
             || id.substring(5, 6) === allCardTypes.AmuletCD
-            : id.substring(5, 6) === allCardTypes[type]))
-          : filter;
-        filter = rarityFilter ? filter
-          && rarityFilter.some((rarity) => id.substring(4, 5) === rarities[rarity])
-          : filter;
-        filter = costFilter
-          ? filter
-          && costFilter.some((cost) => (cost === '8+' ? allCards[id].pp_ >= 8 : allCards[id].pp_.toString() === cost))
-          : filter;
+              : id.substring(5, 6) === allCardTypes[type])
+          ));
+        } else if (typeFilter && typeFilter.filter.length > 0 && typeFilter.reverse) {
+          filter = filter && typeFilter.filter.every((type) => (
+            (type === 'Amulet' ? id.substring(5, 6) !== allCardTypes.Amulet
+            && id.substring(5, 6) !== allCardTypes.AmuletCD
+              : id.substring(5, 6) !== allCardTypes[type])
+          ));
+        }
+
+        if (rarityFilter && rarityFilter.filter.length > 0 && !rarityFilter.reverse) {
+          filter = filter && rarityFilter.filter.some((rarity) => id.substring(4, 5) === rarities[rarity]);
+        } else if (rarityFilter && rarityFilter.filter.length > 0 && rarityFilter.reverse) {
+          filter = filter && rarityFilter.filter.every((rarity) => id.substring(4, 5) !== rarities[rarity]);
+        }
 
         return (filter);
       });
@@ -236,65 +253,41 @@ const Deckbuilder = ({ t, i18n }) => {
   // but nothing's really moving when you do that so it's not noticeable.
   const cardList = useMemo(() => renderImages(), [shownCards, currentDeck]);
 
-  const handleExpansionChange = (expansion) => {
-    console.log(expansionFilter);
-    if (!expansionFilter) {
-      setExpansionFilter({ filter: [expansion], reverse: false });
-    } else if (!expansionFilter.filter && expansionFilter.reverse) {
-      setExpansionFilter({ ...expansionFilter, filter: [expansion] });
-    } else {
-      const index = expansionFilter.filter.indexOf(expansion);
-      if (index !== -1) {
-        const temp = [...expansionFilter.filter];
-        temp.splice(index, 1);
-        setExpansionFilter({ ...expansionFilter, filter: temp.length === 0 ? [] : temp });
-      } else {
-        setExpansionFilter({ ...expansionFilter, filter: [...expansionFilter.filter, expansion] });
-      }
+  const handleFilterChange = (filterValue, type) => {
+    let setFilter;
+    let filter;
+    switch (type) {
+      case 'Expansion':
+        setFilter = setExpansionFilter;
+        filter = expansionFilter;
+        break;
+      case 'Cost':
+        setFilter = setCostFilter;
+        filter = costFilter;
+        break;
+      case 'Type':
+        setFilter = setTypeFilter;
+        filter = typeFilter;
+        break;
+      case 'Rarity':
+        setFilter = setRarityFilter;
+        filter = rarityFilter;
+        break;
+      default:
+        return;
     }
-  };
-
-  const handleCostChange = (cost) => {
-    if (!costFilter) {
-      setCostFilter([cost]);
+    if (!filter) {
+      setFilter({ filter: [filterValue], reverse: false });
+    } else if (!filter.filter && filter.reverse) {
+      setFilter({ ...filter, filter: [filterValue] });
     } else {
-      const index = costFilter.indexOf(cost);
+      const index = filter.filter.indexOf(filterValue);
       if (index !== -1) {
-        const temp = [...costFilter];
+        const temp = [...filter.filter];
         temp.splice(index, 1);
-        setCostFilter(temp.length === 0 ? null : temp);
+        setFilter({ ...filter, filter: temp.length === 0 ? [] : temp });
       } else {
-        setCostFilter([...costFilter, cost]);
-      }
-    }
-  };
-
-  const handleTypeChange = (type) => {
-    if (!typeFilter) {
-      setTypeFilter([type]);
-    } else {
-      const index = typeFilter.indexOf(type);
-      if (index !== -1) {
-        const temp = [...typeFilter];
-        temp.splice(index, 1);
-        setTypeFilter(temp.length === 0 ? null : temp);
-      } else {
-        setTypeFilter([...typeFilter, type]);
-      }
-    }
-  };
-
-  const handleRarityChange = (rarity) => {
-    if (!typeFilter) {
-      setRarityFilter([rarity]);
-    } else {
-      const index = rarityFilter.indexOf(rarity);
-      if (index !== -1) {
-        const temp = [...rarityFilter];
-        temp.splice(index, 1);
-        setRarityFilter(temp.length === 0 ? null : temp);
-      } else {
-        setRarityFilter([...rarityFilter, rarity]);
+        setFilter({ ...filter, filter: [...filter.filter, filterValue] });
       }
     }
   };
@@ -325,25 +318,24 @@ const Deckbuilder = ({ t, i18n }) => {
             <input
               type="checkbox"
               onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked })}
-              className="ExpansionCheckbox"
+              className="Expansion"
             />
             <span>NOT</span>
             <Dropdown
               type="select"
               text={t('Expansion')}
-              checkboxClass="ExpansionCheckbox"
+              checkboxClass="Expansion"
               choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
-              handleChange={handleExpansionChange}
+              handleChange={handleFilterChange}
               extended
             />
           </span>
           <button
             type="button"
             onClick={() => {
-              setExpansionFilter(null);
+              setExpansionFilter({ filter: [], reverse: false });
               // eslint-disable-next-line no-param-reassign
-              document.querySelectorAll('input.ExpansionCheckbox').forEach((el) => { el.checked = false; });
-              // Not the best way to do this but it'll work at least for now
+              document.querySelectorAll('input.Expansion').forEach((el) => { el.checked = false; });
             }}
           >
             Reset
@@ -351,42 +343,84 @@ const Deckbuilder = ({ t, i18n }) => {
         </FilterContainer>
         <FilterContainer>
           <span>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onChange={(e) => setCostFilter({ ...costFilter, reverse: e.target.checked })}
+              className="Cost"
+            />
             <span>NOT</span>
             <Dropdown
               type="select"
               text={t('Cost')}
+              checkboxClass="Cost"
               choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
-              handleChange={handleCostChange}
+              handleChange={handleFilterChange}
             />
           </span>
-          <button type="button">Reset</button>
+          <button
+            type="button"
+            onClick={() => {
+              setCostFilter({ filter: [], reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Cost').forEach((el) => { el.checked = false; });
+            }}
+          >
+            Reset
+          </button>
         </FilterContainer>
         <FilterContainer>
           <span>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onChange={(e) => setTypeFilter({ ...typeFilter, reverse: e.target.checked })}
+              className="Type"
+            />
             <span>NOT</span>
             <Dropdown
               type="select"
               text={t('Type')}
+              checkboxClass="Type"
               choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
-              handleChange={handleTypeChange}
+              handleChange={handleFilterChange}
             />
           </span>
-          <button type="button">Reset</button>
+          <button
+            type="button"
+            onClick={() => {
+              setTypeFilter({ filter: [], reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Type').forEach((el) => { el.checked = false; });
+            }}
+          >
+            Reset
+          </button>
         </FilterContainer>
         <FilterContainer>
           <span>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onChange={(e) => setRarityFilter({ ...rarityFilter, reverse: e.target.checked })}
+              className="Rarity"
+            />
             <span>NOT</span>
             <Dropdown
               type="select"
               text={t('Rarity')}
+              checkboxClass="Rarity"
               choices={Object.keys(rarities).map((type) => ({ title: type }))}
-              handleChange={handleRarityChange}
+              handleChange={handleFilterChange}
             />
           </span>
-          <button type="button">Reset</button>
+          <button
+            type="button"
+            onClick={() => {
+              setRarityFilter({ filter: [], reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Rarity').forEach((el) => { el.checked = false; });
+            }}
+          >
+            Reset
+          </button>
         </FilterContainer>
         <span style={{ paddingTop: '10px' }}>
           <span>Include neutrals:</span>

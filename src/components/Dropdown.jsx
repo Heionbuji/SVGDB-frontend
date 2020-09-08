@@ -83,7 +83,7 @@ const Dropdown = ({
                   type="checkbox"
                   id={choice.title}
                   value={choice.title}
-                  onChange={(e) => handleChange(e.target.value)}
+                  onChange={(e) => handleChange(e.target.value, checkboxClass)}
                   className={checkboxClass}
                 />
                 {choice.title}
