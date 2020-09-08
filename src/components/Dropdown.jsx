@@ -51,7 +51,7 @@ const propTypes = {
 };
 
 const Dropdown = ({
-  text, choices, type, handleChange, extended, checkboxClass
+  text, choices, type, handleChange, extended, checkboxClass,
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   return (

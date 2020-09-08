@@ -34,6 +34,7 @@ const Deckbuilder = ({ t, i18n }) => {
   const [rarityFilter, setRarityFilter] = useState(null);
   const [costFilter, setCostFilter] = useState(null);
   const [typeFilter, setTypeFilter] = useState(null);
+  const [searchFilter, setSearchFilter] = useState(null);
   const [allCards, setAllCards] = useState(null);
   const [shownCards, setShownCards] = useState(null);
   const [currentDeck, setCurrentDeck] = useState({});
@@ -171,6 +172,20 @@ const Deckbuilder = ({ t, i18n }) => {
           filter = filter && rarityFilter.filter.every((rarity) => id.substring(4, 5) !== rarities[rarity]);
         }
 
+        if (searchFilter && searchFilter.filter && !searchFilter.reverse) {
+          const search = searchFilter.filter.toLowerCase();
+          filter = filter
+            && (allCards[id].name_.toLowerCase().includes(search)
+            || allCards[id].baseEffect_.toLowerCase().includes(search)
+            || allCards[id].evoEffect_.toLowerCase().includes(search));
+        } else if (searchFilter && searchFilter.filter && searchFilter.reverse) {
+          const search = searchFilter.filter.toLowerCase();
+          filter = filter
+          && (!allCards[id].name_.toLowerCase().includes(search)
+          && !allCards[id].baseEffect_.toLowerCase().includes(search)
+          && !allCards[id].evoEffect_.toLowerCase().includes(search));
+        }
+
         return (filter);
       });
       keys.forEach((key) => { newShown[key] = allCards[key]; });
@@ -184,6 +199,7 @@ const Deckbuilder = ({ t, i18n }) => {
     typeFilter,
     rarityFilter,
     includeNeutrals,
+    searchFilter,
   ]);
 
   const changeClass = (craft) => {
@@ -315,6 +331,36 @@ const Deckbuilder = ({ t, i18n }) => {
             <button type="button" onClick={() => changeClass('8')}>Portal</button>
           </span>
         </span>
+        <FilterContainer>
+          <span>
+            <input
+              type="checkbox"
+              onChange={(e) => setSearchFilter({ ...searchFilter, reverse: e.target.checked })}
+              className="Search"
+            />
+            <span>NOT</span>
+            <input
+              type="text"
+              className="Search"
+              placeholder="Search card text"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setSearchFilter({ ...searchFilter, filter: e.target.value });
+                }
+              }}
+            />
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setSearchFilter({ filter: null, reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Search').forEach((el) => { el.value = ''; el.checked = false; });
+            }}
+          >
+            Reset
+          </button>
+        </FilterContainer>
         <FilterContainer>
           <span>
             <input
