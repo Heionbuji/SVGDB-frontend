@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const DropdownTitle = styled.span`
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,22 +47,23 @@ const propTypes = {
   type: PropTypes.string.isRequired,
   handleChange: PropTypes.func,
   extended: PropTypes.bool,
+  checkboxClass: PropTypes.string,
 };
 
 const Dropdown = ({
-  text, choices, type, handleChange, extended,
+  text, choices, type, handleChange, extended, checkboxClass,
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   return (
     <>
       <div
-        style={{ position: 'relative', display: 'inline-block' }}
+        style={{ position: 'relative', display: 'inline-block', height: '100%' }}
         onMouseEnter={() => setDropdownVisible(true)}
         onMouseLeave={() => setDropdownVisible(false)}
         className="spaced"
       >
         <DropdownTitle>
-          <div style={{ margin: 'auto' }}>{text}</div>
+          <div style={{ margin: 'auto', height: '100%', padding: '0 10px' }}>{text}</div>
         </DropdownTitle>
         {type === 'nav' && (
           <DropdownContent Visible={dropdownVisible}>
@@ -81,7 +83,8 @@ const Dropdown = ({
                   type="checkbox"
                   id={choice.title}
                   value={choice.title}
-                  onChange={(e) => handleChange(e.target.value)}
+                  onChange={(e) => handleChange(e.target.value, checkboxClass)}
+                  className={checkboxClass}
                 />
                 {choice.title}
               </DropdownItem>
@@ -99,6 +102,7 @@ Dropdown.propTypes = propTypes;
 Dropdown.defaultProps = {
   handleChange: () => {},
   extended: false,
+  checkboxClass: null,
 };
 
 export default Dropdown;

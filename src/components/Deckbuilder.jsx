@@ -12,7 +12,13 @@ import Deck from './Deck';
 import LazyLoadedImage from './LazyLoadedImage';
 import Dropdown from './Dropdown';
 import DeckHeader from './DeckHeader';
-import { Container, Tooltip, Divider } from '../styles/deckbuilderStyles';
+import {
+  Container,
+  Tooltip,
+  Divider,
+  FilterContainer,
+  TopBar,
+} from '../styles/deckbuilderStyles';
 
 const propTypes = {
   t: PropTypes.func.isRequired,
@@ -28,14 +34,14 @@ const Deckbuilder = ({ t, i18n }) => {
   const [rarityFilter, setRarityFilter] = useState(null);
   const [costFilter, setCostFilter] = useState(null);
   const [typeFilter, setTypeFilter] = useState(null);
+  const [searchFilter, setSearchFilter] = useState(null);
   const [allCards, setAllCards] = useState(null);
   const [shownCards, setShownCards] = useState(null);
   const [currentDeck, setCurrentDeck] = useState({});
   const [tooltip, setTooltip] = useState(null);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
-  const currDeckCount = useRef(0);
+  const [currDeckCount, setCurrDeckCount] = useState(0);
   const deckHashRef = useRef(null);
-  const DECK_MAX = 40;
   const CARD_DUPE_MAX = 3;
   const filters = {
     NEUTRAL: '0',
@@ -58,6 +64,7 @@ const Deckbuilder = ({ t, i18n }) => {
     'Rise of Bahamut': '103',
     'Darkness Evolved': '102',
     Classic: '101',
+    Basic: '100',
   };
   const cardTypes = {
     Follower: '1',
@@ -96,7 +103,7 @@ const Deckbuilder = ({ t, i18n }) => {
       } else {
         newDeck[cardId] = 1;
       }
-      currDeckCount.current += 1;
+      setCurrDeckCount(currDeckCount + 1);
     });
     setCurrentDeck(newDeck);
     setSelectedClass(craft);
@@ -129,22 +136,55 @@ const Deckbuilder = ({ t, i18n }) => {
           filter = filter && id.substring(3, 4) === selectedClass;
         }
 
-        filter = expansionFilter
-          ? filter
-          && expansionFilter.some((item) => id.substring(0, 3) === expansions[item])
-          : filter;
-        filter = typeFilter ? filter
-          && typeFilter.some((type) => (type === 'Amulet' ? id.substring(5, 6) === allCardTypes.Amulet
+        if (expansionFilter && expansionFilter.filter.length > 0 && !expansionFilter.reverse) {
+          filter = filter && expansionFilter.filter.some((item) => id.substring(0, 3) === expansions[item]);
+        } else if (expansionFilter && expansionFilter.filter.length > 0 && expansionFilter.reverse) {
+          filter = filter && expansionFilter.filter.every((item) => id.substring(0, 3) !== expansions[item]);
+        }
+
+        if (costFilter && costFilter.filter.length > 0 && !costFilter.reverse) {
+          filter = filter && costFilter.filter.some((cost) => (
+            cost === '8+' ? allCards[id].pp_ >= 8 : allCards[id].pp_.toString() === cost
+          ));
+        } else if (costFilter && costFilter.filter.length > 0 && costFilter.reverse) {
+          filter = filter && costFilter.filter.every((cost) => (
+            cost === '8+' ? allCards[id].pp_ < 8 : allCards[id].pp_.toString() !== cost
+          ));
+        }
+
+        if (typeFilter && typeFilter.filter.length > 0 && !typeFilter.reverse) {
+          filter = filter && typeFilter.filter.some((type) => (
+            (type === 'Amulet' ? id.substring(5, 6) === allCardTypes.Amulet
             || id.substring(5, 6) === allCardTypes.AmuletCD
-            : id.substring(5, 6) === allCardTypes[type]))
-          : filter;
-        filter = rarityFilter ? filter
-          && rarityFilter.some((rarity) => id.substring(4, 5) === rarities[rarity])
-          : filter;
-        filter = costFilter
-          ? filter
-          && costFilter.some((cost) => (cost === '8+' ? allCards[id].pp_ >= 8 : allCards[id].pp_.toString() === cost))
-          : filter;
+              : id.substring(5, 6) === allCardTypes[type])
+          ));
+        } else if (typeFilter && typeFilter.filter.length > 0 && typeFilter.reverse) {
+          filter = filter && typeFilter.filter.every((type) => (
+            (type === 'Amulet' ? id.substring(5, 6) !== allCardTypes.Amulet
+            && id.substring(5, 6) !== allCardTypes.AmuletCD
+              : id.substring(5, 6) !== allCardTypes[type])
+          ));
+        }
+
+        if (rarityFilter && rarityFilter.filter.length > 0 && !rarityFilter.reverse) {
+          filter = filter && rarityFilter.filter.some((rarity) => id.substring(4, 5) === rarities[rarity]);
+        } else if (rarityFilter && rarityFilter.filter.length > 0 && rarityFilter.reverse) {
+          filter = filter && rarityFilter.filter.every((rarity) => id.substring(4, 5) !== rarities[rarity]);
+        }
+
+        if (searchFilter && searchFilter.filter && !searchFilter.reverse) {
+          const search = searchFilter.filter.toLowerCase();
+          filter = filter
+            && (allCards[id].name_.toLowerCase().includes(search)
+            || allCards[id].baseEffect_.toLowerCase().includes(search)
+            || allCards[id].evoEffect_.toLowerCase().includes(search));
+        } else if (searchFilter && searchFilter.filter && searchFilter.reverse) {
+          const search = searchFilter.filter.toLowerCase();
+          filter = filter
+          && (!allCards[id].name_.toLowerCase().includes(search)
+          && !allCards[id].baseEffect_.toLowerCase().includes(search)
+          && !allCards[id].evoEffect_.toLowerCase().includes(search));
+        }
 
         return (filter);
       });
@@ -159,11 +199,12 @@ const Deckbuilder = ({ t, i18n }) => {
     typeFilter,
     rarityFilter,
     includeNeutrals,
+    searchFilter,
   ]);
 
   const changeClass = (craft) => {
     setCurrentDeck({});
-    currDeckCount.current = 0;
+    setCurrDeckCount(0);
     setSelectedClass(craft);
   };
 
@@ -172,7 +213,9 @@ const Deckbuilder = ({ t, i18n }) => {
     setTooltip(
       <Tooltip style={{ left: e.target.x + e.target.width + 10, top: e.target.y }}>
         <b>{card.name_}</b>
-        <span>{card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}</span>
+        <span>
+          {card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}
+        </span>
         <span>Expansion: {card.expansion_}</span>
         <span>Rotation: {card.rotation_.toString()}</span>
         <Divider />
@@ -189,7 +232,6 @@ const Deckbuilder = ({ t, i18n }) => {
   };
 
   const addToDeck = (card) => {
-    if (currDeckCount.current >= DECK_MAX) { return; }
     if (currentDeck[card]) {
       if (currentDeck[card] >= CARD_DUPE_MAX) { return; }
       const curr = { ...currentDeck };
@@ -200,7 +242,7 @@ const Deckbuilder = ({ t, i18n }) => {
       curr[card] = 1;
       setCurrentDeck(curr);
     }
-    currDeckCount.current += 1;
+    setCurrDeckCount(currDeckCount + 1);
   };
 
   const renderImages = () => (
@@ -229,130 +271,234 @@ const Deckbuilder = ({ t, i18n }) => {
   // but nothing's really moving when you do that so it's not noticeable.
   const cardList = useMemo(() => renderImages(), [shownCards, currentDeck]);
 
-  const handleExpansionChange = (expansion) => {
-    if (!expansionFilter) {
-      setExpansionFilter([expansion]);
-    } else {
-      const index = expansionFilter.indexOf(expansion);
-      if (index !== -1) {
-        const temp = [...expansionFilter];
-        temp.splice(index, 1);
-        setExpansionFilter(temp.length === 0 ? null : temp);
-      } else {
-        setExpansionFilter([...expansionFilter, expansion]);
-      }
+  const handleFilterChange = (filterValue, type) => {
+    let setFilter;
+    let filter;
+    switch (type) {
+      case 'Expansion':
+        setFilter = setExpansionFilter;
+        filter = expansionFilter;
+        break;
+      case 'Cost':
+        setFilter = setCostFilter;
+        filter = costFilter;
+        break;
+      case 'Type':
+        setFilter = setTypeFilter;
+        filter = typeFilter;
+        break;
+      case 'Rarity':
+        setFilter = setRarityFilter;
+        filter = rarityFilter;
+        break;
+      default:
+        return;
     }
-  };
-
-  const handleCostChange = (cost) => {
-    if (!costFilter) {
-      setCostFilter([cost]);
+    if (!filter) {
+      setFilter({ filter: [filterValue], reverse: false });
+    } else if (!filter.filter && filter.reverse) {
+      setFilter({ ...filter, filter: [filterValue] });
     } else {
-      const index = costFilter.indexOf(cost);
+      const index = filter.filter.indexOf(filterValue);
       if (index !== -1) {
-        const temp = [...costFilter];
+        const temp = [...filter.filter];
         temp.splice(index, 1);
-        setCostFilter(temp.length === 0 ? null : temp);
+        setFilter({ ...filter, filter: temp.length === 0 ? [] : temp });
       } else {
-        setCostFilter([...costFilter, cost]);
-      }
-    }
-  };
-
-  const handleTypeChange = (type) => {
-    if (!typeFilter) {
-      setTypeFilter([type]);
-    } else {
-      const index = typeFilter.indexOf(type);
-      if (index !== -1) {
-        const temp = [...typeFilter];
-        temp.splice(index, 1);
-        setTypeFilter(temp.length === 0 ? null : temp);
-      } else {
-        setTypeFilter([...typeFilter, type]);
-      }
-    }
-  };
-
-  const handleRarityChange = (rarity) => {
-    if (!typeFilter) {
-      setRarityFilter([rarity]);
-    } else {
-      const index = rarityFilter.indexOf(rarity);
-      if (index !== -1) {
-        const temp = [...rarityFilter];
-        temp.splice(index, 1);
-        setRarityFilter(temp.length === 0 ? null : temp);
-      } else {
-        setRarityFilter([...rarityFilter, rarity]);
+        setFilter({ ...filter, filter: [...filter.filter, filterValue] });
       }
     }
   };
 
   const handleCardRemoval = (deck) => {
-    currDeckCount.current -= 1;
+    setCurrDeckCount(currDeckCount - 1);
     setCurrentDeck(deck);
   };
 
   return (
     <Container>
-      <div style={{ backgroundColor: '#555' }}>
-        <span>Select class:</span>
-        <span>
-          <button type="button" onClick={() => changeClass('1')}>Forest</button>
-          <button type="button" onClick={() => changeClass('2')}>Sword</button>
-          <button type="button" onClick={() => changeClass('3')}>Rune</button>
-          <button type="button" onClick={() => changeClass('4')}>Dragon</button>
-          <button type="button" onClick={() => changeClass('5')}>Shadow</button>
-          <button type="button" onClick={() => changeClass('6')}>Blood</button>
-          <button type="button" onClick={() => changeClass('7')}>Haven</button>
-          <button type="button" onClick={() => changeClass('8')}>Portal</button>
+      <TopBar>
+        <span style={{ paddingTop: '10px' }}>
+          <span>Select class:</span>
+          <span>
+            <button type="button" onClick={() => changeClass('1')}>Forest</button>
+            <button type="button" onClick={() => changeClass('2')}>Sword</button>
+            <button type="button" onClick={() => changeClass('3')}>Rune</button>
+            <button type="button" onClick={() => changeClass('4')}>Dragon</button>
+            <button type="button" onClick={() => changeClass('5')}>Shadow</button>
+            <button type="button" onClick={() => changeClass('6')}>Blood</button>
+            <button type="button" onClick={() => changeClass('7')}>Haven</button>
+            <button type="button" onClick={() => changeClass('8')}>Portal</button>
+          </span>
         </span>
-        <Dropdown
-          type="select"
-          text={t('Expansion')}
-          choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
-          handleChange={handleExpansionChange}
-          extended
-        />
-        <Dropdown
-          type="select"
-          text={t('Cost')}
-          choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
-          handleChange={handleCostChange}
-        />
-        <Dropdown
-          type="select"
-          text={t('Type')}
-          choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
-          handleChange={handleTypeChange}
-        />
-        <Dropdown
-          type="select"
-          text={t('Rarity')}
-          choices={Object.keys(rarities).map((type) => ({ title: type }))}
-          handleChange={handleRarityChange}
-        />
-        <span>Include neutrals:</span>
-        <label htmlFor="filterNeutral">
-          <select
-            name="neutral"
-            onChange={(e) => {
-              setIncludeNeutrals(e.target.value);
+        <FilterContainer>
+          <span>
+            <input
+              type="checkbox"
+              onChange={(e) => setSearchFilter({ ...searchFilter, reverse: e.target.checked })}
+              className="Search"
+            />
+            <span>NOT</span>
+            <input
+              type="text"
+              className="Search"
+              placeholder="Search card text"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setSearchFilter({ ...searchFilter, filter: e.target.value });
+                }
+              }}
+            />
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setSearchFilter({ filter: null, reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Search').forEach((el) => { el.value = ''; el.checked = false; });
             }}
           >
-            <option value="Yes">{t('Yes')}</option>
-            <option value="">{t('Class cards only')}</option>
-            <option value="Only">{t('Neutrals only')}</option>
-          </select>
-        </label>
-      </div>
+            Reset
+          </button>
+        </FilterContainer>
+        <FilterContainer>
+          <span>
+            <input
+              type="checkbox"
+              onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked })}
+              className="Expansion"
+            />
+            <span>NOT</span>
+            <Dropdown
+              type="select"
+              text={t('Expansion')}
+              checkboxClass="Expansion"
+              choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
+              handleChange={handleFilterChange}
+              extended
+            />
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setExpansionFilter({ filter: [], reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Expansion').forEach((el) => { el.checked = false; });
+            }}
+          >
+            Reset
+          </button>
+        </FilterContainer>
+        <FilterContainer>
+          <span>
+            <input
+              type="checkbox"
+              onChange={(e) => setCostFilter({ ...costFilter, reverse: e.target.checked })}
+              className="Cost"
+            />
+            <span>NOT</span>
+            <Dropdown
+              type="select"
+              text={t('Cost')}
+              checkboxClass="Cost"
+              choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
+              handleChange={handleFilterChange}
+            />
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setCostFilter({ filter: [], reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Cost').forEach((el) => { el.checked = false; });
+            }}
+          >
+            Reset
+          </button>
+        </FilterContainer>
+        <FilterContainer>
+          <span>
+            <input
+              type="checkbox"
+              onChange={(e) => setTypeFilter({ ...typeFilter, reverse: e.target.checked })}
+              className="Type"
+            />
+            <span>NOT</span>
+            <Dropdown
+              type="select"
+              text={t('Type')}
+              checkboxClass="Type"
+              choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
+              handleChange={handleFilterChange}
+            />
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setTypeFilter({ filter: [], reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Type').forEach((el) => { el.checked = false; });
+            }}
+          >
+            Reset
+          </button>
+        </FilterContainer>
+        <FilterContainer>
+          <span>
+            <input
+              type="checkbox"
+              onChange={(e) => setRarityFilter({ ...rarityFilter, reverse: e.target.checked })}
+              className="Rarity"
+            />
+            <span>NOT</span>
+            <Dropdown
+              type="select"
+              text={t('Rarity')}
+              checkboxClass="Rarity"
+              choices={Object.keys(rarities).map((type) => ({ title: type }))}
+              handleChange={handleFilterChange}
+            />
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setRarityFilter({ filter: [], reverse: false });
+              // eslint-disable-next-line no-param-reassign
+              document.querySelectorAll('input.Rarity').forEach((el) => { el.checked = false; });
+            }}
+          >
+            Reset
+          </button>
+        </FilterContainer>
+        <span style={{ paddingTop: '10px' }}>
+          <span>Include neutrals:</span>
+          <label htmlFor="filterNeutral">
+            <select
+              name="neutral"
+              onChange={(e) => {
+                setIncludeNeutrals(e.target.value);
+              }}
+            >
+              <option value="Yes">{t('Yes')}</option>
+              <option value="">{t('Class cards only')}</option>
+              <option value="Only">{t('Neutrals only')}</option>
+            </select>
+          </label>
+        </span>
+      </TopBar>
       <div style={{ margin: '15px 0 0 15px' }}>
         <div style={{ width: '80%', display: 'inline-block', minHeight: '80vh' }}>
           {shownCards && selectedClass && cardList}
         </div>
-        <div style={{ width: '15%', position: 'fixed', display: 'inline', marginLeft: '10px' }}>
-          <DeckHeader deck={currentDeck} craft={selectedClass} />
+        <div style={{
+          width: '15%', position: 'fixed', display: 'inline', marginLeft: '10px',
+        }}
+        >
+          <DeckHeader
+            deck={currentDeck}
+            craft={selectedClass}
+            deckCount={currDeckCount}
+          />
           <Deck
             deck={currentDeck}
             setDeck={handleCardRemoval}
