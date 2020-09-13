@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import DropdownItem from './DropdownItem';
+
 const DropdownTitle = styled.span`
   height: 100%;
   display: flex;
@@ -25,10 +27,11 @@ const DropdownContent = styled.ul`
   width: ${(props) => (props.Extended ? '200px' : '100%')};
 `;
 
-const DropdownItem = styled.li`
+const StyledDropdownItem = styled.li`
   list-style: none;
   padding: 10px 5px;
   user-select: none;
+  background-color: ${(props) => (props.selected ? '#333' : 'auto')};
   &:hover {
     background-color: ${(props) => (props.noHover ? 'auto' : '#333')};
     cursor: ${(props) => (props.noHover ? 'auto' : 'pointer')};
@@ -54,6 +57,7 @@ const Dropdown = ({
   text, choices, type, handleChange, extended, checkboxClass,
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [selected, setSelected] = useState({});
   return (
     <>
       <div
@@ -69,7 +73,7 @@ const Dropdown = ({
           <DropdownContent Visible={dropdownVisible}>
             {choices.map((choice) => (
               <Link to={choice.linkTo} key={`link${choice.title}`}>
-                <DropdownItem>{choice.title}</DropdownItem>
+                <StyledDropdownItem>{choice.title}</StyledDropdownItem>
               </Link>
             ))}
           </DropdownContent>
@@ -77,18 +81,12 @@ const Dropdown = ({
         {type === 'select' && (
         <DropdownContent Extended={extended} Visible={dropdownVisible}>
           {choices.map((choice) => (
-            <label htmlFor={choice.title} key={choice.title}>
-              <DropdownItem>
-                <input
-                  type="checkbox"
-                  id={choice.title}
-                  value={choice.title}
-                  onChange={(e) => handleChange(e.target.value, checkboxClass)}
-                  className={checkboxClass}
-                />
-                {choice.title}
-              </DropdownItem>
-            </label>
+            <DropdownItem
+              choice={choice}
+              checkboxClass={checkboxClass}
+              handleChange={handleChange}
+              key={choice.title}
+            />
           ))}
         </DropdownContent>
         )}

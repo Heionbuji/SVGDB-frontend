@@ -47,7 +47,7 @@ const Deckbuilder = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
-    "Fortune's Hand": '117',
+    'Fortunes Hand': '117',
     'World Uprooted': '116',
     'Ultimate Colosseum': '115',
     'Verdant Conflict': '114',
