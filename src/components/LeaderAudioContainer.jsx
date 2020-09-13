@@ -12,6 +12,28 @@ const propTypes = {
 const LeaderAudioContainer = ({ leaderId, t }) => {
   // eslint-disable-next-line no-param-reassign
   if (leaderId.length === 2) leaderId += '001';
+  const audioNames = [
+    'Greeting',
+    'Thanks',
+    'Apology',
+    'Impressed',
+    'Shocked',
+    'Thinking',
+    'Taunt',
+    'Start',
+    'Start',
+    'Victory',
+    'Concede',
+    'Concede',
+    'Evolve',
+    'Evolve',
+    'Evolve',
+    'Hurt',
+    'Hurt',
+    'Hurt',
+    'Hurt',
+    'Hurt',
+  ];
   return leaderId && (
     <table style={{ margin: 'auto' }}>
       <thead>
@@ -22,106 +44,29 @@ const LeaderAudioContainer = ({ leaderId, t }) => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{t('Greeting')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_001_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_001_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Thanks')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_002_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_002_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Apology')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_003_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_003_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Impressed')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_004_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_004_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Shocked')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_005_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_005_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Thinking')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_006_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_006_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Taunt')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_007_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_007_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Start')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_008_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_008_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Start')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_009_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_009_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Victory')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_010_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_010_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Concede')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_011_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_011_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Concede')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_012_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_012_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Evolve')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_013_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_013_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Evolve')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_014_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_014_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Evolve')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_015_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_015_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Hurt')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_016_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_016_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Hurt')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_017_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_017_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Hurt')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_018_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_018_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Hurt')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_019_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_019_0.mp3`} /></td>
-        </tr>
-        <tr>
-          <td>{t('Hurt')}</td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_020_0.mp3`} /></td>
-          <td><audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_020_0.mp3`} /></td>
-        </tr>
+        {audioNames.map((name, index) => {
+          const id = (index + 1).toString().padStart(3, '0');
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <tr key={name + index}>
+              <td>{t(name)}</td>
+              <td>
+                <audio
+                  controls
+                  preload="none"
+                  src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_${id}_0.mp3`}
+                />
+              </td>
+              <td>
+                <audio
+                  controls
+                  preload="none"
+                  src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_${id}_0.mp3`}
+                />
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
