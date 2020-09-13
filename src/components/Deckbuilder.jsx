@@ -177,12 +177,14 @@ const Deckbuilder = ({ t, i18n }) => {
           filter = filter
             && (allCards[id].name_.toLowerCase().includes(search)
             || allCards[id].baseEffect_.toLowerCase().includes(search)
+            || allCards[id].trait_.toLowerCase().includes(search)
             || allCards[id].evoEffect_.toLowerCase().includes(search));
         } else if (searchFilter && searchFilter.filter && searchFilter.reverse) {
           const search = searchFilter.filter.toLowerCase();
           filter = filter
           && (!allCards[id].name_.toLowerCase().includes(search)
           && !allCards[id].baseEffect_.toLowerCase().includes(search)
+          && !allCards[id].trait_.toLowerCase().includes(search)
           && !allCards[id].evoEffect_.toLowerCase().includes(search));
         }
 
