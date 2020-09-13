@@ -1,9 +1,10 @@
+/* eslint-disable no-nested-ternary */
 import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 95vw;
   margin: auto;
-  background-color: black;
+  background-color: #222;
 
   .cardhover:hover img {
     filter: drop-shadow(0 0 7px cyan);
@@ -49,10 +50,16 @@ export const FilterContainer = styled.span`
   height: 100%;
   border-left: 2px solid black;
   border-right: 2px solid black;
+  background-color: ${(props) => (
+    props.active && !props.reverse
+      ? 'rgb(31, 90, 52)'
+      : props.active && props.reverse ? 'rgb(90, 30, 30)' : 'inherit'
+  )};
 `;
 
 export const TopBar = styled.div`
-  background-color: #555;
+  background-color: rgb(31, 52, 75);
+  color: #f2f2f2;
   height: 50px;
   display: flex;
   justify-content: space-around;

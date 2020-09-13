@@ -331,7 +331,10 @@ const Deckbuilder = ({ t, i18n }) => {
             <button type="button" onClick={() => changeClass('8')}>Portal</button>
           </span>
         </span>
-        <FilterContainer>
+        <FilterContainer
+          active={searchFilter && searchFilter.filter}
+          reverse={searchFilter && searchFilter.filter && searchFilter.reverse}
+        >
           <span>
             <input
               type="checkbox"
@@ -361,7 +364,10 @@ const Deckbuilder = ({ t, i18n }) => {
             Reset
           </button>
         </FilterContainer>
-        <FilterContainer>
+        <FilterContainer
+          active={expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0}
+          reverse={expansionFilter && expansionFilter.filter && expansionFilter.reverse}
+        >
           <span>
             <input
               type="checkbox"
@@ -389,7 +395,10 @@ const Deckbuilder = ({ t, i18n }) => {
             Reset
           </button>
         </FilterContainer>
-        <FilterContainer>
+        <FilterContainer
+          active={costFilter && costFilter.filter && costFilter.filter.length > 0}
+          reverse={costFilter && costFilter.filter && costFilter.reverse}
+        >
           <span>
             <input
               type="checkbox"
@@ -416,7 +425,10 @@ const Deckbuilder = ({ t, i18n }) => {
             Reset
           </button>
         </FilterContainer>
-        <FilterContainer>
+        <FilterContainer
+          active={typeFilter && typeFilter.filter && typeFilter.filter.length > 0}
+          reverse={typeFilter && typeFilter.filter && typeFilter.reverse}
+        >
           <span>
             <input
               type="checkbox"
@@ -443,7 +455,10 @@ const Deckbuilder = ({ t, i18n }) => {
             Reset
           </button>
         </FilterContainer>
-        <FilterContainer>
+        <FilterContainer
+          active={rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0}
+          reverse={rarityFilter && rarityFilter.filter && rarityFilter.reverse}
+        >
           <span>
             <input
               type="checkbox"
