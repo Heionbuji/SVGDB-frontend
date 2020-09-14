@@ -30,7 +30,7 @@ const DeckHeader = ({ deck, craft, deckCount }) => {
     return (ret.substring(0, ret.length - 1));
   };
 
-  return (
+  return craft && (
     <div style={{ backgroundColor: 'rgb(31, 52, 75)', minHeight: '10vh', display: 'flex' }}>
       <StyledPortrait
         src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/class_select_thumbnail_${craft}.png`}
