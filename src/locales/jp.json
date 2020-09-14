@@ -48,11 +48,12 @@
     "Concede": "リタイア",
     "Evolve": "進化",
     "Hurt": "殴られる時",
-    "View Leader Animations": "モーションを見る",
+    "View Leader Animations": "アニメーションを見る",
     "Close": "閉じる",
-    "Switch animation": "モーションを変える",
+    "Switch animation": "アニメーションを変える",
     "Artist": "イラストレーター",
-    "Switch expression": "表情を変える"
+    "Switch expression": "表情を変える",
+    "Deckbuilder": "デッキ作成"
   },
   "sleeves": {
     "Collab and Event": "コラボとイベント",
