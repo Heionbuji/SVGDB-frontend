@@ -1,4 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { StyledButton, StyledPortrait } from '../styles/deckbuilderStyles';
+
+const propTypes = {
+  deck: PropTypes.shape({}).isRequired,
+  craft: PropTypes.string,
+  deckCount: PropTypes.number.isRequired,
+};
 
 const DeckHeader = ({ deck, craft, deckCount }) => {
   const portalUrl = 'https://shadowverse-portal.com/deck/';
@@ -22,15 +31,42 @@ const DeckHeader = ({ deck, craft, deckCount }) => {
   };
 
   return (
-    <div style={{ backgroundColor: 'grey', minHeight: '100px' }}>
-      <a target="_blank" href={portalUrl + computeDeckHash()} rel="noopener noreferrer">
-        <button type="button" disabled={deckCount !== 40}>
-          Open in portal
-        </button>
-      </a>
-      <span style={{ color: deckCount > DECK_MAX ? '#cc1111' : 'white' }}>{deckCount}/{DECK_MAX}</span>
+    <div style={{ backgroundColor: 'rgb(31, 52, 75)', minHeight: '10vh', display: 'flex' }}>
+      <StyledPortrait
+        src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/class_select_thumbnail_${craft}.png`}
+        alt=""
+      />
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <span
+          style={
+            {
+              color: deckCount > DECK_MAX ? '#cc1111' : 'white',
+              fontFamily: 'helvetica inherit',
+              fontSize: '2rem',
+              paddingLeft: '4px',
+            }
+          }
+        >
+          {deckCount}/{DECK_MAX}
+        </span>
+        <a
+          target="_blank"
+          href={portalUrl + computeDeckHash()}
+          rel="noopener noreferrer"
+        >
+          <StyledButton type="button" disabled={deckCount !== 40}>
+            Open in portal
+          </StyledButton>
+        </a>
+      </div>
     </div>
   );
+};
+
+DeckHeader.propTypes = propTypes;
+
+DeckHeader.defaultProps = {
+  craft: null,
 };
 
 export default DeckHeader;
