@@ -1,6 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { StyledButton } from '../styles/deckbuilderStyles';
+
+const propTypes = {
+  deck: PropTypes.shape({}).isRequired,
+  craft: PropTypes.string,
+  deckCount: PropTypes.number.isRequired,
+};
 
 const DeckHeader = ({ deck, craft, deckCount }) => {
   const portalUrl = 'https://shadowverse-portal.com/deck/';
@@ -33,6 +40,12 @@ const DeckHeader = ({ deck, craft, deckCount }) => {
       <span style={{ color: deckCount > DECK_MAX ? '#cc1111' : 'white' }}>{deckCount}/{DECK_MAX}</span>
     </div>
   );
+};
+
+DeckHeader.propTypes = propTypes;
+
+DeckHeader.defaultProps = {
+  craft: null,
 };
 
 export default DeckHeader;
