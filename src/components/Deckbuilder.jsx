@@ -406,6 +406,7 @@ const Deckbuilder = ({ t, i18n }) => {
               choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
               handleChange={handleFilterChange}
               extended
+              bgColor="rgb(16, 37, 56)"
             />
           </span>
           <StyledButton
@@ -436,6 +437,7 @@ const Deckbuilder = ({ t, i18n }) => {
               checkboxClass="Cost"
               choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
               handleChange={handleFilterChange}
+              bgColor="rgb(16, 37, 56)"
             />
           </span>
           <StyledButton
@@ -466,6 +468,7 @@ const Deckbuilder = ({ t, i18n }) => {
               checkboxClass="Type"
               choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
               handleChange={handleFilterChange}
+              bgColor="rgb(16, 37, 56)"
             />
           </span>
           <StyledButton
@@ -496,6 +499,7 @@ const Deckbuilder = ({ t, i18n }) => {
               checkboxClass="Rarity"
               choices={Object.keys(rarities).map((type) => ({ title: type }))}
               handleChange={handleFilterChange}
+              bgColor="rgb(16, 37, 56)"
             />
           </span>
           <StyledButton

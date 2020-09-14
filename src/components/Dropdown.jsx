@@ -51,16 +51,26 @@ const propTypes = {
   handleChange: PropTypes.func,
   extended: PropTypes.bool,
   checkboxClass: PropTypes.string,
+  bgColor: PropTypes.string.isRequired,
 };
 
 const Dropdown = ({
-  text, choices, type, handleChange, extended, checkboxClass,
+  text, choices, type, handleChange, extended, checkboxClass, bgColor,
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   return (
     <>
       <div
-        style={{ position: 'relative', display: 'inline-block', height: '50%', lineHeight: 'normal' }}
+        style={
+          {
+            position: 'relative',
+            display: 'inline-block',
+            height: '50%',
+            lineHeight: 'normal',
+            backgroundColor: bgColor || 'inherit',
+            margin: '0 5px',
+          }
+        }
         onMouseEnter={() => setDropdownVisible(true)}
         onMouseLeave={() => setDropdownVisible(false)}
         className="spaced"
