@@ -137,29 +137,29 @@ const Deckbuilder = ({ t, i18n }) => {
           filter = filter && id.substring(3, 4) === selectedClass;
         }
 
-        if (expansionFilter && expansionFilter.filter.length > 0 && !expansionFilter.reverse) {
+        if (expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0 && !expansionFilter.reverse) {
           filter = filter && expansionFilter.filter.some((item) => id.substring(0, 3) === expansions[item]);
-        } else if (expansionFilter && expansionFilter.filter.length > 0 && expansionFilter.reverse) {
+        } else if (expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0 && expansionFilter.reverse) {
           filter = filter && expansionFilter.filter.every((item) => id.substring(0, 3) !== expansions[item]);
         }
 
-        if (costFilter && costFilter.filter.length > 0 && !costFilter.reverse) {
+        if (costFilter && costFilter.filter && costFilter.filter.length > 0 && !costFilter.reverse) {
           filter = filter && costFilter.filter.some((cost) => (
             cost === '8+' ? allCards[id].pp_ >= 8 : allCards[id].pp_.toString() === cost
           ));
-        } else if (costFilter && costFilter.filter.length > 0 && costFilter.reverse) {
+        } else if (costFilter && costFilter.filter && costFilter.filter.length > 0 && costFilter.reverse) {
           filter = filter && costFilter.filter.every((cost) => (
             cost === '8+' ? allCards[id].pp_ < 8 : allCards[id].pp_.toString() !== cost
           ));
         }
 
-        if (typeFilter && typeFilter.filter.length > 0 && !typeFilter.reverse) {
+        if (typeFilter && typeFilter.filter && typeFilter.filter.length > 0 && !typeFilter.reverse) {
           filter = filter && typeFilter.filter.some((type) => (
             (type === 'Amulet' ? id.substring(5, 6) === allCardTypes.Amulet
             || id.substring(5, 6) === allCardTypes.AmuletCD
               : id.substring(5, 6) === allCardTypes[type])
           ));
-        } else if (typeFilter && typeFilter.filter.length > 0 && typeFilter.reverse) {
+        } else if (typeFilter && typeFilter.filter && typeFilter.filter.length > 0 && typeFilter.reverse) {
           filter = filter && typeFilter.filter.every((type) => (
             (type === 'Amulet' ? id.substring(5, 6) !== allCardTypes.Amulet
             && id.substring(5, 6) !== allCardTypes.AmuletCD
@@ -167,9 +167,9 @@ const Deckbuilder = ({ t, i18n }) => {
           ));
         }
 
-        if (rarityFilter && rarityFilter.filter.length > 0 && !rarityFilter.reverse) {
+        if (rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0 && !rarityFilter.reverse) {
           filter = filter && rarityFilter.filter.some((rarity) => id.substring(4, 5) === rarities[rarity]);
-        } else if (rarityFilter && rarityFilter.filter.length > 0 && rarityFilter.reverse) {
+        } else if (rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0 && rarityFilter.reverse) {
           filter = filter && rarityFilter.filter.every((rarity) => id.substring(4, 5) !== rarities[rarity]);
         }
 
