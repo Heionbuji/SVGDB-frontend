@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { StyledButton } from '../styles/deckbuilderStyles';
+
 const DeckHeader = ({ deck, craft, deckCount }) => {
   const portalUrl = 'https://shadowverse-portal.com/deck/';
   const DECK_MAX = 40;
@@ -22,11 +24,11 @@ const DeckHeader = ({ deck, craft, deckCount }) => {
   };
 
   return (
-    <div style={{ backgroundColor: 'grey', minHeight: '100px' }}>
+    <div style={{ backgroundColor: 'rgb(31, 52, 75)', minHeight: '10vh' }}>
       <a target="_blank" href={portalUrl + computeDeckHash()} rel="noopener noreferrer">
-        <button type="button" disabled={deckCount !== 40}>
+        <StyledButton type="button" disabled={deckCount !== 40}>
           Open in portal
-        </button>
+        </StyledButton>
       </a>
       <span style={{ color: deckCount > DECK_MAX ? '#cc1111' : 'white' }}>{deckCount}/{DECK_MAX}</span>
     </div>

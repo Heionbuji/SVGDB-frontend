@@ -48,6 +48,7 @@ export const FilterContainer = styled.span`
   display: flex;
   flex-direction: column;
   height: 100%;
+  line-height: 5vh;
   border-left: 2px solid black;
   border-right: 2px solid black;
   background-color: ${(props) => (
@@ -60,7 +61,18 @@ export const FilterContainer = styled.span`
 export const TopBar = styled.div`
   background-color: rgb(31, 52, 75);
   color: #f2f2f2;
-  height: 50px;
+  height: 10vh;
+  margin-top: 20px;
   display: flex;
   justify-content: space-around;
+`;
+
+export const StyledButton = styled.button`
+  margin: 5px;
+  color: white;
+  padding: 5px;
+  border: 2px solid rgb(5, 10, 15);
+  background-color: rgb(16, 37, 56);
+  outline: none;
+  cursor: pointer;
 `;

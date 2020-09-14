@@ -27,7 +27,7 @@ const DropdownItem = ({ choice, checkboxClass, handleChange }) => {
   const checkbox = useRef(null);
 
   return (
-    <label htmlFor={choice.title} key={choice.title}>
+    <label htmlFor={choice.title}>
       <ItemDiv selected={checkbox.current && checkbox.current.checked}>
         <input
           type="checkbox"

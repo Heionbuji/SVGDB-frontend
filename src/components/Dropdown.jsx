@@ -57,11 +57,10 @@ const Dropdown = ({
   text, choices, type, handleChange, extended, checkboxClass,
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [selected, setSelected] = useState({});
   return (
     <>
       <div
-        style={{ position: 'relative', display: 'inline-block', height: '100%' }}
+        style={{ position: 'relative', display: 'inline-block', height: '50%', lineHeight: 'normal' }}
         onMouseEnter={() => setDropdownVisible(true)}
         onMouseLeave={() => setDropdownVisible(false)}
         className="spaced"

@@ -18,6 +18,7 @@ import {
   Divider,
   FilterContainer,
   TopBar,
+  StyledButton,
 } from '../styles/deckbuilderStyles';
 
 const propTypes = {
@@ -212,8 +213,9 @@ const Deckbuilder = ({ t, i18n }) => {
 
   const updateTooltip = (e, id) => {
     const card = allCards[id];
+    const element = e.target.getBoundingClientRect();
     setTooltip(
-      <Tooltip style={{ left: e.target.x + e.target.width + 10, top: e.target.y }}>
+      <Tooltip style={{ left: element.x + element.width + 10, top: element.y + window.scrollY }}>
         <b>{card.name_}</b>
         <span>
           {card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}
@@ -317,22 +319,37 @@ const Deckbuilder = ({ t, i18n }) => {
     setCurrentDeck(deck);
   };
 
+  const resetAllFilters = () => {
+    document.querySelectorAll(
+      'input.Search, input.Expansion, input.Cost, input.Type, input.Rarity',
+    ).forEach((el) => { el.value = ''; el.checked = false; }); // eslint-disable-line no-param-reassign
+    setSearchFilter({ filter: null, reverse: false });
+    setExpansionFilter({ filter: [], reverse: false });
+    setCostFilter({ filter: [], reverse: false });
+    setTypeFilter({ filter: [], reverse: false });
+    setRarityFilter({ filter: [], reverse: false });
+    setIncludeNeutrals('Yes');
+  };
+
   return (
     <Container>
-      <TopBar>
-        <span style={{ paddingTop: '10px' }}>
-          <span>Select class:</span>
-          <span>
-            <button type="button" onClick={() => changeClass('1')}>Forest</button>
-            <button type="button" onClick={() => changeClass('2')}>Sword</button>
-            <button type="button" onClick={() => changeClass('3')}>Rune</button>
-            <button type="button" onClick={() => changeClass('4')}>Dragon</button>
-            <button type="button" onClick={() => changeClass('5')}>Shadow</button>
-            <button type="button" onClick={() => changeClass('6')}>Blood</button>
-            <button type="button" onClick={() => changeClass('7')}>Haven</button>
-            <button type="button" onClick={() => changeClass('8')}>Portal</button>
-          </span>
+      <span style={{ paddingTop: '10px' }}>
+        <span>Select class:</span>
+        <span>
+          <button type="button" onClick={() => changeClass('1')}>Forest</button>
+          <button type="button" onClick={() => changeClass('2')}>Sword</button>
+          <button type="button" onClick={() => changeClass('3')}>Rune</button>
+          <button type="button" onClick={() => changeClass('4')}>Dragon</button>
+          <button type="button" onClick={() => changeClass('5')}>Shadow</button>
+          <button type="button" onClick={() => changeClass('6')}>Blood</button>
+          <button type="button" onClick={() => changeClass('7')}>Haven</button>
+          <button type="button" onClick={() => changeClass('8')}>Portal</button>
         </span>
+      </span>
+      <TopBar>
+        <StyledButton type="button" onClick={resetAllFilters}>
+          Reset all filters
+        </StyledButton>
         <FilterContainer
           active={searchFilter && searchFilter.filter}
           reverse={searchFilter && searchFilter.filter && searchFilter.reverse}
@@ -353,9 +370,10 @@ const Deckbuilder = ({ t, i18n }) => {
                   setSearchFilter({ ...searchFilter, filter: e.target.value });
                 }
               }}
+              style={{ margin: '5px' }}
             />
           </span>
-          <button
+          <StyledButton
             type="button"
             onClick={() => {
               setSearchFilter({ filter: null, reverse: false });
@@ -364,7 +382,7 @@ const Deckbuilder = ({ t, i18n }) => {
             }}
           >
             Reset
-          </button>
+          </StyledButton>
         </FilterContainer>
         <FilterContainer
           active={expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0}
@@ -386,7 +404,7 @@ const Deckbuilder = ({ t, i18n }) => {
               extended
             />
           </span>
-          <button
+          <StyledButton
             type="button"
             onClick={() => {
               setExpansionFilter({ filter: [], reverse: false });
@@ -395,7 +413,7 @@ const Deckbuilder = ({ t, i18n }) => {
             }}
           >
             Reset
-          </button>
+          </StyledButton>
         </FilterContainer>
         <FilterContainer
           active={costFilter && costFilter.filter && costFilter.filter.length > 0}
@@ -416,7 +434,7 @@ const Deckbuilder = ({ t, i18n }) => {
               handleChange={handleFilterChange}
             />
           </span>
-          <button
+          <StyledButton
             type="button"
             onClick={() => {
               setCostFilter({ filter: [], reverse: false });
@@ -425,7 +443,7 @@ const Deckbuilder = ({ t, i18n }) => {
             }}
           >
             Reset
-          </button>
+          </StyledButton>
         </FilterContainer>
         <FilterContainer
           active={typeFilter && typeFilter.filter && typeFilter.filter.length > 0}
@@ -446,7 +464,7 @@ const Deckbuilder = ({ t, i18n }) => {
               handleChange={handleFilterChange}
             />
           </span>
-          <button
+          <StyledButton
             type="button"
             onClick={() => {
               setTypeFilter({ filter: [], reverse: false });
@@ -455,7 +473,7 @@ const Deckbuilder = ({ t, i18n }) => {
             }}
           >
             Reset
-          </button>
+          </StyledButton>
         </FilterContainer>
         <FilterContainer
           active={rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0}
@@ -476,7 +494,7 @@ const Deckbuilder = ({ t, i18n }) => {
               handleChange={handleFilterChange}
             />
           </span>
-          <button
+          <StyledButton
             type="button"
             onClick={() => {
               setRarityFilter({ filter: [], reverse: false });
@@ -485,9 +503,9 @@ const Deckbuilder = ({ t, i18n }) => {
             }}
           >
             Reset
-          </button>
+          </StyledButton>
         </FilterContainer>
-        <span style={{ paddingTop: '10px' }}>
+        <span style={{ lineHeight: '10vh' }}>
           <span>Include neutrals:</span>
           <label htmlFor="filterNeutral">
             <select
@@ -495,6 +513,7 @@ const Deckbuilder = ({ t, i18n }) => {
               onChange={(e) => {
                 setIncludeNeutrals(e.target.value);
               }}
+              value={includeNeutrals}
             >
               <option value="Yes">{t('Yes')}</option>
               <option value="">{t('Class cards only')}</option>
@@ -503,12 +522,15 @@ const Deckbuilder = ({ t, i18n }) => {
           </label>
         </span>
       </TopBar>
-      <div style={{ margin: '15px 0 0 15px' }}>
-        <div style={{ width: '80%', display: 'inline-block', minHeight: '80vh' }}>
+      <div style={{ margin: '15px 0 0 15px', height: '88vh', display: 'flex' }}>
+        <div style={{
+          width: '80%', display: 'inline-block', height: '88vh', overflow: 'auto',
+        }}
+        >
           {shownCards && selectedClass && cardList}
         </div>
         <div style={{
-          width: '15%', position: 'fixed', display: 'inline', marginLeft: '10px',
+          width: '15%', marginLeft: '10px',
         }}
         >
           <DeckHeader
