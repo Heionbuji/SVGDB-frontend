@@ -31,6 +31,7 @@ export const Tooltip = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
+  white-space: pre-wrap;
   background-color: rgba(15, 20, 25, 0.98);
   padding: 5px;
   color: #ddd;

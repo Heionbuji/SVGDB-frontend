@@ -174,19 +174,23 @@ const Deckbuilder = ({ t, i18n }) => {
         }
 
         if (searchFilter && searchFilter.filter && !searchFilter.reverse) {
-          const search = searchFilter.filter.toLowerCase();
+          const words = searchFilter.filter.toLowerCase().split(' ');
           filter = filter
-            && (allCards[id].name_.toLowerCase().includes(search)
-            || allCards[id].baseEffect_.toLowerCase().includes(search)
-            || allCards[id].trait_.toLowerCase().includes(search)
-            || allCards[id].evoEffect_.toLowerCase().includes(search));
+            && words.every((word) => (
+              (allCards[id].name_.toLowerCase().includes(word)
+              || allCards[id].baseEffect_.toLowerCase().includes(word)
+              || allCards[id].trait_.toLowerCase().includes(word)
+              || allCards[id].evoEffect_.toLowerCase().includes(word))
+            ));
         } else if (searchFilter && searchFilter.filter && searchFilter.reverse) {
-          const search = searchFilter.filter.toLowerCase();
+          const words = searchFilter.filter.toLowerCase().split(' ');
           filter = filter
-          && (!allCards[id].name_.toLowerCase().includes(search)
-          && !allCards[id].baseEffect_.toLowerCase().includes(search)
-          && !allCards[id].trait_.toLowerCase().includes(search)
-          && !allCards[id].evoEffect_.toLowerCase().includes(search));
+          && !words.some((word) => (
+            (allCards[id].name_.toLowerCase().includes(word)
+            || allCards[id].baseEffect_.toLowerCase().includes(word)
+            || allCards[id].trait_.toLowerCase().includes(word)
+            || allCards[id].evoEffect_.toLowerCase().includes(word))
+          ));
         }
 
         return (filter);
