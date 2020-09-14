@@ -6,6 +6,8 @@ export const Container = styled.div`
   margin: auto;
   background-color: #222;
 
+  color: #f1f1f1;
+
   .cardhover:hover img {
     filter: drop-shadow(0 0 7px cyan);
   }
@@ -75,5 +77,11 @@ export const StyledButton = styled.button`
   border: 2px solid rgb(5, 10, 15);
   background-color: rgb(16, 37, 56);
   outline: none;
+  cursor: pointer;
+`;
+
+export const StyledPortrait = styled.img`
+  margin: 5px;
+  max-width: 100px;
   cursor: pointer;
 `;

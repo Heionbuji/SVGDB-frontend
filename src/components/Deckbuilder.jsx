@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-underscore-dangle */
@@ -19,6 +20,7 @@ import {
   FilterContainer,
   TopBar,
   StyledButton,
+  StyledPortrait,
 } from '../styles/deckbuilderStyles';
 
 const propTypes = {
@@ -84,6 +86,16 @@ const Deckbuilder = ({ t, i18n }) => {
     Gold: '3',
     Legendary: '4',
   };
+  const crafts = [
+    'Forestcraft',
+    'Swordcraft',
+    'Runecraft',
+    'Dragoncraft',
+    'Shadowcraft',
+    'Bloodcraft',
+    'Havencraft',
+    'Portalcraft',
+  ];
   const parseHash = () => {
     if (!/\d\.\d\./.test(deckHashRef.current.substring(0, 4))) { return; }
     const radix = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
@@ -109,7 +121,26 @@ const Deckbuilder = ({ t, i18n }) => {
     setCurrentDeck(newDeck);
     setSelectedClass(craft);
   };
+
+  const parseQuotedString = (input) => {
+    const words = [];
+    let startIndex = 0;
+    let next = input.indexOf('"', startIndex);
+    while (next >= 0) {
+      if (startIndex > 0) {
+        words.push(input.substring(startIndex, next));
+      }
+      startIndex = next + 1;
+      next = input.indexOf('"', startIndex);
+    }
+    input.split(' ').forEach((splitInput) => {
+      if (!words.some((word) => word.includes(splitInput.replace('"', '')))) { words.push(splitInput); }
+    });
+    return words;
+  };
+
   deckHashRef.current = useParams().deckHash;
+
   useEffect(() => {
     if (deckHashRef.current) { parseHash(); }
   }, [deckHashRef]);
@@ -174,7 +205,10 @@ const Deckbuilder = ({ t, i18n }) => {
         }
 
         if (searchFilter && searchFilter.filter && !searchFilter.reverse) {
-          const words = searchFilter.filter.toLowerCase().split(' ');
+          const hasQuotedString = searchFilter.filter.split('"').length >= 2;
+          const words = hasQuotedString
+            ? parseQuotedString(searchFilter.filter)
+            : searchFilter.filter.toLowerCase().split(' ');
           filter = filter
             && words.every((word) => (
               (allCards[id].name_.toLowerCase().includes(word)
@@ -337,19 +371,16 @@ const Deckbuilder = ({ t, i18n }) => {
 
   return (
     <Container>
-      <span style={{ paddingTop: '10px' }}>
-        <span>Select class:</span>
-        <span>
-          <button type="button" onClick={() => changeClass('1')}>Forest</button>
-          <button type="button" onClick={() => changeClass('2')}>Sword</button>
-          <button type="button" onClick={() => changeClass('3')}>Rune</button>
-          <button type="button" onClick={() => changeClass('4')}>Dragon</button>
-          <button type="button" onClick={() => changeClass('5')}>Shadow</button>
-          <button type="button" onClick={() => changeClass('6')}>Blood</button>
-          <button type="button" onClick={() => changeClass('7')}>Haven</button>
-          <button type="button" onClick={() => changeClass('8')}>Portal</button>
-        </span>
-      </span>
+      <div style={{ textAlign: 'center', fontSize: '1.5rem', paddingTop: '10px' }}>Select a class</div>
+      <div style={{ paddingTop: '10px', textAlign: 'center' }}>
+        {crafts.map((craft, index) => (
+          <StyledPortrait
+            src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/class_select_thumbnail_${index + 1}.png`}
+            onClick={() => changeClass(index + 1)}
+            alt={craft}
+          />
+        ))}
+      </div>
       <TopBar>
         <StyledButton type="button" onClick={resetAllFilters}>
           Reset all filters
