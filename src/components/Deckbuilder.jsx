@@ -289,7 +289,16 @@ const Deckbuilder = ({ t, i18n }) => {
 
   const renderImages = () => (
     shownCards && Object.keys(shownCards)
-      .sort((a, b) => shownCards[a].pp_ > shownCards[b].pp_)
+      .sort((a, b) => {
+        if (shownCards[a].pp_ !== shownCards[b].pp_) {
+          return shownCards[a].pp_ > shownCards[b].pp_;
+        }
+        if (shownCards[a].type_ !== shownCards[b].type_) {
+          if (shownCards[a].type_ === 'Follower') { return -1; }
+          if (shownCards[a].type_ === 'Spell' && shownCards[b].type_ !== 'Follower') { return -1; }
+        }
+        return 1;
+      })
       .map((key) => (
         <span
           style={{ pointerEvents: 'none' }}
