@@ -170,9 +170,9 @@ const Deckbuilder = ({ t, i18n }) => {
         }
 
         if (expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0 && !expansionFilter.reverse) {
-          filter = filter && expansionFilter.filter.some((item) => id.substring(0, 3) === expansions[item]);
+          filter = filter && expansionFilter.filter.some((item) => id.substring(0, 3) === expansions[t(item)]);
         } else if (expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0 && expansionFilter.reverse) {
-          filter = filter && expansionFilter.filter.every((item) => id.substring(0, 3) !== expansions[item]);
+          filter = filter && expansionFilter.filter.every((item) => id.substring(0, 3) !== expansions[t(item)]);
         }
 
         if (costFilter && costFilter.filter && costFilter.filter.length > 0 && !costFilter.reverse) {
@@ -187,22 +187,22 @@ const Deckbuilder = ({ t, i18n }) => {
 
         if (typeFilter && typeFilter.filter && typeFilter.filter.length > 0 && !typeFilter.reverse) {
           filter = filter && typeFilter.filter.some((type) => (
-            (type === 'Amulet' ? id.substring(5, 6) === allCardTypes.Amulet
+            (type === t('Amulet') ? id.substring(5, 6) === allCardTypes.Amulet
             || id.substring(5, 6) === allCardTypes.AmuletCD
-              : id.substring(5, 6) === allCardTypes[type])
+              : id.substring(5, 6) === allCardTypes[t(type)])
           ));
         } else if (typeFilter && typeFilter.filter && typeFilter.filter.length > 0 && typeFilter.reverse) {
           filter = filter && typeFilter.filter.every((type) => (
-            (type === 'Amulet' ? id.substring(5, 6) !== allCardTypes.Amulet
+            (type === t('Amulet') ? id.substring(5, 6) !== allCardTypes.Amulet
             && id.substring(5, 6) !== allCardTypes.AmuletCD
-              : id.substring(5, 6) !== allCardTypes[type])
+              : id.substring(5, 6) !== allCardTypes[t(type)])
           ));
         }
 
         if (rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0 && !rarityFilter.reverse) {
-          filter = filter && rarityFilter.filter.some((rarity) => id.substring(4, 5) === rarities[rarity]);
+          filter = filter && rarityFilter.filter.some((rarity) => id.substring(4, 5) === rarities[t(rarity)]);
         } else if (rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0 && rarityFilter.reverse) {
-          filter = filter && rarityFilter.filter.every((rarity) => id.substring(4, 5) !== rarities[rarity]);
+          filter = filter && rarityFilter.filter.every((rarity) => id.substring(4, 5) !== rarities[t(rarity)]);
         }
 
         if (searchFilter && searchFilter.filter && !searchFilter.reverse) {
@@ -277,14 +277,14 @@ const Deckbuilder = ({ t, i18n }) => {
         <span>
           {card.craft_} {card.pp_}pp {card.rarity_} {card.type_} {card.trait_ !== '-' ? `(${card.trait_})` : ''}
         </span>
-        <span>Expansion: {card.expansion_}</span>
-        <span>Rotation: {card.rotation_.toString()}</span>
+        <span>{t('set')}: {card.expansion_}</span>
+        <span>{t('rotation')}: {card.rotation_.toString()}</span>
         <Divider />
-        <span>Base:</span>
+        <span>{t('base')}:</span>
         <span style={{ paddingLeft: '10px' }}>{card.baseEffect_}</span>
-        {card.type_ === 'Follower' && (
+        {card.type_ === t('Follower') && (
           <>
-            <span>Evo:</span>
+            <span>{t('Evo')}:</span>
             <span style={{ paddingLeft: '10px' }}>{card.evoEffect_}</span>
           </>
         )}
@@ -399,7 +399,7 @@ const Deckbuilder = ({ t, i18n }) => {
 
   return (
     <Container>
-      <div style={{ textAlign: 'center', fontSize: '1.5rem', paddingTop: '10px' }}>Select a class</div>
+      <div style={{ textAlign: 'center', fontSize: '1.5rem', paddingTop: '10px' }}>{t('Select a class')}</div>
       <div style={{ paddingTop: '10px', textAlign: 'center' }}>
         {crafts.map((craft, index) => (
           <StyledPortrait
@@ -427,7 +427,7 @@ const Deckbuilder = ({ t, i18n }) => {
             <input
               type="text"
               className="Search"
-              placeholder="Search card text"
+              placeholder={t('Search card text')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   setSearchFilter({ ...searchFilter, filter: e.target.value });
@@ -484,7 +484,7 @@ const Deckbuilder = ({ t, i18n }) => {
               type="select"
               text={t('Expansion')}
               checkboxClass="Expansion"
-              choices={Object.keys(expansions).map((exp) => ({ title: exp }))}
+              choices={Object.keys(expansions).map((exp) => ({ title: t(exp) }))}
               handleChange={handleFilterChange}
               extended
               bgColor="rgb(16, 37, 56)"
@@ -547,7 +547,7 @@ const Deckbuilder = ({ t, i18n }) => {
               type="select"
               text={t('Type')}
               checkboxClass="Type"
-              choices={Object.keys(cardTypes).map((type) => ({ title: type }))}
+              choices={Object.keys(cardTypes).map((type) => ({ title: t(type) }))}
               handleChange={handleFilterChange}
               bgColor="rgb(16, 37, 56)"
             />
@@ -578,7 +578,7 @@ const Deckbuilder = ({ t, i18n }) => {
               type="select"
               text={t('Rarity')}
               checkboxClass="Rarity"
-              choices={Object.keys(rarities).map((type) => ({ title: type }))}
+              choices={Object.keys(rarities).map((type) => ({ title: t(type) }))}
               handleChange={handleFilterChange}
               bgColor="rgb(16, 37, 56)"
             />
@@ -595,7 +595,7 @@ const Deckbuilder = ({ t, i18n }) => {
           </StyledButton>
         </FilterContainer>
         <span style={{ lineHeight: '10vh' }}>
-          <span>Include neutrals:</span>
+          <span>{t('Include neutrals')}:</span>
           <label htmlFor="filterNeutral">
             <select
               name="neutral"
