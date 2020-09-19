@@ -21,6 +21,7 @@ import {
   TopBar,
   StyledButton,
   StyledPortrait,
+  InfoBubble,
 } from '../styles/deckbuilderStyles';
 
 const propTypes = {
@@ -434,6 +435,28 @@ const Deckbuilder = ({ t, i18n }) => {
               }}
               style={{ margin: '5px' }}
             />
+            <InfoBubble
+              onMouseEnter={(e) => {
+                const element = e.target.getBoundingClientRect();
+                setTooltip(
+                  <Tooltip style={{ left: element.x + element.width + 10, top: element.y + window.scrollY }}>
+                    <span>You can search for exact matches by wrapping the text in quotes.</span>
+                    <span>
+                      Example: If you want to search only for things that deal 4 damage,
+                      you can search &quot;deal 4 damage&quot;.
+                      If you want everything that deals some damage, you can search deal damage.
+                    </span>
+                    <span>
+                      Tokens are also included in the search. For example, searching for storm will
+                      also return everything that summons a ghost.
+                    </span>
+                  </Tooltip>,
+                );
+              }}
+              onMouseLeave={() => setTooltip(null)}
+            >
+              ?
+            </InfoBubble>
           </span>
           <StyledButton
             type="button"

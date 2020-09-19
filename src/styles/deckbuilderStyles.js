@@ -85,3 +85,12 @@ export const StyledPortrait = styled.img`
   max-width: 100px;
   cursor: pointer;
 `;
+
+export const InfoBubble = styled.span`
+  margin: 3px;
+  padding: 5px 14px;
+  background-color: rgb(16, 37, 56);
+  border-radius: 50%;
+  user-select: none;
+  font-weight: bold;
+`;
