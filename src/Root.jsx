@@ -15,6 +15,7 @@ import Tournaments from './components/Tournaments';
 import Leaders from './components/Leaders';
 import Leader from './components/Leader';
 import Deckbuilder from './components/Deckbuilder';
+import test from './components/test';
 
 const Root = () => {
   const { i18n } = useTranslation();
@@ -36,6 +37,7 @@ const Root = () => {
           <Route exact path="/leaders/:leaderId" component={Leader} />
           <Route exact path="/deckbuilder/:deckHash" component={Deckbuilder} />
           <Route exact path="/deckbuilder" component={Deckbuilder} />
+          <Route exact path="/test" component={test} />
           <Redirect to="/" />
         </Switch>
       </Router>
