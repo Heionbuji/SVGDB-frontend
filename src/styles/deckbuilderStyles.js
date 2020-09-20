@@ -59,6 +59,9 @@ export const FilterContainer = styled.span`
       ? 'rgb(31, 90, 52)'
       : props.active && props.reverse ? 'rgb(90, 30, 30)' : 'inherit'
   )};
+  @media screen and (max-aspect-ratio: 4/3) {
+    line-height: normal;
+  }
 `;
 
 export const TopBar = styled.div`
