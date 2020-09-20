@@ -33,6 +33,7 @@
     "effectSpecial": "Effect/Special",
     "art": "Art",
     "hideAltArt": "Hide Alt Art",
-    "showAltArt": "Show Alt Art"
+    "showAltArt": "Show Alt Art",
+    "deckbuilder": "Deckbuilder"
   }
 }

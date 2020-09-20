@@ -114,7 +114,8 @@
     "ブロンズレア": "Bronze",
     "シルバーレア": "Silver",
     "ゴールドレア": "Gold",
-    "レジェンド": "Legendary"
+    "レジェンド": "Legendary",
+    "deckbuilder": "デッキ作成"
   },
   "sleeves": {
     "Collab and Event": "コラボとイベント",
