@@ -14,7 +14,7 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>SVGDB</Link>
         <FlagsContainer />
       </h1>
-      <span className="spaced"><Link to="/leaders">{t('deckbuilder')}</Link></span>
+      <span className="spaced"><Link to="/deckbuilder">{t('deckbuilder')}</Link></span>
       <span className="spaced"><Link to="/leaders">{t('leaders')}</Link></span>
       <span className="spaced"><Link to="/sleeves">{t('sleeves')}</Link></span>
       <Dropdown
