@@ -86,7 +86,8 @@ export const StyledButton = styled.button`
 export const StyledPortrait = styled.img`
   margin: 5px;
   max-width: 100px;
-  cursor: pointer;
+  max-height: 100px;
+  cursor: ${(props) => (props.noPointer ? 'inherit' : 'pointer')};
 `;
 
 export const InfoBubble = styled.span`

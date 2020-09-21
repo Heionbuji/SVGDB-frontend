@@ -35,6 +35,7 @@ const DeckHeader = ({ deck, craft, deckCount }) => {
       <StyledPortrait
         src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/class_select_thumbnail_${craft}.png`}
         alt=""
+        noPointer
       />
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <span
@@ -58,6 +59,14 @@ const DeckHeader = ({ deck, craft, deckCount }) => {
             Open in portal
           </StyledButton>
         </a>
+        <span style={{ display: 'flex' }}>
+          <StyledButton>
+            Save deck
+          </StyledButton>
+          <StyledButton>
+            Load deck
+          </StyledButton>
+        </span>
       </div>
     </div>
   );
