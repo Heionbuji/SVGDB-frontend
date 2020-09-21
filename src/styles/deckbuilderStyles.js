@@ -98,3 +98,34 @@ export const InfoBubble = styled.span`
   user-select: none;
   font-weight: bold;
 `;
+
+export const ForegroundDiv = styled.div`
+  position: relative;
+  background-color: #222;
+  z-index: 100;
+  width: 20vw;
+  margin: auto;
+  top: 35vh;
+  padding: 30px;
+`;
+
+export const StyledTextInput = styled.input`
+  height: 1.5rem;
+  font-size: 1.3rem;
+`;
+
+export const ActionButtonContainer = styled.div`
+  margin-top: 10px;
+  left: 90%;
+`;
+
+export const ActionButton = styled.button`
+  margin: 5px 5px 0 0;
+  color: white;
+  padding: 10px;
+  border: 2px solid rgb(5, 10, 15);
+  background-color: rgb(16, 37, 56);
+  outline: none;
+  cursor: pointer;
+  font-size: 1rem;
+`;
