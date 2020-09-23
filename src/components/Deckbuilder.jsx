@@ -51,6 +51,7 @@ const Deckbuilder = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Storm Over Rivayle': '118',
     'Fortunes Hand': '117',
     'World Uprooted': '116',
     'Ultimate Colosseum': '115',
