@@ -409,6 +409,7 @@ const Deckbuilder = ({ t, i18n }) => {
             src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/class_select_thumbnail_${index + 1}.png`}
             onClick={() => changeClass((index + 1).toString())}
             alt={craft}
+            key={craft}
           />
         ))}
       </div>
