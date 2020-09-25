@@ -332,6 +332,8 @@ const Deckbuilder = ({ t, i18n }) => {
             key={`img${key}`}
             src={`${thumbnailUrl}${key}.png`}
             alt=""
+            width={199}
+            height={259}
           />
         </span>
       ))

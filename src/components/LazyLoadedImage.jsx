@@ -5,17 +5,21 @@ import styled from 'styled-components';
 const propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
+  height: PropTypes.number,
+  width: PropTypes.number,
 };
 
 const Image = styled.img`
-  width: 199px;
-  height: 259px;
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
   pointer-events: auto;
 `;
 
 const placeHolder = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=';
 
-const LazyLoadedImage = ({ src, alt }) => {
+const LazyLoadedImage = ({
+  src, alt, height = 95, width = 128,
+}) => {
   const [imageSrc, setImageSrc] = useState(placeHolder);
   const [imageRef, setImageRef] = useState();
 
@@ -54,9 +58,14 @@ const LazyLoadedImage = ({ src, alt }) => {
     };
   }, [imageRef, imageSrc, src]);
 
-  return <Image ref={setImageRef} src={imageSrc} alt={alt} />;
+  return <Image ref={setImageRef} src={imageSrc} alt={alt} height={height} width={width} />;
 };
 
 LazyLoadedImage.propTypes = propTypes;
+
+LazyLoadedImage.defaultProps = {
+  width: 95,
+  height: 128,
+};
 
 export default LazyLoadedImage;
