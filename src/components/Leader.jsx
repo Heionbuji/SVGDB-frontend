@@ -33,31 +33,49 @@ const Leader = ({ t }) => {
   return leaderId && (
     <StyledContentDiv>
       <StyledCardImageContainer>
-        <a
-          target="_blank"
-          href={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_${zoom}.png`}
-          rel="noopener noreferrer"
-        >
-          <img
-            src={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_${zoom}.png`}
-            alt=""
-            style={{ maxWidth: '512px' }}
-          />
-        </a>
-        <a
-          target="_blank"
-          href={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base_${win}.png`}
-          rel="noopener noreferrer"
-        >
-          <img
-            src={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base_${win}.png`}
-            alt=""
-            style={{ maxWidth: '512px' }}
-          />
-        </a>
+        {leaderId.substring(0, 2) !== '50' ? (
+          <>
+            <a
+              target="_blank"
+              href={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_${zoom}.png`}
+              rel="noopener noreferrer"
+            >
+              <img
+                src={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_${zoom}.png`}
+                alt=""
+                style={{ maxWidth: '512px' }}
+              />
+            </a>
+            <a
+              target="_blank"
+              href={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base_${win}.png`}
+              rel="noopener noreferrer"
+            >
+              <img
+                src={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base_${win}.png`}
+                alt=""
+                style={{ maxWidth: '512px' }}
+              />
+            </a>
+          </>
+        )
+          : (
+            <a
+              target="_blank"
+              href={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base.png`}
+              rel="noopener noreferrer"
+            >
+              <img
+                src={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base.png`}
+                alt=""
+                style={{ maxWidth: '512px' }}
+              />
+            </a>
+          )}
+
       </StyledCardImageContainer>
       <StyledButton
-        style={{ marginTop: '20px' }}
+        style={{ marginTop: '20px', display: leaderId.substring(0, 2) === '50' && 'none' }}
         onClick={() => (zoom === 'profile' ? setZoom('base') : setZoom('profile'))}
       >
         {t('Toggle Zoom')}
@@ -69,7 +87,7 @@ const Leader = ({ t }) => {
         {t('View Leader Animations')}
       </StyledButton>
       <StyledButton
-        style={{ marginTop: '20px' }}
+        style={{ marginTop: '20px', display: leaderId.substring(0, 2) === '50' && 'none' }}
         onClick={() => (win === 'win' ? setWin('lose') : setWin('win'))}
       >
         {t('Toggle Win/Lose')}
