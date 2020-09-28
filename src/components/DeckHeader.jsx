@@ -42,16 +42,14 @@ const DeckHeader = ({ deck, craft, deckCount }) => {
   };
 
   const saveDeck = () => {
-    const allDecks = JSON.parse(localStorage.getItem('decks')) || { decks: [] };
+    const decks = JSON.parse(localStorage.getItem('decks')) || [];
     const name = deckname.current.value;
     const hash = computeDeckHash();
-    allDecks.decks.push({
+    decks.push({
       name,
       hash,
     });
-    localStorage.setItem('decks', JSON.stringify({
-      decks: allDecks,
-    }));
+    localStorage.setItem('decks', JSON.stringify(decks));
   };
 
   return craft && (
@@ -87,9 +85,6 @@ const DeckHeader = ({ deck, craft, deckCount }) => {
           <span style={{ display: 'flex' }}>
             <StyledButton onClick={() => setShowSave(true)}>
               Save deck
-            </StyledButton>
-            <StyledButton>
-              Load deck
             </StyledButton>
           </span>
         </div>

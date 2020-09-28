@@ -129,3 +129,14 @@ export const ActionButton = styled.button`
   cursor: pointer;
   font-size: 1rem;
 `;
+
+export const StyledList = styled.ul`
+  background-color: #111;
+  max-height: 400px;
+  overflow: auto;
+`;
+
+export const StyledListItem = styled.li`
+  list-style: none;
+  padding: 15px 3px;
+`;

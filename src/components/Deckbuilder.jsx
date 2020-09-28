@@ -22,7 +22,13 @@ import {
   StyledButton,
   StyledPortrait,
   InfoBubble,
+  ActionButton,
+  ActionButtonContainer,
+  ForegroundDiv,
+  StyledListItem,
+  StyledList,
 } from '../styles/deckbuilderStyles';
+import { DimBackground } from '../styles/leaderAnimationStyles';
 
 const propTypes = {
   t: PropTypes.func.isRequired,
@@ -45,6 +51,7 @@ const Deckbuilder = ({ t, i18n }) => {
   const [tooltip, setTooltip] = useState(null);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
   const [currDeckCount, setCurrDeckCount] = useState(0);
+  const [showLoad, setShowLoad] = useState(false);
   const deckHashRef = useRef(null);
   const CARD_DUPE_MAX = 3;
   const filters = {
@@ -399,7 +406,12 @@ const Deckbuilder = ({ t, i18n }) => {
 
   return (
     <Container>
-      <div style={{ textAlign: 'center', fontSize: '1.5rem', paddingTop: '10px' }}>{t('Select a class')}</div>
+      <div style={{ textAlign: 'center', fontSize: '1.5rem', paddingTop: '10px' }}>
+        {t('Select a class')} or
+        <StyledButton onClick={() => setShowLoad(true)}>
+          Load deck
+        </StyledButton>
+      </div>
       <div style={{ paddingTop: '10px', textAlign: 'center' }}>
         {crafts.map((craft, index) => (
           <StyledPortrait
@@ -636,6 +648,29 @@ const Deckbuilder = ({ t, i18n }) => {
         </div>
         {tooltip && (tooltip)}
       </div>
+      {showLoad && (
+        <DimBackground>
+          <ForegroundDiv>
+            <h2>Load deck</h2>
+            <StyledList>
+              {JSON.parse(localStorage.getItem('decks') || '[]').map((localDeck) => (
+                <StyledListItem>{localDeck.name}</StyledListItem>
+              ))}
+            </StyledList>
+            <ActionButtonContainer>
+              <ActionButton onClick={() => {
+                setShowLoad(false);
+              }}
+              >
+                Load
+              </ActionButton>
+              <ActionButton onClick={() => (setShowLoad(false))}>
+                Cancel
+              </ActionButton>
+            </ActionButtonContainer>
+          </ForegroundDiv>
+        </DimBackground>
+      )}
     </Container>
   );
 };
