@@ -19,7 +19,6 @@ const propTypes = {
 
 const DeckHeader = ({ deck, craft, deckCount }) => {
   const [showSave, setShowSave] = useState(false);
-  const [showLoad, setShowLoad] = useState(false);
   const deckname = useRef(null);
   const portalUrl = 'https://shadowverse-portal.com/deck/';
   const DECK_MAX = 40;

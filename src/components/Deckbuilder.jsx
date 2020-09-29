@@ -13,6 +13,7 @@ import Deck from './Deck';
 import LazyLoadedImage from './LazyLoadedImage';
 import Dropdown from './Dropdown';
 import DeckHeader from './DeckHeader';
+import DeckLoad from './DeckLoad';
 import {
   Container,
   Tooltip,
@@ -22,13 +23,7 @@ import {
   StyledButton,
   StyledPortrait,
   InfoBubble,
-  ActionButton,
-  ActionButtonContainer,
-  ForegroundDiv,
-  StyledListItem,
-  StyledList,
 } from '../styles/deckbuilderStyles';
-import { DimBackground } from '../styles/leaderAnimationStyles';
 
 const propTypes = {
   t: PropTypes.func.isRequired,
@@ -104,11 +99,12 @@ const Deckbuilder = ({ t, i18n }) => {
     'Havencraft',
     'Portalcraft',
   ];
-  const parseHash = () => {
-    if (!/\d\.\d\./.test(deckHashRef.current.substring(0, 4))) { return; }
+  const parseHash = (deckHash) => {
+    if (!/\d\.\d\./.test(deckHash.substring(0, 4))) { return; }
     const radix = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
-    const craft = deckHashRef.current.substring(2, 3);
-    const hashes = deckHashRef.current.substring(4).split('.');
+    const craft = deckHash.substring(2, 3);
+    const hashes = deckHash.substring(4).split('.');
+    let count = 0;
     const newDeck = {};
     hashes.forEach((hash) => {
       let cardId = 0;
@@ -119,15 +115,15 @@ const Deckbuilder = ({ t, i18n }) => {
       }
       cardId = cardId.toString();
       if (newDeck[cardId]) {
-        if (newDeck[cardId] >= CARD_DUPE_MAX) { return; }
         newDeck[cardId] += 1;
       } else {
         newDeck[cardId] = 1;
       }
-      setCurrDeckCount(currDeckCount + 1);
+      count += 1;
     });
     setCurrentDeck(newDeck);
     setSelectedClass(craft);
+    setCurrDeckCount(count);
   };
 
   const parseQuotedString = (input) => {
@@ -150,7 +146,7 @@ const Deckbuilder = ({ t, i18n }) => {
   deckHashRef.current = useParams().deckHash;
 
   useEffect(() => {
-    if (deckHashRef.current) { parseHash(); }
+    if (deckHashRef.current) { parseHash(deckHashRef.current); }
   }, [deckHashRef]);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
@@ -649,27 +645,10 @@ const Deckbuilder = ({ t, i18n }) => {
         {tooltip && (tooltip)}
       </div>
       {showLoad && (
-        <DimBackground>
-          <ForegroundDiv>
-            <h2>Load deck</h2>
-            <StyledList>
-              {JSON.parse(localStorage.getItem('decks') || '[]').map((localDeck) => (
-                <StyledListItem>{localDeck.name}</StyledListItem>
-              ))}
-            </StyledList>
-            <ActionButtonContainer>
-              <ActionButton onClick={() => {
-                setShowLoad(false);
-              }}
-              >
-                Load
-              </ActionButton>
-              <ActionButton onClick={() => (setShowLoad(false))}>
-                Cancel
-              </ActionButton>
-            </ActionButtonContainer>
-          </ForegroundDiv>
-        </DimBackground>
+        <DeckLoad
+          setShowLoad={setShowLoad}
+          parseHash={parseHash}
+        />
       )}
     </Container>
   );

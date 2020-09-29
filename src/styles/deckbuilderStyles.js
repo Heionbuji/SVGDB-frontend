@@ -134,9 +134,21 @@ export const StyledList = styled.ul`
   background-color: #111;
   max-height: 400px;
   overflow: auto;
+  padding-left: 0;
 `;
 
 export const StyledListItem = styled.li`
   list-style: none;
-  padding: 15px 3px;
+  padding: 15px 10px;
+  :hover {
+    background-color: #333;
+  }
+  background-color: ${(props) => (props.selected ? 'rgb(31, 52, 71)' : 'inherit')};
+`;
+
+export const SmallPortrait = styled.img`
+  margin: 10px;
+  max-width: 50px;
+  max-height: 50px;
+  vertical-align: middle;
 `;
