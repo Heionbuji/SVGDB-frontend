@@ -8,6 +8,7 @@ import {
   StyledListItem,
   StyledList,
   SmallPortrait,
+  StyledTextInput,
 } from '../styles/deckbuilderStyles';
 import { DimBackground } from '../styles/leaderAnimationStyles';
 
@@ -23,6 +24,7 @@ export const DeckLoad = ({ setShowLoad, parseHash }) => {
     <DimBackground>
       <ForegroundDiv>
         <h2>Load deck</h2>
+        <h3>From local deck</h3>
         <StyledList>
           {decks.map((localDeck, index) => (
             <StyledListItem
@@ -40,6 +42,13 @@ export const DeckLoad = ({ setShowLoad, parseHash }) => {
             </StyledListItem>
           ))}
         </StyledList>
+        <h3>From Shadowverse portal URL</h3>
+        <StyledTextInput
+          type="text"
+          placeholder="Example: https://shadowverse-portal.com/deck/3.1.6lZu2.6lZu2.6lZu2..."
+          fontSize="0.8rem"
+          width="100%"
+        />
         <ActionButtonContainer>
           <ActionButton onClick={() => {
             parseHash(decks[selected].hash);

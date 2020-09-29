@@ -111,7 +111,8 @@ export const ForegroundDiv = styled.div`
 
 export const StyledTextInput = styled.input`
   height: 1.5rem;
-  font-size: 1.3rem;
+  font-size: ${(props) => (props.fontSize ? props.fontSize : '1.3rem')};
+  ${(props) => (props.width && `width: ${props.width};`)}
 `;
 
 export const ActionButtonContainer = styled.div`
