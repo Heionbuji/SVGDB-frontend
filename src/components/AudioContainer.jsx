@@ -63,6 +63,19 @@ const AudioContainer = ({ cardId, t, i18n }) => {
               </tr>
             ))
           )}
+          {voiceJson.other && (
+            voiceJson.other.map((other) => (
+              <tr key={other}>
+                <td>{other.substring(7, 8) === '4' ? t('accelerate') : t('crystallize')}</td>
+                <td>
+                  <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${other}`} />
+                </td>
+                <td>
+                  <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/${other}`} />
+                </td>
+              </tr>
+            ))
+          )}
           {voiceJson.attacks && (
             voiceJson.attacks.map((attack) => (
               <tr key={attack}>
