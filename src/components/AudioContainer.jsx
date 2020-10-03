@@ -38,7 +38,7 @@ const AudioContainer = ({ cardId, t, i18n }) => {
       .then((resJson) => setId2name(resJson));
   }, [i18n.language]);
 
-  if (voiceJson && voiceJson !== {} && id2name) {
+  if (voiceJson && voiceJson.plays && id2name) {
     const hasVS = voiceJson.plays.some((play) => play.indexOf('_7_') >= 0 || play.indexOf('_8_') >= 0);
     return (
       <table style={{ margin: 'auto' }}>
