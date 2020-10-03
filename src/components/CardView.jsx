@@ -103,7 +103,7 @@ const CardView = ({ t, i18n }) => {
             </p>
           </div>
         </StyledCardInformation>
-        <AudioContainer cardJson={cardJson} cardId={cardId} />
+        <AudioContainer cardJson={cardJson} cardId={cardId} i18n={i18n} />
         {cardJson.tokens_[0] && (
           <div style={{ paddingLeft: '10%' }}>
             <h2>{t('relatedCards')}: </h2> <br />
