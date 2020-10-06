@@ -27,6 +27,14 @@ export const Container = styled.div`
   .loghover:hover {
     cursor: pointer;
   }
+  .neutralFilter {
+    line-height: 10vh;
+    @media screen and (max-aspect-ratio: 5/3) {
+      line-height: normal;
+      align-self: center;
+      margin: 5px;
+    }
+  }
 `;
 
 export const Tooltip = styled.div`
@@ -59,7 +67,7 @@ export const FilterContainer = styled.span`
       ? 'rgb(31, 90, 52)'
       : props.active && props.reverse ? 'rgb(90, 30, 30)' : 'inherit'
   )};
-  @media screen and (max-aspect-ratio: 4/3) {
+  @media screen and (max-aspect-ratio: 5/3) {
     line-height: normal;
   }
 `;
@@ -96,4 +104,9 @@ export const InfoBubble = styled.span`
   border-radius: 50%;
   user-select: none;
   font-weight: bold;
+`;
+
+export const StyledFilterSelectors = styled.span`
+  min-height: 50%;
+  margin-top: 5px;
 `;

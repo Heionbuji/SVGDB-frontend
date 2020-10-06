@@ -22,6 +22,7 @@ import {
   StyledButton,
   StyledPortrait,
   InfoBubble,
+  StyledFilterSelectors,
 } from '../styles/deckbuilderStyles';
 
 const propTypes = {
@@ -30,6 +31,8 @@ const propTypes = {
     language: PropTypes.string,
   }).isRequired,
 };
+
+// TODO: don't use line-height in filters
 
 const Deckbuilder = ({ t, i18n }) => {
   const [selectedClass, setSelectedClass] = useState(null);
@@ -421,7 +424,7 @@ const Deckbuilder = ({ t, i18n }) => {
           active={searchFilter && searchFilter.filter}
           reverse={searchFilter && searchFilter.filter && searchFilter.reverse}
         >
-          <span>
+          <StyledFilterSelectors>
             <input
               type="checkbox"
               onChange={(e) => setSearchFilter({ ...searchFilter, reverse: e.target.checked })}
@@ -461,7 +464,7 @@ const Deckbuilder = ({ t, i18n }) => {
             >
               ?
             </InfoBubble>
-          </span>
+          </StyledFilterSelectors>
           <StyledButton
             type="button"
             onClick={() => {
@@ -477,7 +480,7 @@ const Deckbuilder = ({ t, i18n }) => {
           active={expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0}
           reverse={expansionFilter && expansionFilter.filter && expansionFilter.reverse}
         >
-          <span>
+          <StyledFilterSelectors>
             <input
               type="checkbox"
               onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked })}
@@ -493,7 +496,7 @@ const Deckbuilder = ({ t, i18n }) => {
               extended
               bgColor="rgb(16, 37, 56)"
             />
-          </span>
+          </StyledFilterSelectors>
           <StyledButton
             type="button"
             onClick={() => {
@@ -509,7 +512,7 @@ const Deckbuilder = ({ t, i18n }) => {
           active={costFilter && costFilter.filter && costFilter.filter.length > 0}
           reverse={costFilter && costFilter.filter && costFilter.reverse}
         >
-          <span>
+          <StyledFilterSelectors>
             <input
               type="checkbox"
               onChange={(e) => setCostFilter({ ...costFilter, reverse: e.target.checked })}
@@ -524,7 +527,7 @@ const Deckbuilder = ({ t, i18n }) => {
               handleChange={handleFilterChange}
               bgColor="rgb(16, 37, 56)"
             />
-          </span>
+          </StyledFilterSelectors>
           <StyledButton
             type="button"
             onClick={() => {
@@ -540,7 +543,7 @@ const Deckbuilder = ({ t, i18n }) => {
           active={typeFilter && typeFilter.filter && typeFilter.filter.length > 0}
           reverse={typeFilter && typeFilter.filter && typeFilter.reverse}
         >
-          <span>
+          <StyledFilterSelectors>
             <input
               type="checkbox"
               onChange={(e) => setTypeFilter({ ...typeFilter, reverse: e.target.checked })}
@@ -555,7 +558,7 @@ const Deckbuilder = ({ t, i18n }) => {
               handleChange={handleFilterChange}
               bgColor="rgb(16, 37, 56)"
             />
-          </span>
+          </StyledFilterSelectors>
           <StyledButton
             type="button"
             onClick={() => {
@@ -571,7 +574,7 @@ const Deckbuilder = ({ t, i18n }) => {
           active={rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0}
           reverse={rarityFilter && rarityFilter.filter && rarityFilter.reverse}
         >
-          <span>
+          <StyledFilterSelectors>
             <input
               type="checkbox"
               onChange={(e) => setRarityFilter({ ...rarityFilter, reverse: e.target.checked })}
@@ -586,7 +589,7 @@ const Deckbuilder = ({ t, i18n }) => {
               handleChange={handleFilterChange}
               bgColor="rgb(16, 37, 56)"
             />
-          </span>
+          </StyledFilterSelectors>
           <StyledButton
             type="button"
             onClick={() => {
@@ -598,7 +601,7 @@ const Deckbuilder = ({ t, i18n }) => {
             Reset
           </StyledButton>
         </FilterContainer>
-        <span style={{ lineHeight: '10vh' }}>
+        <span className="neutralFilter">
           <span>{t('Include neutrals')}:</span>
           <label htmlFor="filterNeutral">
             <select
