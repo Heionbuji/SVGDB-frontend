@@ -32,8 +32,6 @@ const propTypes = {
   }).isRequired,
 };
 
-// TODO: don't use line-height in filters
-
 const Deckbuilder = ({ t, i18n }) => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [expansionFilter, setExpansionFilter] = useState(null);
@@ -374,6 +372,8 @@ const Deckbuilder = ({ t, i18n }) => {
       setFilter({ filter: [filterValue], reverse: false });
     } else if (!filter.filter && filter.reverse) {
       setFilter({ ...filter, filter: [filterValue] });
+    } else if (!filter.filter && !filter.reverse) {
+      setFilter({ filter: [filterValue], reverse: false });
     } else {
       const index = filter.filter.indexOf(filterValue);
       if (index !== -1) {
@@ -423,14 +423,17 @@ const Deckbuilder = ({ t, i18n }) => {
         <FilterContainer
           active={searchFilter && searchFilter.filter}
           reverse={searchFilter && searchFilter.filter && searchFilter.reverse}
+          long
         >
           <StyledFilterSelectors>
-            <input
-              type="checkbox"
-              onChange={(e) => setSearchFilter({ ...searchFilter, reverse: e.target.checked })}
-              className="Search"
-            />
-            <span>NOT</span>
+            <span>
+              <input
+                type="checkbox"
+                onChange={(e) => setSearchFilter({ ...searchFilter, reverse: e.target.checked })}
+                className="Search"
+              />
+              <span>NOT</span>
+            </span>
             <input
               type="text"
               className="Search"
@@ -440,7 +443,7 @@ const Deckbuilder = ({ t, i18n }) => {
                   setSearchFilter({ ...searchFilter, filter: e.target.value });
                 }
               }}
-              style={{ margin: '5px' }}
+              style={{ margin: '0 0 2px 3px' }}
             />
             <InfoBubble
               onMouseEnter={(e) => {
@@ -481,12 +484,14 @@ const Deckbuilder = ({ t, i18n }) => {
           reverse={expansionFilter && expansionFilter.filter && expansionFilter.reverse}
         >
           <StyledFilterSelectors>
-            <input
-              type="checkbox"
-              onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked })}
-              className="Expansion"
-            />
-            <span>NOT</span>
+            <span>
+              <input
+                type="checkbox"
+                onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked })}
+                className="Expansion"
+              />
+              <span>NOT</span>
+            </span>
             <Dropdown
               type="select"
               text={t('Expansion')}
@@ -513,12 +518,14 @@ const Deckbuilder = ({ t, i18n }) => {
           reverse={costFilter && costFilter.filter && costFilter.reverse}
         >
           <StyledFilterSelectors>
-            <input
-              type="checkbox"
-              onChange={(e) => setCostFilter({ ...costFilter, reverse: e.target.checked })}
-              className="Cost"
-            />
-            <span>NOT</span>
+            <span>
+              <input
+                type="checkbox"
+                onChange={(e) => setCostFilter({ ...costFilter, reverse: e.target.checked })}
+                className="Cost"
+              />
+              <span>NOT</span>
+            </span>
             <Dropdown
               type="select"
               text={t('Cost')}
@@ -544,12 +551,14 @@ const Deckbuilder = ({ t, i18n }) => {
           reverse={typeFilter && typeFilter.filter && typeFilter.reverse}
         >
           <StyledFilterSelectors>
-            <input
-              type="checkbox"
-              onChange={(e) => setTypeFilter({ ...typeFilter, reverse: e.target.checked })}
-              className="Type"
-            />
-            <span>NOT</span>
+            <span>
+              <input
+                type="checkbox"
+                onChange={(e) => setTypeFilter({ ...typeFilter, reverse: e.target.checked })}
+                className="Type"
+              />
+              <span>NOT</span>
+            </span>
             <Dropdown
               type="select"
               text={t('Type')}
@@ -575,12 +584,14 @@ const Deckbuilder = ({ t, i18n }) => {
           reverse={rarityFilter && rarityFilter.filter && rarityFilter.reverse}
         >
           <StyledFilterSelectors>
-            <input
-              type="checkbox"
-              onChange={(e) => setRarityFilter({ ...rarityFilter, reverse: e.target.checked })}
-              className="Rarity"
-            />
-            <span>NOT</span>
+            <span>
+              <input
+                type="checkbox"
+                onChange={(e) => setRarityFilter({ ...rarityFilter, reverse: e.target.checked })}
+                className="Rarity"
+              />
+              <span>NOT</span>
+            </span>
             <Dropdown
               type="select"
               text={t('Rarity')}

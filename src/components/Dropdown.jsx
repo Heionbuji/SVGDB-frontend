@@ -65,7 +65,7 @@ const Dropdown = ({
           {
             position: 'relative',
             display: 'inline-block',
-            height: '50%',
+            height: '100%',
             lineHeight: 'normal',
             backgroundColor: bgColor || 'inherit',
             margin: '0 5px',
