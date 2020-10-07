@@ -11,7 +11,10 @@ const DropdownTitle = styled.span`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  min-width: 100px;
+  min-width: ${(props) => (props.noMin ? '0px' : '100px')};
+  @media screen and (min-width: 1700px) {
+    min-width: 100px;
+  }
 `;
 
 const DropdownContent = styled.ul`
@@ -25,6 +28,7 @@ const DropdownContent = styled.ul`
   position: absolute;
   z-index: 3;
   width: ${(props) => (props.Extended ? '200px' : '100%')};
+  min-width: 100px;
 `;
 
 const StyledDropdownItem = styled.li`
@@ -52,10 +56,11 @@ const propTypes = {
   extended: PropTypes.bool,
   checkboxClass: PropTypes.string,
   bgColor: PropTypes.string.isRequired,
+  noMin: PropTypes.bool,
 };
 
 const Dropdown = ({
-  text, choices, type, handleChange, extended, checkboxClass, bgColor,
+  text, choices, type, handleChange, extended, checkboxClass, bgColor, noMin = false,
 }) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   return (
@@ -75,8 +80,8 @@ const Dropdown = ({
         onMouseLeave={() => setDropdownVisible(false)}
         className="spaced"
       >
-        <DropdownTitle>
-          <div style={{ margin: 'auto', height: '100%', padding: '0 10px' }}>{text}</div>
+        <DropdownTitle noMin={noMin}>
+          <div style={{ margin: 'auto', height: '100%', padding: '0 5px' }}>{text}</div>
         </DropdownTitle>
         {type === 'nav' && (
           <DropdownContent Visible={dropdownVisible}>
@@ -110,6 +115,7 @@ Dropdown.defaultProps = {
   handleChange: () => {},
   extended: false,
   checkboxClass: null,
+  noMin: false,
 };
 
 export default Dropdown;

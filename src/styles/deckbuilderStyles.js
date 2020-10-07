@@ -83,6 +83,10 @@ export const StyledButton = styled.button`
   background-color: rgb(16, 37, 56);
   outline: none;
   cursor: pointer;
+  @media screen and (max-height: 800px) {
+    margin: 1px;
+    padding: 1px;
+  }
 `;
 
 export const StyledPortrait = styled.img`
