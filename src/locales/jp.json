@@ -118,9 +118,13 @@
     "シルバーレア": "Silver",
     "ゴールドレア": "Gold",
     "レジェンド": "Legendary",
-    "deckbuilder": "デッキ作成"
+    "deckbuilder": "デッキ作成",
+    "resources": "リソース",
+    "emblems": "エンブレム",
+    "flairs": "フレア",
+    "backgrounds": "背景"
   },
-  "sleeves": {
+  "resources": {
     "Collab and Event": "コラボとイベント",
     "Story": "ストーリー",
     "Default and Default Leaders": "デフォルト",

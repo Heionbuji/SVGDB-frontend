@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 import MainPage from './components/MainPage';
 import CardView from './components/CardView';
-import Sleeves from './components/Sleeves';
+import Resources from './components/Resources';
 import Tournaments from './components/Tournaments';
 import Leaders from './components/Leaders';
 import Leader from './components/Leader';
@@ -30,7 +30,7 @@ const Root = () => {
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route exact path="/cards/:cardId" component={CardView} />
-          <Route exact path="/sleeves" component={Sleeves} />
+          <Route exact path="/resources/:resource" component={Resources} />
           <Route exact path="/jcg/:format" component={Tournaments} />
           <Route exact path="/leaders" component={Leaders} />
           <Route exact path="/leaders/:leaderId" component={Leader} />

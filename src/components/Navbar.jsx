@@ -16,7 +16,18 @@ const Navbar = () => {
       </h1>
       <span className="spaced"><Link to="/deckbuilder">{t('deckbuilder')}</Link></span>
       <span className="spaced"><Link to="/leaders">{t('leaders')}</Link></span>
-      <span className="spaced"><Link to="/sleeves">{t('sleeves')}</Link></span>
+      <Dropdown
+        type="nav"
+        text={t('resources')}
+        choices={
+          [
+            { title: t('sleeves'), linkTo: '/resources/sleeves' },
+            { title: t('backgrounds'), linkTo: '/resources/bgs' },
+            { title: t('emblems'), linkTo: '/resources/emblems' },
+            { title: t('flairs'), linkTo: '/resources/flairs' },
+          ]
+        }
+      />
       <Dropdown
         type="nav"
         text={t('tournaments')}

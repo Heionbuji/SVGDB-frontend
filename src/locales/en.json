@@ -35,6 +35,10 @@
     "hideAltArt": "Hide Alt Art",
     "showAltArt": "Show Alt Art",
     "deckbuilder": "Deckbuilder",
-    "effectVoice": "Effect"
+    "effectVoice": "Effect",
+    "resources": "Resources",
+    "backgrounds": "Backgrounds",
+    "emblems": "Emblems",
+    "flairs": "Flairs"
   }
 }
