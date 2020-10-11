@@ -24,7 +24,6 @@ const propTypes = {
 const CardView = ({ t, i18n }) => {
   const [cardJson, setCardJson] = useState(null);
   const [evo, setEvo] = useState(false);
-  const [showAlt, setShowAlt] = useState(false);
   const { cardId } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -50,16 +49,6 @@ const CardView = ({ t, i18n }) => {
             <StyledButton type="button" onClick={() => setEvo(!evo)}>
               {evo ? `${t('base')}` : `${t('evolved')}`} {t('art')}
             </StyledButton>
-          )}
-          {cardJson.alts_[0] && (
-            <>
-              <StyledButton type="button" onClick={() => setShowAlt(!showAlt)}>
-                {showAlt ? `${t('hideAltArt')}` : `${t('showAltArt')}`}
-              </StyledButton>
-              {cardJson.alts_.map((alt) => (
-                <CardImageContainer evo={evo} cardId={alt} hidden={!showAlt} key={`img${alt}`} />
-              ))}
-            </>
           )}
         </div>
         <StyledCardInformation>
