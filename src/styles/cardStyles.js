@@ -47,3 +47,11 @@ export const StyledButton = styled.button`
   outline: none;
   cursor: pointer;
 `;
+
+export const TokenText = styled.span`
+  max-width: 200px;
+  max-height: 230px;
+  min-height: 230px;
+  min-width: 200px;
+  overflow: hidden;
+`;

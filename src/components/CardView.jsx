@@ -36,6 +36,7 @@ const CardView = ({ t, i18n }) => {
   }, [cardId, i18n.language]);
 
   if (cardJson && cardJson.id_ && !Number.isNaN(+cardId)) {
+    const altsAndTokens = cardJson.alts_.concat(cardJson.tokens_);
     return (
       <StyledCardContainer>
         <StyledCardName>
@@ -104,11 +105,11 @@ const CardView = ({ t, i18n }) => {
           </div>
         </StyledCardInformation>
         <AudioContainer cardJson={cardJson} cardId={cardId} i18n={i18n} />
-        {cardJson.tokens_[0] && (
+        {altsAndTokens[0] && (
           <div style={{ paddingLeft: '10%' }}>
             <h2>{t('relatedCards')}: </h2> <br />
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-              {cardJson.tokens_.map((token) => (
+              {altsAndTokens.map((token) => (
                 <TokenContainer token={token} language={i18n.language} key={`token${token}`} />
               ))}
             </div>

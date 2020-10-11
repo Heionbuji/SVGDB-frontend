@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { TokenText } from '../styles/cardStyles';
+
 const propTypes = {
   token: PropTypes.number.isRequired,
   language: PropTypes.string.isRequired,
@@ -23,23 +25,17 @@ const TokenContainer = ({ token, language }) => {
           <img src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_${tokenJson.id_}.png`} alt="" style={{ float: 'left', paddingRight: '5px' }} />
           {tokenJson.type_ === 'Follower'
             ? (
-              <span style={{
-                maxWidth: '200px', maxHeight: '140px', minHeight: '140px', minWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis',
-              }}
-              >
+              <TokenText>
                 <b>Base: </b><br />
                 {tokenJson.baseEffect_} <br />
                 <b>Evo: </b><br />
                 {tokenJson.evoEffect_}
-              </span>
+              </TokenText>
             )
             : (
-              <span style={{
-                maxWidth: '200px', maxHeight: '140px', minHeight: '140px', minWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis',
-              }}
-              >
+              <TokenText>
                 {tokenJson.baseEffect_}
-              </span>
+              </TokenText>
             )}
 
         </div>
