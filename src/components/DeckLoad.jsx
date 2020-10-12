@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -28,7 +30,7 @@ export const DeckLoad = ({ setShowLoad, parseHash }) => {
   const deleteDeck = (index) => {
     decks.splice(index, 1);
     localStorage.setItem('decks', JSON.stringify(decks));
-    setDecks(decks);
+    setDecks(decks.length > 1 ? decks : null);
   };
 
   return (
@@ -39,16 +41,20 @@ export const DeckLoad = ({ setShowLoad, parseHash }) => {
         <StyledList>
           {decks && decks.map((localDeck, index) => (
             <StyledListItem
-            // eslint-disable-next-line react/no-array-index-key
-              key={localDeck.name + index}
+              key={localDeck.name}
               selected={selected && selected.index === index}
-              onClick={() => setSelected({ hash: decks[index].hash, index })}
             >
               <>
-                <SmallPortrait
-                  src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/class_select_thumbnail_${decks[index].hash.substring(2, 3)}.png`}
-                />
-                <span style={{ flexGrow: '1', alignSelf: 'center' }}>{localDeck.name}</span>
+                <span
+                  style={{ flexGrow: '1', cursor: 'pointer' }}
+                  onClick={() => setSelected({ hash: decks[index].hash, index })}
+                >
+                  <SmallPortrait
+                    src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/class_select_thumbnail_${decks[index].hash.substring(2, 3)}.png`}
+                  />
+                  <span style={{ flexGrow: '1', alignSelf: 'center' }}>{localDeck.name}</span>
+                </span>
+
                 <DeleteButton onClick={() => deleteDeck(index)}>X</DeleteButton>
               </>
             </StyledListItem>
@@ -77,6 +83,7 @@ export const DeckLoad = ({ setShowLoad, parseHash }) => {
         />
         <ActionButtonContainer>
           <ActionButton onClick={() => {
+            if (!selected) { return; } // add error handling later
             if (selected.hash.length > 6) {
               parseHash(selected.hash);
               setShowLoad(false);
