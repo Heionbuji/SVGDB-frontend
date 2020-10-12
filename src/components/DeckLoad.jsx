@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,6 +9,7 @@ import {
   StyledList,
   SmallPortrait,
   StyledTextInput,
+  DeleteButton,
 } from '../styles/deckbuilderStyles';
 import { DimBackground } from '../styles/leaderAnimationStyles';
 
@@ -19,25 +20,36 @@ const propTypes = {
 
 export const DeckLoad = ({ setShowLoad, parseHash }) => {
   const [selected, setSelected] = useState(null);
-  const decks = JSON.parse(localStorage.getItem('decks') || '[]');
+  const [decks, setDecks] = useState(null);
+  useEffect(() => {
+    setDecks(JSON.parse(localStorage.getItem('decks') || '[]'));
+  }, []);
+
+  const deleteDeck = (index) => {
+    decks.splice(index, 1);
+    localStorage.setItem('decks', JSON.stringify(decks));
+    setDecks(decks);
+  };
+
   return (
     <DimBackground>
       <ForegroundDiv>
         <h2>Load deck</h2>
         <h3>From local deck</h3>
         <StyledList>
-          {decks.map((localDeck, index) => (
+          {decks && decks.map((localDeck, index) => (
             <StyledListItem
             // eslint-disable-next-line react/no-array-index-key
               key={localDeck.name + index}
-              selected={selected === index}
-              onClick={() => setSelected(index)}
+              selected={selected && selected.index === index}
+              onClick={() => setSelected({ hash: decks[index].hash, index })}
             >
               <>
                 <SmallPortrait
                   src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/class_select_thumbnail_${decks[index].hash.substring(2, 3)}.png`}
                 />
-                <span>{localDeck.name}</span>
+                <span style={{ flexGrow: '1', alignSelf: 'center' }}>{localDeck.name}</span>
+                <DeleteButton onClick={() => deleteDeck(index)}>X</DeleteButton>
               </>
             </StyledListItem>
           ))}
@@ -47,12 +59,35 @@ export const DeckLoad = ({ setShowLoad, parseHash }) => {
           type="text"
           placeholder="Example: https://shadowverse-portal.com/deck/3.1.6lZu2.6lZu2.6lZu2..."
           fontSize="0.8rem"
+          onChange={(e) => {
+            const hash = e.target.value.substring(e.target.value.search(/\d\.\d\./g), e.target.value.search(/\?/g));
+            setSelected({ hash, index: null });
+          }}
+          width="100%"
+        />
+        <h3>From deck code</h3>
+        <StyledTextInput
+          type="text"
+          placeholder="Example: ss2g"
+          fontSize="0.8rem"
+          onChange={(e) => {
+            setSelected({ hash: e.target.value, index: null });
+          }}
           width="100%"
         />
         <ActionButtonContainer>
           <ActionButton onClick={() => {
-            parseHash(decks[selected].hash);
-            setShowLoad(false);
+            if (selected.hash.length > 6) {
+              parseHash(selected.hash);
+              setShowLoad(false);
+            } else {
+              fetch(`${process.env.REACT_APP_API_URL}/deckcode/${selected.hash}`)
+                .then((res) => res.json())
+                .then((resJson) => {
+                  parseHash(resJson.hash);
+                  setShowLoad(false);
+                });
+            }
           }}
           >
             Load

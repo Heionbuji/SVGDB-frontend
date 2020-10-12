@@ -103,10 +103,14 @@ export const ForegroundDiv = styled.div`
   position: relative;
   background-color: #222;
   z-index: 100;
-  width: 20vw;
+  width: 30vw;
   margin: auto;
-  top: 35vh;
+  top: 15vh;
   padding: 30px;
+  @media screen and (max-aspect-ratio: 4/3) {
+    top: 5vh;
+    width: 60vw;
+  }
 `;
 
 export const StyledTextInput = styled.input`
@@ -133,7 +137,7 @@ export const ActionButton = styled.button`
 
 export const StyledList = styled.ul`
   background-color: #111;
-  max-height: 400px;
+  max-height: 300px;
   overflow: auto;
   padding-left: 0;
 `;
@@ -141,6 +145,7 @@ export const StyledList = styled.ul`
 export const StyledListItem = styled.li`
   list-style: none;
   padding: 15px 10px;
+  display: flex;
   :hover {
     background-color: #333;
   }
@@ -152,4 +157,18 @@ export const SmallPortrait = styled.img`
   max-width: 50px;
   max-height: 50px;
   vertical-align: middle;
+`;
+
+export const DeleteButton = styled.button`
+  align-self: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px;
+  margin: 0;
+  border: 0;
+  width: 40px;
+  text-align: center;
+  background-color: rgb(90, 30, 30);
+  cursor: pointer;
 `;
