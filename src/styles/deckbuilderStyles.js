@@ -92,7 +92,8 @@ export const StyledButton = styled.button`
 export const StyledPortrait = styled.img`
   margin: 5px;
   max-width: 100px;
-  cursor: pointer;
+  max-height: 100px;
+  cursor: ${(props) => (props.noPointer ? 'inherit' : 'pointer')};
 `;
 
 export const InfoBubble = styled.span`
@@ -111,4 +112,77 @@ export const StyledFilterSelectors = styled.span`
   @media screen and (max-aspect-ratio: 4/3) {
     flex-direction: column;
   }
+`;
+export const ForegroundDiv = styled.div`
+  position: relative;
+  background-color: #222;
+  z-index: 100;
+  width: 30vw;
+  margin: auto;
+  top: 15vh;
+  padding: 30px;
+  @media screen and (max-aspect-ratio: 4/3) {
+    top: 5vh;
+    width: 60vw;
+  }
+`;
+
+export const StyledTextInput = styled.input`
+  height: 1.5rem;
+  font-size: ${(props) => (props.fontSize ? props.fontSize : '1.3rem')};
+  ${(props) => (props.width && `width: ${props.width};`)}
+`;
+
+export const ActionButtonContainer = styled.div`
+  margin-top: 10px;
+  left: 90%;
+`;
+
+export const ActionButton = styled.button`
+  margin: 5px 5px 0 0;
+  color: white;
+  padding: 10px;
+  border: 2px solid rgb(5, 10, 15);
+  background-color: rgb(16, 37, 56);
+  outline: none;
+  cursor: pointer;
+  font-size: 1rem;
+`;
+
+export const StyledList = styled.ul`
+  background-color: #111;
+  max-height: 300px;
+  overflow: auto;
+  padding-left: 0;
+`;
+
+export const StyledListItem = styled.li`
+  list-style: none;
+  padding: 15px 10px;
+  display: flex;
+  :hover {
+    background-color: #333;
+  }
+  background-color: ${(props) => (props.selected ? 'rgb(31, 52, 71)' : 'inherit')};
+`;
+
+export const SmallPortrait = styled.img`
+  margin: 10px;
+  max-width: 50px;
+  max-height: 50px;
+  vertical-align: middle;
+`;
+
+export const DeleteButton = styled.button`
+  align-self: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px;
+  margin: 0;
+  border: 0;
+  width: 40px;
+  text-align: center;
+  background-color: rgb(90, 30, 30);
+  cursor: pointer;
 `;

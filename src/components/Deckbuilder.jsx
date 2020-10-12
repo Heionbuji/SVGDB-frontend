@@ -13,6 +13,7 @@ import Deck from './Deck';
 import LazyLoadedImage from './LazyLoadedImage';
 import Dropdown from './Dropdown';
 import DeckHeader from './DeckHeader';
+import DeckLoad from './DeckLoad';
 import {
   Container,
   Tooltip,
@@ -46,6 +47,7 @@ const Deckbuilder = ({ t, i18n }) => {
   const [tooltip, setTooltip] = useState(null);
   const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
   const [currDeckCount, setCurrDeckCount] = useState(0);
+  const [showLoad, setShowLoad] = useState(false);
   const deckHashRef = useRef(null);
   const CARD_DUPE_MAX = 3;
   const filters = {
@@ -99,11 +101,12 @@ const Deckbuilder = ({ t, i18n }) => {
     'Havencraft',
     'Portalcraft',
   ];
-  const parseHash = () => {
-    if (!/\d\.\d\./.test(deckHashRef.current.substring(0, 4))) { return; }
+  const parseHash = (deckHash) => {
+    if (!/\d\.\d\./.test(deckHash.substring(0, 4))) { return; }
     const radix = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
-    const craft = deckHashRef.current.substring(2, 3);
-    const hashes = deckHashRef.current.substring(4).split('.');
+    const craft = deckHash.substring(2, 3);
+    const hashes = deckHash.substring(4).split('.');
+    let count = 0;
     const newDeck = {};
     hashes.forEach((hash) => {
       let cardId = 0;
@@ -114,15 +117,15 @@ const Deckbuilder = ({ t, i18n }) => {
       }
       cardId = cardId.toString();
       if (newDeck[cardId]) {
-        if (newDeck[cardId] >= CARD_DUPE_MAX) { return; }
         newDeck[cardId] += 1;
       } else {
         newDeck[cardId] = 1;
       }
-      setCurrDeckCount(currDeckCount + 1);
+      count += 1;
     });
     setCurrentDeck(newDeck);
     setSelectedClass(craft);
+    setCurrDeckCount(count);
   };
 
   const parseQuotedString = (input) => {
@@ -145,7 +148,7 @@ const Deckbuilder = ({ t, i18n }) => {
   deckHashRef.current = useParams().deckHash;
 
   useEffect(() => {
-    if (deckHashRef.current) { parseHash(); }
+    if (deckHashRef.current) { parseHash(deckHashRef.current); }
   }, [deckHashRef]);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
@@ -405,7 +408,12 @@ const Deckbuilder = ({ t, i18n }) => {
 
   return (
     <Container>
-      <div style={{ textAlign: 'center', fontSize: '1.5rem', paddingTop: '10px' }}>{t('Select a class')}</div>
+      <div style={{ textAlign: 'center', fontSize: '1.5rem', paddingTop: '10px' }}>
+        {t('Select a class')} or
+        <StyledButton onClick={() => setShowLoad(true)}>
+          Load deck
+        </StyledButton>
+      </div>
       <div style={{ paddingTop: '10px', textAlign: 'center' }}>
         {crafts.map((craft, index) => (
           <StyledPortrait
@@ -658,6 +666,12 @@ const Deckbuilder = ({ t, i18n }) => {
         </div>
         {tooltip && (tooltip)}
       </div>
+      {showLoad && (
+        <DeckLoad
+          setShowLoad={setShowLoad}
+          parseHash={parseHash}
+        />
+      )}
     </Container>
   );
 };
