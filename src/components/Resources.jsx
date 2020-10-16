@@ -61,7 +61,11 @@ const Resources = () => {
               }
               return (
                 <a target="_blank" href={`${resourceSrc}${resourceId}.png`} rel="noopener noreferrer" key={`res${resourceId}`}>
-                  <LazyLoadedImage src={`${thumbnailSrc + resourceId}.png`} alt="" />
+                  <LazyLoadedImage
+                    src={`${thumbnailSrc + resourceId}.png`}
+                    alt=""
+                    width={resource === 'bgs' && 250}
+                  />
                 </a>
               );
             })}
