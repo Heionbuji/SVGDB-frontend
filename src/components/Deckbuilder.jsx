@@ -315,7 +315,8 @@ const Deckbuilder = ({ t, i18n }) => {
     shownCards && Object.keys(shownCards)
       .sort((a, b) => {
         if (shownCards[a].pp_ !== shownCards[b].pp_) {
-          return shownCards[a].pp_ > shownCards[b].pp_;
+          if (shownCards[a].pp_ > shownCards[b].pp_) { return 1; }
+          return -1;
         }
         if (shownCards[a].type_ !== shownCards[b].type_) {
           if (shownCards[a].type_ === 'Follower') { return -1; }
