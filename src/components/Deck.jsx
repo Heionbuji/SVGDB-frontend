@@ -58,9 +58,9 @@ const Deck = ({ deck, setDeck, cards, setTooltip }) => {
         Object.keys(deck)
           .sort((a, b) => {
             if (cards[a].pp_ === cards[b].pp_) {
-              return (cards[a].id_ > cards[b].id_);
+              return cards[a].id_ > cards[b].id_ ? 1 : -1;
             }
-            return (cards[a].pp_ > cards[b].pp_);
+            return cards[a].pp_ > cards[b].pp_ ? 1 : -1;
           })
           .map((card, index) => (
             <div
