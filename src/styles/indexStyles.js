@@ -25,4 +25,7 @@ export const StyledNewsTimestamp = styled.span`
 
 export const StyledNewsContent = styled.span`
   margin-top: 20px;
+  a {
+    text-decoration: underline;
+  }
 `;

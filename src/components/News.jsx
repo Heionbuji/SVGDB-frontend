@@ -18,7 +18,7 @@ const News = () => {
       <StyledNewsDiv key={newsItem.title}>
         <StyledNewsTitle>{newsItem.title}</StyledNewsTitle>
         <StyledNewsTimestamp>{newsItem.timestamp}</StyledNewsTimestamp>
-        <StyledNewsContent>{newsItem.content}</StyledNewsContent>
+        <StyledNewsContent dangerouslySetInnerHTML={{ __html: newsItem.content }} />
       </StyledNewsDiv>
     ))
   );
