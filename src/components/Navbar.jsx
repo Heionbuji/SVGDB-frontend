@@ -25,6 +25,7 @@ const Navbar = () => {
             { title: t('backgrounds'), linkTo: '/resources/bgs' },
             { title: t('emblems'), linkTo: '/resources/emblems' },
             { title: t('flairs'), linkTo: '/resources/flairs' },
+            { title: t('censored'), linkTo: '/resources/censored' },
           ]
         }
       />

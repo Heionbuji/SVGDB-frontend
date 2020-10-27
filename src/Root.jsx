@@ -15,6 +15,7 @@ import Tournaments from './components/Tournaments';
 import Leaders from './components/Leaders';
 import Leader from './components/Leader';
 import Deckbuilder from './components/Deckbuilder';
+import Censored from './components/Censored';
 
 const Root = () => {
   const { i18n } = useTranslation();
@@ -30,6 +31,7 @@ const Root = () => {
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route exact path="/cards/:cardId" component={CardView} />
+          <Route exact path="/resources/censored" component={Censored} />
           <Route exact path="/resources/:resource" component={Resources} />
           <Route exact path="/jcg/:format" component={Tournaments} />
           <Route exact path="/leaders" component={Leaders} />
