@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 import { StyledCardImageContainer, StyledArtImg } from '../styles/cardStyles';
 
 const propTypes = {
@@ -10,16 +10,25 @@ const propTypes = {
     PropTypes.number,
   ]).isRequired,
   hidden: PropTypes.bool,
+  censored: bool,
 };
 
-const CardImageContainer = ({ evo, cardId, hidden = false }) => (
+const CardImageContainer = ({ evo, cardId, hidden = false, censored = false }) => (
   !hidden && (
     <StyledCardImageContainer>
-      <a target="_blank" href={`${process.env.REACT_APP_ASSETS_URL}/cards/${evo ? 'E' : 'C'}_${cardId}.png`} rel="noopener noreferrer">
-        <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/cards/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
+      <a
+        target="_blank"
+        href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${evo ? 'E' : 'C'}_${cardId}.png`}
+        rel="noopener noreferrer"
+      >
+        <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
       </a>
-      <a target="_blank" href={`${process.env.REACT_APP_ASSETS_URL}/fullart/${cardId}${evo ? '1' : '0'}.png`} rel="noopener noreferrer">
-        <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/fullart/${cardId}${evo ? '1' : '0'}.png`} alt="" />
+      <a
+        target="_blank"
+        href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`}
+        rel="noopener noreferrer"
+      >
+        <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`} alt="" />
       </a>
     </StyledCardImageContainer>
   )

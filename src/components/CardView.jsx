@@ -23,6 +23,8 @@ const propTypes = {
 
 const CardView = ({ t, i18n }) => {
   const [cardJson, setCardJson] = useState(null);
+  const [censored, setCensored] = useState(false);
+  const [showCensored, setShowCensored] = useState(false);
   const [evo, setEvo] = useState(false);
   const { cardId } = useParams();
   useEffect(() => {
@@ -33,6 +35,13 @@ const CardView = ({ t, i18n }) => {
         setCardJson(resjson);
       });
   }, [cardId, i18n.language]);
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/censored/${cardId}`)
+      .then((res) => res.json())
+      .then((resjson) => {
+        setCensored(resjson.censored);
+      });
+  }, [cardId]);
 
   if (cardJson && cardJson.id_ && !Number.isNaN(+cardId)) {
     const altsAndTokens = cardJson.alts_.concat(cardJson.tokens_);
@@ -49,6 +58,16 @@ const CardView = ({ t, i18n }) => {
             <StyledButton type="button" onClick={() => setEvo(!evo)}>
               {evo ? `${t('base')}` : `${t('evolved')}`} {t('art')}
             </StyledButton>
+          )}
+          {censored && (
+            <>
+              <StyledButton type="button" onClick={() => setShowCensored(!showCensored)}>
+                {t('Uncensored art')}
+              </StyledButton>
+              {showCensored && (
+                <CardImageContainer evo={evo} cardId={cardId} censored={censored} />
+              )}
+            </>
           )}
         </div>
         <StyledCardInformation>
