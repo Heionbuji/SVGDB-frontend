@@ -62,7 +62,7 @@ const CardView = ({ t, i18n }) => {
           {censored && (
             <>
               <StyledButton type="button" onClick={() => setShowCensored(!showCensored)}>
-                {t('Uncensored art')}
+                {t('Uncensored Art')}
               </StyledButton>
               {showCensored && (
                 <CardImageContainer evo={evo} cardId={cardId} censored={censored} />
