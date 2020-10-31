@@ -43,7 +43,6 @@ class LeaderAnimations extends React.Component {
         this.animation.scale.set(this.animScale);
 
         if (this.animation.spineData.skins.length > 1) {
-          console.log(this.animation.spineData.skins);
           this.animation.skeleton.setSkinByName(this.animation.spineData.skins[1].name);
         }
 
