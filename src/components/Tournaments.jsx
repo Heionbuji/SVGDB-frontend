@@ -29,6 +29,7 @@ const Tournaments = () => {
   };
 
   const exp2season = {
+    'Storm Over Rivayle': '15th Season',
     'Fortunes Hand': '14th Season',
     'World Uprooted': '13th Season',
     'Ultimate Colosseum': '12th Season',
@@ -112,6 +113,7 @@ const Tournaments = () => {
             className={!filterByExpansion ? 'faded' : null}
           >
             <option value="Select Expansion">{t('-- Select Expansion --')}</option>
+            <option value="Storm Over Rivayle">{t('Storm Over Rivayle')}</option>
             <option value="Fortunes Hand">{t("Fortune's hand")}</option>
             <option value="World Uprooted">{t('World Uprooted')}</option>
             <option value="Ultimate Colosseum">{t('Ultimate Colosseum')}</option>
