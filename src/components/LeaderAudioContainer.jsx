@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import { Reactivetd, ReactiveRow, EmptyHeader } from '../styles/cardStyles';
 
 const propTypes = {
   leaderId: PropTypes.string.isRequired,
@@ -37,11 +38,11 @@ const LeaderAudioContainer = ({ leaderId, t }) => {
   return leaderId && (
     <table style={{ margin: 'auto' }}>
       <thead>
-        <tr>
-          <th style={{ width: 'auto' }} />
+        <ReactiveRow>
+          <EmptyHeader />
           <th>{t('japanese')}</th>
           <th>{t('english')}</th>
-        </tr>
+        </ReactiveRow>
       </thead>
       <tbody>
         {audioNames.map((name, index) => {
@@ -49,21 +50,21 @@ const LeaderAudioContainer = ({ leaderId, t }) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
             <tr key={name + index}>
-              <td>{t(name)}</td>
-              <td>
+              <Reactivetd>{t(name)}</Reactivetd>
+              <Reactivetd>
                 <audio
                   controls
                   preload="none"
                   src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_${id}_0.mp3`}
                 />
-              </td>
-              <td>
+              </Reactivetd>
+              <Reactivetd>
                 <audio
                   controls
                   preload="none"
                   src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_${id}_0.mp3`}
                 />
-              </td>
+              </Reactivetd>
             </tr>
           );
         })}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { StyledContentDiv } from '../styles/globalStyles';
+import { StyledCardImageContainer } from '../styles/cardStyles';
 import ExpandingBox from './ExpandingBox';
 
 const Tournaments = () => {
@@ -141,7 +142,7 @@ const Tournaments = () => {
           key={`exp${value.title}`}
           content={
             (
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '50px' }}>
+              <StyledCardImageContainer>
                 <table className="border">
                   <thead>
                     <tr style={{ backgroundColor: '#444' }}>
@@ -253,7 +254,7 @@ const Tournaments = () => {
                   }
                   />
                 </div>
-              </div>
+              </StyledCardImageContainer>
             )
           }
         />

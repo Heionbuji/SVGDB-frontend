@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
+import { Reactivetd, ReactiveRow, EmptyHeader } from '../styles/cardStyles';
 
 const propTypes = {
   cardJson: PropTypes.shape({
@@ -43,104 +44,104 @@ const AudioContainer = ({ cardId, t, i18n }) => {
     return (
       <table style={{ margin: 'auto' }}>
         <thead>
-          <tr>
-            <th style={{ width: 'auto' }} />
+          <ReactiveRow>
+            <EmptyHeader />
             <th>{t('japanese')}</th>
             <th>{t('english')}</th>
-          </tr>
+          </ReactiveRow>
         </thead>
         <tbody>
           {voiceJson.plays && (
             voiceJson.plays.filter((play) => play.indexOf('_7_') === -1 && play.indexOf('_8_') === -1).map((play) => (
               <tr key={play}>
-                <td>{play.indexOf('enh') > 0 ? t('enhance') : t('play')}</td>
-                <td>
+                <Reactivetd>{play.indexOf('enh') > 0 ? t('enhance') : t('play')}</Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${play}`} />
-                </td>
-                <td>
+                </Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/${play}`} />
-                </td>
+                </Reactivetd>
               </tr>
             ))
           )}
           {voiceJson.other && (
             voiceJson.other.map((other) => (
               <tr key={other}>
-                <td>{other.substring(7, 8) === '4' ? t('accelerate') : t('crystallize')}</td>
-                <td>
+                <Reactivetd>{other.substring(7, 8) === '4' ? t('accelerate') : t('crystallize')}</Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${other}`} />
-                </td>
-                <td>
+                </Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/${other}`} />
-                </td>
+                </Reactivetd>
               </tr>
             ))
           )}
           {voiceJson.attacks && (
             voiceJson.attacks.map((attack) => (
               <tr key={attack}>
-                <td>{attack.indexOf('evo') > 0 ? `${t('attack')} (${t('evolve')})` : t('attack')}</td>
-                <td>
+                <Reactivetd>{attack.indexOf('evo') > 0 ? `${t('attack')} (${t('evolve')})` : t('attack')}</Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${attack}`} />
-                </td>
-                <td>
+                </Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/${attack}`} />
-                </td>
+                </Reactivetd>
               </tr>
             ))
           )}
           {voiceJson.evolves && (
             voiceJson.evolves.map((evolve) => (
               <tr key={evolve}>
-                <td>{t('evolve')}</td>
-                <td>
+                <Reactivetd>{t('evolve')}</Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${evolve}`} />
-                </td>
-                <td>
+                </Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/${evolve}`} />
-                </td>
+                </Reactivetd>
               </tr>
             ))
           )}
           {voiceJson.deaths && (
             voiceJson.deaths.map((death) => (
               <tr key={death}>
-                <td>{death.indexOf('evo') > 0 ? `${t('death')} (${t('evolve')})` : t('death')}</td>
-                <td>
+                <Reactivetd>{death.indexOf('evo') > 0 ? `${t('death')} (${t('evolve')})` : t('death')}</Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${death}`} />
-                </td>
-                <td>
+                </Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/${death}`} />
-                </td>
+                </Reactivetd>
               </tr>
             ))
           )}
           {voiceJson.effects && (
             voiceJson.effects.map((effect) => (
               <tr key={effect}>
-                <td>{t('effectVoice')}</td>
-                <td>
+                <Reactivetd>{t('effectVoice')}</Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${effect}`} />
-                </td>
-                <td>
+                </Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/${effect}`} />
-                </td>
+                </Reactivetd>
               </tr>
             ))
           )}
           {voiceJson.plays && hasVS && (
             voiceJson.plays.filter((play) => play.indexOf('_7_') >= 0 || play.indexOf('_8_') >= 0).map((play) => (
               <tr key={play}>
-                <td>{play.indexOf('_7_') !== -1
+                <Reactivetd>{play.indexOf('_7_') !== -1
                   ? `Enemy ${id2name[play.substring(play.indexOf('_7_') + 3, play.length - 4)]}`
                   : `Ally ${id2name[play.substring(play.indexOf('_8_') + 3, play.length - 4)]}`}
-                </td>
-                <td>
+                </Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${play}`} />
-                </td>
-                <td>
+                </Reactivetd>
+                <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/${play}`} />
-                </td>
+                </Reactivetd>
               </tr>
             ))
           )}

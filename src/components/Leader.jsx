@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { StyledContentDiv } from '../styles/globalStyles';
-import { StyledCardImageContainer, StyledButton } from '../styles/cardStyles';
+import { StyledCardImageContainer, StyledButton, StyledLeaderImg } from '../styles/cardStyles';
 import { ForegroundDiv, DimBackground } from '../styles/leaderAnimationStyles';
 import LeaderAudioContainer from './LeaderAudioContainer';
 
@@ -40,10 +40,9 @@ const Leader = ({ t }) => {
               href={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_${zoom}.png`}
               rel="noopener noreferrer"
             >
-              <img
+              <StyledLeaderImg
                 src={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_${zoom}.png`}
                 alt=""
-                style={{ maxWidth: '512px' }}
               />
             </a>
             <a
@@ -51,10 +50,9 @@ const Leader = ({ t }) => {
               href={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base_${win}.png`}
               rel="noopener noreferrer"
             >
-              <img
+              <StyledLeaderImg
                 src={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base_${win}.png`}
                 alt=""
-                style={{ maxWidth: '512px' }}
               />
             </a>
           </>
@@ -65,10 +63,9 @@ const Leader = ({ t }) => {
               href={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base.png`}
               rel="noopener noreferrer"
             >
-              <img
+              <StyledLeaderImg
                 src={`${process.env.REACT_APP_ASSETS_URL}/leader/class_${leaderId}_base.png`}
                 alt=""
-                style={{ maxWidth: '512px' }}
               />
             </a>
           )}
