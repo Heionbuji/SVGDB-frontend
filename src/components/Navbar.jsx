@@ -15,6 +15,7 @@ const Navbar = () => {
         <FlagsContainer />
       </h1>
       <span className="spaced"><Link to="/deckbuilder">{t('deckbuilder')}</Link></span>
+      <span className="spaced"><Link to="/carddatabase">{t('Cards')}</Link></span>
       <span className="spaced"><Link to="/leaders">{t('leaders')}</Link></span>
       <Dropdown
         type="nav"

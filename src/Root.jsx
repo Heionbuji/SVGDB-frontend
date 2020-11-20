@@ -16,6 +16,7 @@ import Leaders from './components/Leaders';
 import Leader from './components/Leader';
 import Deckbuilder from './components/Deckbuilder';
 import Censored from './components/Censored';
+import CardDatabase from './components/CardDatabase';
 
 const Root = () => {
   const { i18n } = useTranslation();
@@ -38,6 +39,7 @@ const Root = () => {
           <Route exact path="/leaders/:leaderId" component={Leader} />
           <Route exact path="/deckbuilder/:deckHash" component={Deckbuilder} />
           <Route exact path="/deckbuilder" component={Deckbuilder} />
+          <Route exact path="/carddatabase" component={CardDatabase} />
           <Redirect to="/" />
         </Switch>
       </Router>
