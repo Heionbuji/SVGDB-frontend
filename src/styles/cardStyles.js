@@ -9,6 +9,9 @@ export const StyledCardContainer = styled.div`
   overflow: auto;
   padding: 20px;
   white-space: pre-wrap;
+  @media(orientation: portrait) {
+    padding: 5px;
+  }
 `;
 
 export const StyledCardName = styled.div`
@@ -57,6 +60,9 @@ export const TokenText = styled.span`
   min-height: 230px;
   min-width: 200px;
   overflow: hidden;
+  @media(orientation: portrait) {
+    min-height: 0px;
+  }
 `;
 
 export const StyledLeaderImg = styled.img`
@@ -81,6 +87,13 @@ export const EmptyHeader = styled.th`
 export const ReactiveRow = styled.tr`
   @media(orientation: portrait) {
     display: flex;
+    flex-direction: column;
+  }
+`;
+
+export const StyledTokenInfo = styled.div`
+  display: flex;
+  @media(orientation: portrait) {
     flex-direction: column;
   }
 `;

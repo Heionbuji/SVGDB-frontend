@@ -135,6 +135,9 @@ text-align: center;
 & > .spaced {
   margin-left: 10px;
   margin-right: 10px;
+  @media(orientation: portrait) {
+    padding: 10px;
+  }
 }
 & > .disabled {
   text-decoration: line-through;
@@ -170,6 +173,9 @@ export const StyledAutosuggest = styled.div`
     font-size: 16px;
     border: 1px solid #aaa;
     border-radius: 4px;
+    @media(orientation: portrait) {
+      width: auto;
+    }
   }
   
   .react-autosuggest__input--focused {

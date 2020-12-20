@@ -36,9 +36,6 @@ const Navbar = () => {
         choices={[{ title: `JCG (${t('rotation')})`, linkTo: '/jcg/rotation' }, { title: `JCG (${t('unlimited')})`, linkTo: '/jcg/unlimited' }]}
       />
       <CardSearch />
-      <span style={{ float: 'right', paddingRight: '20px', color: '#121212' }}>
-        <a target="_blank" href="https://github.com/Heionbuji/SVGDB-frontend" rel="noopener noreferrer">GitHub</a>
-      </span>
     </StyledDiv>
   );
 };

@@ -20,6 +20,7 @@ const CardImageContainer = ({ evo, cardId, hidden = false, censored = false }) =
         target="_blank"
         href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${evo ? 'E' : 'C'}_${cardId}.png`}
         rel="noopener noreferrer"
+        style={{ margin: 'auto' }}
       >
         <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
       </a>
@@ -27,6 +28,7 @@ const CardImageContainer = ({ evo, cardId, hidden = false, censored = false }) =
         target="_blank"
         href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`}
         rel="noopener noreferrer"
+        style={{ margin: 'auto' }}
       >
         <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`} alt="" />
       </a>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { TokenText } from '../styles/cardStyles';
+import { TokenText, StyledTokenInfo } from '../styles/cardStyles';
 
 const propTypes = {
   token: PropTypes.number.isRequired,
@@ -21,8 +21,8 @@ const TokenContainer = ({ token, language }) => {
     <Link to={`/cards/${tokenJson.id_}`}>
       <div style={{ border: '1px solid pink', padding: '10px' }}>
         <p style={{ marginTop: '5px' }}><b>{tokenJson.name_}</b></p>
-        <div style={{ display: 'flex' }}>
-          <img src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_${tokenJson.id_}.png`} alt="" style={{ float: 'left', paddingRight: '5px' }} />
+        <StyledTokenInfo>
+          <img src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_${tokenJson.id_}.png`} alt="" style={{ paddingRight: '5px' }} />
           {tokenJson.type_ === 'Follower'
             ? (
               <TokenText>
@@ -38,7 +38,7 @@ const TokenContainer = ({ token, language }) => {
               </TokenText>
             )}
 
-        </div>
+        </StyledTokenInfo>
       </div>
     </Link>
   );
