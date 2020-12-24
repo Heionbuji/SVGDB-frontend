@@ -33,7 +33,7 @@ const Leader = ({ t }) => {
   return leaderId && (
     <StyledContentDiv>
       <StyledCardImageContainer>
-        {leaderId.substring(0, 2) !== '50' ? (
+        {leaderId.substring(0, 2) !== '50' && leaderId.substring(0, 2) !== '60' ? (
           <>
             <a
               target="_blank"
