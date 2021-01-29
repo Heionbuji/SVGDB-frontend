@@ -8,15 +8,15 @@ import {
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
-import MainPage from './components/MainPage';
-import CardView from './components/CardView';
-import Resources from './components/Resources';
-import Tournaments from './components/Tournaments';
-import Leaders from './components/Leaders';
-import Leader from './components/Leader';
-import Deckbuilder from './components/Deckbuilder';
-import Censored from './components/Censored';
-import CardDatabase from './components/CardDatabase';
+import MainPage from './views/MainPage';
+import CardView from './views/CardView';
+import Resources from './views/Resources';
+import Tournaments from './views/Tournaments';
+import Leaders from './views/Leaders';
+import Leader from './views/Leader';
+import Deckbuilder from './views/Deckbuilder';
+import Censored from './views/Censored';
+import CardDatabase from './views/CardDatabase';
 
 const Root = () => {
   const { i18n } = useTranslation();

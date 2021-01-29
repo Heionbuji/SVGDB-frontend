@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { StyledContentDiv } from '../styles/globalStyles';
 import { StyledCardImageContainer } from '../styles/cardStyles';
-import ExpandingBox from './ExpandingBox';
+import ExpandingBox from '../components/ExpandingBox';
 
 const Tournaments = () => {
   const [jcgs, setJcgs] = useState(null);

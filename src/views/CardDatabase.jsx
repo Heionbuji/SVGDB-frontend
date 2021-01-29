@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
-import LazyLoadedImage from './LazyLoadedImage';
-import Dropdown from './Dropdown';
+import LazyLoadedImage from '../components/LazyLoadedImage';
+import Dropdown from '../components/Dropdown';
 import {
   Container,
   Tooltip,

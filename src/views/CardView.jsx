@@ -9,10 +9,10 @@ import {
   StyledCardInformation,
   StyledButton,
 } from '../styles/cardStyles';
-import AudioContainer from './AudioContainer';
-import TokenContainer from './TokenContainer';
-import CardImageContainer from './CardImageContainer';
-import HistoryContainer from './HistoryContainer';
+import AudioContainer from '../components/AudioContainer';
+import TokenContainer from '../components/TokenContainer';
+import CardImageContainer from '../components/CardImageContainer';
+import HistoryContainer from '../components/HistoryContainer';
 
 const propTypes = {
   t: PropTypes.func.isRequired,

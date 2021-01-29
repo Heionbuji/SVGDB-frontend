@@ -9,11 +9,11 @@ import { useParams } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
-import Deck from './Deck';
-import LazyLoadedImage from './LazyLoadedImage';
-import Dropdown from './Dropdown';
-import DeckHeader from './DeckHeader';
-import DeckLoad from './DeckLoad';
+import Deck from '../components/Deck';
+import LazyLoadedImage from '../components/LazyLoadedImage';
+import Dropdown from '../components/Dropdown';
+import DeckHeader from '../components/DeckHeader';
+import DeckLoad from '../components/DeckLoad';
 import {
   Container,
   Tooltip,

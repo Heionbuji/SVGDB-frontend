@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { StyledContentDiv } from '../styles/globalStyles';
-import LazyLoadedImage from './LazyLoadedImage';
+import LazyLoadedImage from '../components/LazyLoadedImage';
 
 const Resources = () => {
   const { resource } = useParams();

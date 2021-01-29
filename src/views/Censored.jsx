@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 import { StyledContentDiv } from '../styles/globalStyles';
-import LazyLoadedImage from './LazyLoadedImage';
+import LazyLoadedImage from '../components/LazyLoadedImage';
 
 const propTypes = {
 

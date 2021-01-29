@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 import { StyledContentDiv } from '../styles/globalStyles';
 import { StyledCardImageContainer, StyledButton, StyledLeaderImg } from '../styles/cardStyles';
 import { ForegroundDiv, DimBackground } from '../styles/leaderAnimationStyles';
-import LeaderAudioContainer from './LeaderAudioContainer';
+import LeaderAudioContainer from '../components/LeaderAudioContainer';
 
-const LeaderAnimations = React.lazy(() => import('./LeaderAnimations'));
+const LeaderAnimations = React.lazy(() => import('../components/LeaderAnimations'));
 
 const propTypes = {
   t: PropTypes.func.isRequired,
