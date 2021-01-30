@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   StyledNewsDiv,
   StyledNewsTitle,
@@ -7,9 +8,10 @@ import {
 } from '../styles/indexStyles';
 
 const News = () => {
+  const { i18n } = useTranslation();
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/news`)
+    fetch(`${process.env.REACT_APP_API_URL}/news/${i18n.language}`)
       .then((res) => res.json())
       .then((resjson) => setNews(resjson));
   }, []);
