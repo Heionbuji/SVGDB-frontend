@@ -13,13 +13,14 @@ const propTypes = {
   ]),
   width: PropTypes.string,
   marginTop: PropTypes.string,
+  margin: PropTypes.string,
 };
 
 const TitleBox = styled.div`
   width: ${(props) => props.width};
   border: 2px solid #444;
   height: 50px;
-  margin: auto;
+  margin: ${(props) => props.margin};
   margin-top: ${(props) => props.marginTop};
   margin-bottom: 25px;
   background-color: #111;
@@ -27,7 +28,7 @@ const TitleBox = styled.div`
 `;
 
 const ContentDiv = styled.div`
-  margin: auto;
+  margin: ${(props) => props.margin};
   width: ${(props) => props.width};
   margin-top: -30px;
   padding-top: 20px;
@@ -41,7 +42,7 @@ const ContentDiv = styled.div`
 `;
 
 const ExpandingBox = ({
-  title, content, width = '75%', marginTop = '0px',
+  title, content, width = '75%', marginTop = '0px', margin = 'auto',
 }) => {
   const [expanded, setExpanded] = useState(false);
   return (

@@ -128,6 +128,10 @@ table {
   background-color: #091f29;
 }
 
+.flex {
+  display: flex;
+}
+
 `;
 
 export const StyledDiv = styled.div`

@@ -30,6 +30,14 @@ export const Container = styled.div`
   .neutralFilter {
     margin: 5px;
     align-self: center;
+
+    @media screen and (max-width: 640px) {
+      align-self: start;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    width: 100vw;
   }
 `;
 
@@ -64,6 +72,14 @@ export const FilterContainer = styled.span`
       ? 'rgb(31, 90, 52)'
       : props.active && props.reverse ? 'rgb(90, 30, 30)' : 'inherit'
   )};
+
+  @media screen and (max-width: 640px) {
+    flex-direction: row;
+    max-width: 100%;
+    border: 0;
+    height: auto;
+    padding: 5px 0;
+  }
 `;
 
 export const TopBar = styled.div`
@@ -86,6 +102,7 @@ export const StyledButton = styled.button`
   @media screen and (max-height: 800px) {
     margin: 1px;
     padding: 1px;
+    max-height: 50px;
   }
 `;
 
@@ -94,6 +111,12 @@ export const StyledPortrait = styled.img`
   max-width: 100px;
   max-height: 100px;
   cursor: ${(props) => (props.noPointer ? 'inherit' : 'pointer')};
+
+  @media screen and (max-width: 640px) {
+    margin: 3px;
+    max-width: 75px;
+    max-height: 75px;
+  }
 `;
 
 export const InfoBubble = styled.span`
@@ -185,4 +208,15 @@ export const DeleteButton = styled.button`
   text-align: center;
   background-color: rgb(90, 30, 30);
   cursor: pointer;
+`;
+
+export const MobilePopup = styled.div`
+  position: relative;
+  background-color: #222;
+  z-index: 100;
+  width: 100%;
+  margin: auto;
+  top: 5vh;
+  max-height: 90vh;
+  padding: 10px;
 `;
