@@ -216,7 +216,7 @@ export const MobilePopup = styled.div`
   z-index: 100;
   width: 100%;
   margin: auto;
-  top: 5vh;
-  max-height: 90vh;
+  top: 0;
+  max-height: 100vh;
   padding: 10px;
 `;
