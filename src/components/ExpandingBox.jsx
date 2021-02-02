@@ -65,7 +65,7 @@ const ExpandingBox = ({
           <span>{title}</span>
         </div>
       </TitleBox>
-      {expanded && <ContentDiv width={width}>{content}</ContentDiv>}
+      <ContentDiv width={width} style={{ display: expanded ? 'inherit' : 'none' }}>{content}</ContentDiv>
     </>
   );
 };
