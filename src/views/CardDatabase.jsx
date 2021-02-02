@@ -272,6 +272,8 @@ const CardDatabase = ({ t, i18n }) => {
 
   const renderImages = () => {
     const isMobile = isMobileDisplay();
+    const imgWidth = isMobile ? 133 : 199;
+    const imgHeight = isMobile ? 173 : 259;
     return (
       shownCards && Object.keys(shownCards)
         .sort((a, b) => {
@@ -298,8 +300,8 @@ const CardDatabase = ({ t, i18n }) => {
                 key={`img${key}`}
                 src={`${thumbnailUrl}${key}.png`}
                 alt=""
-                width={isMobile ? 133 : 199}
-                height={isMobile ? 173 : 259}
+                width={imgWidth}
+                height={imgHeight}
               />
             </Link>
           </span>
