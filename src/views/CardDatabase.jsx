@@ -114,6 +114,8 @@ const CardDatabase = ({ t, i18n }) => {
     return words;
   };
 
+  const isMobileDisplay = () => window.screen.width < 640;
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
       .then((res) => res.json())
@@ -268,39 +270,42 @@ const CardDatabase = ({ t, i18n }) => {
     );
   };
 
-  const renderImages = () => (
-    shownCards && Object.keys(shownCards)
-      .sort((a, b) => {
-        if (shownCards[a].pp_ !== shownCards[b].pp_) {
-          if (shownCards[a].pp_ > shownCards[b].pp_) { return 1; }
-          return -1;
-        }
-        if (shownCards[a].type_ !== shownCards[b].type_) {
-          if (shownCards[a].type_ === 'Follower') { return -1; }
-          if (shownCards[a].type_ === 'Spell' && shownCards[b].type_ !== 'Follower') { return -1; }
-        }
-        return 1;
-      })
-      .map((key) => (
-        <span
-          style={{ pointerEvents: 'none' }}
-          key={`div${key}`}
-          onMouseEnter={(e) => updateTooltip(e, key)}
-          onMouseLeave={() => setTooltip(null)}
-          className="cardhover"
-        >
-          <Link to={`/cards/${key}`}>
-            <LazyLoadedImage
-              key={`img${key}`}
-              src={`${thumbnailUrl}${key}.png`}
-              alt=""
-              width={199}
-              height={259}
-            />
-          </Link>
-        </span>
-      ))
-  );
+  const renderImages = () => {
+    const isMobile = isMobileDisplay();
+    return (
+      shownCards && Object.keys(shownCards)
+        .sort((a, b) => {
+          if (shownCards[a].pp_ !== shownCards[b].pp_) {
+            if (shownCards[a].pp_ > shownCards[b].pp_) { return 1; }
+            return -1;
+          }
+          if (shownCards[a].type_ !== shownCards[b].type_) {
+            if (shownCards[a].type_ === 'Follower') { return -1; }
+            if (shownCards[a].type_ === 'Spell' && shownCards[b].type_ !== 'Follower') { return -1; }
+          }
+          return 1;
+        })
+        .map((key) => (
+          <span
+            style={{ pointerEvents: 'none' }}
+            key={`div${key}`}
+            onMouseEnter={(e) => updateTooltip(e, key)}
+            onMouseLeave={() => setTooltip(null)}
+            className="cardhover"
+          >
+            <Link to={`/cards/${key}`}>
+              <LazyLoadedImage
+                key={`img${key}`}
+                src={`${thumbnailUrl}${key}.png`}
+                alt=""
+                width={isMobile ? 133 : 199}
+                height={isMobile ? 173 : 259}
+              />
+            </Link>
+          </span>
+        ))
+    );
+  };
 
   const cardList = useMemo(() => renderImages(), [shownCards]);
 
@@ -356,8 +361,6 @@ const CardDatabase = ({ t, i18n }) => {
     setRarityFilter({ filter: [], reverse: false });
     setIncludeNeutrals('Yes');
   };
-
-  const isMobileDisplay = () => window.screen.width < 640;
 
   return (
     <Container>
