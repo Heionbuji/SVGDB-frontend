@@ -346,7 +346,6 @@ const CardDatabase = ({ t, i18n }) => {
   };
 
   const resetAllFilters = () => {
-    console.log(expansionFilter);
     document.querySelectorAll(
       'input.Search, input.Expansion, input.Cost, input.Type, input.Rarity',
     ).forEach((el) => { el.value = ''; el.checked = false; }); // eslint-disable-line no-param-reassign
@@ -376,9 +375,6 @@ const CardDatabase = ({ t, i18n }) => {
       { isMobileDisplay()
         ? (
           <>
-            <StyledButton type="button" onClick={resetAllFilters}>
-              Reset all filters
-            </StyledButton>
             <MobileFilters
               setSearch={setSearchFilter}
               setExpansion={setExpansionFilter}
@@ -389,6 +385,7 @@ const CardDatabase = ({ t, i18n }) => {
               expansions={expansions}
               rarities={rarities}
               cardTypes={cardTypes}
+              resetAllFilters={resetAllFilters}
             />
           </>
         )

@@ -106,6 +106,16 @@ export const StyledButton = styled.button`
   }
 `;
 
+export const ResetButton = styled.button`
+  margin: 5px;
+  color: white;
+  padding: 5px;
+  border: 2px solid rgb(5, 10, 15);
+  background-color: #603030;
+  outline: none;
+  cursor: pointer;
+`;
+
 export const StyledPortrait = styled.img`
   margin: 5px;
   max-width: 100px;
@@ -219,4 +229,42 @@ export const MobilePopup = styled.div`
   top: 0;
   max-height: 100vh;
   padding: 10px;
+
+  .bigcheckbox {
+    height: 25px;
+    width: 25px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border: 1px solid #34495E;
+    border-radius: 4px;
+    outline: none;
+    transition-duration: 0.2s;
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  .bigcheckbox:checked {
+    background-color: #41B883;
+  }
+
+  .bigcheckbox::after {
+    content: '✓';
+    display: inline-block;
+    opacity: 0%;
+    font-size: 1.1em;
+    margin: auto;
+  }
+
+  .bigcheckbox:checked::after {
+    opacity: 100%;
+    position: relative;
+    left: 25%;
+  }
+
+  .bigcheckbox + label {
+    vertical-align: middle;
+  }
+
 `;
