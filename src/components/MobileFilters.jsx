@@ -103,10 +103,20 @@ const MobileFilters = (
     toggleShowFilters();
   };
 
+  const resetBothFilters = () => {
+    resetAllFilters();
+    setSearchFilter({ filter: null, reverse: false });
+    setExpansionFilter({ filter: [], reverse: false });
+    setCostFilter({ filter: [], reverse: false });
+    setTypeFilter({ filter: [], reverse: false });
+    setRarityFilter({ filter: [], reverse: false });
+    setNeutralFilter('Yes');
+  };
+
   return (
     <>
       <TopBar>
-        <ResetButton type="button" onClick={resetAllFilters} style={{ minWidth: '50px' }}>
+        <ResetButton type="button" onClick={resetBothFilters} style={{ minWidth: '50px' }}>
           Reset all filters
         </ResetButton>
         <StyledButton type="button" onClick={toggleShowFilters} style={{ minWidth: '50px', maxHeight: '100%', margin: '5px' }}>
