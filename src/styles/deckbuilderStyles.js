@@ -227,7 +227,7 @@ export const MobilePopup = styled.div`
   width: 100%;
   margin: auto;
   top: 0;
-  max-height: 100vh;
+  height: 100vh;
   padding: 10px;
 
   .bigcheckbox {

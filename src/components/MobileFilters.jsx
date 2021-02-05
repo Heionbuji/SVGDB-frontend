@@ -158,6 +158,8 @@ const MobileFilters = (
                 <ExpandingBox
                   title={t('Expansion')}
                   width="90%"
+                  margin={0}
+                  preserveState
                   content={(
                     <div>
                       <ResetButton
@@ -205,6 +207,8 @@ const MobileFilters = (
                 <ExpandingBox
                   title={t('Cost')}
                   width="90%"
+                  margin={0}
+                  preserveState
                   content={(
                     <div>
                       <ResetButton
@@ -252,6 +256,8 @@ const MobileFilters = (
                 <ExpandingBox
                   title={t('Type')}
                   width="90%"
+                  margin={0}
+                  preserveState
                   content={(
                     <div>
                       <ResetButton
@@ -299,6 +305,8 @@ const MobileFilters = (
                 <ExpandingBox
                   title={t('Rarity')}
                   width="90%"
+                  margin={0}
+                  preserveState
                   content={(
                     <div>
                       <ResetButton
@@ -360,10 +368,10 @@ const MobileFilters = (
           </div>
           <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '0 10px 10px 0' }}>
             <ActionButtonContainer>
-              <ActionButton onClick={applyFilters}>
+              <ActionButton onClick={applyFilters} style={{ height: '100%' }}>
                 {t('OK')}
               </ActionButton>
-              <ActionButton onClick={toggleShowFilters}>
+              <ActionButton onClick={toggleShowFilters} style={{ height: '100%' }}>
                 {t('Cancel')}
               </ActionButton>
             </ActionButtonContainer>
