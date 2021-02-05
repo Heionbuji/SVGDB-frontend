@@ -13,9 +13,13 @@ const Tournaments = () => {
   const [filterByExpansion, setFilterByExpansion] = useState(false);
   const { format } = useParams();
   const { t } = useTranslation('tournaments');
-  const start2020 = 1965;
-  const start2019 = 1384;
-  const start2018 = 719;
+
+  const years = {
+    2021: { start: 2561, end: 999999 },
+    2020: { start: 1965, end: 2560 },
+    2019: { start: 1384, end: 1964 },
+    2018: { start: 719, end: 1383 },
+  };
 
   const id2class = {
     0: 'Forestcraft',
@@ -30,6 +34,7 @@ const Tournaments = () => {
   };
 
   const exp2season = {
+    'Eternal Awakening': '16th Season',
     'Storm Over Rivayle': '15th Season',
     'Fortunes Hand': '14th Season',
     'World Uprooted': '13th Season',
@@ -54,20 +59,9 @@ const Tournaments = () => {
       Object.keys(jcgs).forEach((key) => {
         if (jcgs[key].title.includes(exp2season[newVal])) { temp[key] = jcgs[key]; }
       });
-    }
-    if (newVal === '2020') {
+    } else {
       Object.keys(jcgs).forEach((key) => {
-        if (key >= start2020) { temp[key] = jcgs[key]; }
-      });
-    }
-    if (newVal === '2019') {
-      Object.keys(jcgs).forEach((key) => {
-        if (key >= start2019 && key < start2020) { temp[key] = jcgs[key]; }
-      });
-    }
-    if (newVal === '2018') {
-      Object.keys(jcgs).forEach((key) => {
-        if (key >= start2018 && key < start2019) { temp[key] = jcgs[key]; }
+        if (key >= years[newVal].start && key <= years[newVal].end) { temp[key] = jcgs[key]; }
       });
     }
     setCurrentJson(temp);
@@ -80,7 +74,7 @@ const Tournaments = () => {
   }, [format]);
 
   useEffect(() => {
-    if (jcgs) { spliceJson('2020'); }
+    if (jcgs) { spliceJson('2021'); }
   }, [jcgs]);
 
   return jcgs && currentJson && (
@@ -97,9 +91,9 @@ const Tournaments = () => {
             style={{ margin: '0 5px' }}
             className={filterByExpansion ? 'faded' : null}
           >
-            <option value="2020">{t('2020')}</option>
-            <option value="2019">{t('2019')}</option>
-            <option value="2018">{t('2018')}</option>
+            {Object.keys(years).reverse().map((year) => (
+              <option value={year} key={year}>{year}</option>
+            ))}
           </select>
         </label>
         {t('or')}
@@ -114,24 +108,9 @@ const Tournaments = () => {
             className={!filterByExpansion ? 'faded' : null}
           >
             <option value="Select Expansion">{t('-- Select Expansion --')}</option>
-            <option value="Storm Over Rivayle">{t('Storm Over Rivayle')}</option>
-            <option value="Fortunes Hand">{t("Fortune's hand")}</option>
-            <option value="World Uprooted">{t('World Uprooted')}</option>
-            <option value="Ultimate Colosseum">{t('Ultimate Colosseum')}</option>
-            <option value="Verdant Conflict">{t('Verdant Conflict')}</option>
-            <option value="Rebirth of Glory">{t('Rebirth of Glory')}</option>
-            <option value="Steel Rebellion">{t('Steel Rebellion')}</option>
-            <option value="Altersphere">{t('Altersphere')}</option>
-            <option value="Omen of the Ten">{t('Omen of the Ten')}</option>
-            <option value="Brigade of the Sky">{t('Brigade of the Sky')}</option>
-            <option value="Dawnbreak Nightedge">{t('Dawnbreak, Nightedge')}</option>
-            <option value="Chronogenesis">{t('Chronogenesis')}</option>
-            <option value="Starforged Legends">{t('Starforged Legends')}</option>
-            <option value="Wonderland Dreams">{t('Wonderland Dreams')}</option>
-            <option value="Tempest of the Gods">{t('Tempest of the Gods')}</option>
-            <option value="Rise of Bahamut">{t('Rise of Bahamut')}</option>
-            <option value="Darkness Evolved">{t('Darkness Evolved')}</option>
-            <option value="Classic">{t('Classic')}</option>
+            {Object.keys(exp2season).map((expansion) => (
+              <option value={expansion} key={expansion}>{t(expansion)}</option>
+            ))}
           </select>
         </label>
       </div>
@@ -139,6 +118,7 @@ const Tournaments = () => {
         <ExpandingBox
           title={value.title}
           marginTop="25px"
+          margin="auto"
           key={`exp${value.title}`}
           content={
             (
