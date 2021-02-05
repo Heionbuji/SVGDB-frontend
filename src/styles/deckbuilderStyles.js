@@ -30,6 +30,14 @@ export const Container = styled.div`
   .neutralFilter {
     margin: 5px;
     align-self: center;
+
+    @media screen and (max-width: 640px) {
+      align-self: start;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    width: 100vw;
   }
 `;
 
@@ -64,6 +72,14 @@ export const FilterContainer = styled.span`
       ? 'rgb(31, 90, 52)'
       : props.active && props.reverse ? 'rgb(90, 30, 30)' : 'inherit'
   )};
+
+  @media screen and (max-width: 640px) {
+    flex-direction: row;
+    max-width: 100%;
+    border: 0;
+    height: auto;
+    padding: 5px 0;
+  }
 `;
 
 export const TopBar = styled.div`
@@ -86,7 +102,18 @@ export const StyledButton = styled.button`
   @media screen and (max-height: 800px) {
     margin: 1px;
     padding: 1px;
+    max-height: 50px;
   }
+`;
+
+export const ResetButton = styled.button`
+  margin: 5px;
+  color: white;
+  padding: 5px;
+  border: 2px solid rgb(5, 10, 15);
+  background-color: #603030;
+  outline: none;
+  cursor: pointer;
 `;
 
 export const StyledPortrait = styled.img`
@@ -94,6 +121,12 @@ export const StyledPortrait = styled.img`
   max-width: 100px;
   max-height: 100px;
   cursor: ${(props) => (props.noPointer ? 'inherit' : 'pointer')};
+
+  @media screen and (max-width: 640px) {
+    margin: 3px;
+    max-width: 75px;
+    max-height: 75px;
+  }
 `;
 
 export const InfoBubble = styled.span`
@@ -185,4 +218,53 @@ export const DeleteButton = styled.button`
   text-align: center;
   background-color: rgb(90, 30, 30);
   cursor: pointer;
+`;
+
+export const MobilePopup = styled.div`
+  position: relative;
+  background-color: #222;
+  z-index: 100;
+  width: 100%;
+  margin: auto;
+  top: 0;
+  height: 100vh;
+  padding: 10px;
+
+  .bigcheckbox {
+    height: 25px;
+    width: 25px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border: 1px solid #34495E;
+    border-radius: 4px;
+    outline: none;
+    transition-duration: 0.2s;
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+  .bigcheckbox:checked {
+    background-color: #41B883;
+  }
+
+  .bigcheckbox::after {
+    content: '✓';
+    display: inline-block;
+    opacity: 0%;
+    font-size: 1.1em;
+    margin: auto;
+  }
+
+  .bigcheckbox:checked::after {
+    opacity: 100%;
+    position: relative;
+    left: 25%;
+  }
+
+  .bigcheckbox + label {
+    vertical-align: middle;
+  }
+
 `;

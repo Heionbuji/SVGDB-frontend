@@ -129,7 +129,10 @@
     "backgrounds": "背景",
     "Uncensored Art": "イラストナーフ前",
     "censored": "イラストナーフ",
-    "Cards": "カード"
+    "Cards": "カード",
+    "Search": "検索",
+    "Filters": "フィルタ",
+    "Cancel": "キャンセル"
   },
   "resources": {
     "Collab and Event": "コラボとイベント",

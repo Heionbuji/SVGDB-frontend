@@ -11,6 +11,8 @@ import PropTypes from 'prop-types';
 
 import LazyLoadedImage from '../components/LazyLoadedImage';
 import Dropdown from '../components/Dropdown';
+import MobileFilters from '../components/MobileFilters';
+
 import {
   Container,
   Tooltip,
@@ -111,6 +113,8 @@ const CardDatabase = ({ t, i18n }) => {
     });
     return words;
   };
+
+  const isMobileDisplay = () => window.screen.width < 640;
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
@@ -266,39 +270,44 @@ const CardDatabase = ({ t, i18n }) => {
     );
   };
 
-  const renderImages = () => (
-    shownCards && Object.keys(shownCards)
-      .sort((a, b) => {
-        if (shownCards[a].pp_ !== shownCards[b].pp_) {
-          if (shownCards[a].pp_ > shownCards[b].pp_) { return 1; }
-          return -1;
-        }
-        if (shownCards[a].type_ !== shownCards[b].type_) {
-          if (shownCards[a].type_ === 'Follower') { return -1; }
-          if (shownCards[a].type_ === 'Spell' && shownCards[b].type_ !== 'Follower') { return -1; }
-        }
-        return 1;
-      })
-      .map((key) => (
-        <span
-          style={{ pointerEvents: 'none' }}
-          key={`div${key}`}
-          onMouseEnter={(e) => updateTooltip(e, key)}
-          onMouseLeave={() => setTooltip(null)}
-          className="cardhover"
-        >
-          <Link to={`/cards/${key}`}>
-            <LazyLoadedImage
-              key={`img${key}`}
-              src={`${thumbnailUrl}${key}.png`}
-              alt=""
-              width={199}
-              height={259}
-            />
-          </Link>
-        </span>
-      ))
-  );
+  const renderImages = () => {
+    const isMobile = isMobileDisplay();
+    const imgWidth = isMobile ? 133 : 199;
+    const imgHeight = isMobile ? 173 : 259;
+    return (
+      shownCards && Object.keys(shownCards)
+        .sort((a, b) => {
+          if (shownCards[a].pp_ !== shownCards[b].pp_) {
+            if (shownCards[a].pp_ > shownCards[b].pp_) { return 1; }
+            return -1;
+          }
+          if (shownCards[a].type_ !== shownCards[b].type_) {
+            if (shownCards[a].type_ === 'Follower') { return -1; }
+            if (shownCards[a].type_ === 'Spell' && shownCards[b].type_ !== 'Follower') { return -1; }
+          }
+          return 1;
+        })
+        .map((key) => (
+          <span
+            style={{ pointerEvents: 'none' }}
+            key={`div${key}`}
+            onMouseEnter={(e) => updateTooltip(e, key)}
+            onMouseLeave={() => setTooltip(null)}
+            className="cardhover"
+          >
+            <Link to={`/cards/${key}`}>
+              <LazyLoadedImage
+                key={`img${key}`}
+                src={`${thumbnailUrl}${key}.png`}
+                alt=""
+                width={imgWidth}
+                height={imgHeight}
+              />
+            </Link>
+          </span>
+        ))
+    );
+  };
 
   const cardList = useMemo(() => renderImages(), [shownCards]);
 
@@ -368,223 +377,244 @@ const CardDatabase = ({ t, i18n }) => {
           />
         ))}
       </div>
-      <TopBar>
-        <StyledButton type="button" onClick={resetAllFilters}>
-          Reset all filters
-        </StyledButton>
-        <FilterContainer
-          active={searchFilter && searchFilter.filter}
-          reverse={searchFilter && searchFilter.filter && searchFilter.reverse}
-          long
-        >
-          <StyledFilterSelectors>
-            <span>
-              <input
-                type="checkbox"
-                onChange={(e) => setSearchFilter({ ...searchFilter, reverse: e.target.checked })}
-                className="Search"
-              />
-              <span>NOT</span>
-            </span>
-            <input
-              type="text"
-              className="Search"
-              placeholder={t('Search card text')}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  setSearchFilter({ ...searchFilter, filter: e.target.value });
-                }
-              }}
-              style={{ margin: '0 0 2px 3px' }}
+      { isMobileDisplay()
+        ? (
+          <>
+            <MobileFilters
+              setSearch={setSearchFilter}
+              setExpansion={setExpansionFilter}
+              setCost={setCostFilter}
+              setType={setTypeFilter}
+              setRarity={setRarityFilter}
+              setNeutrals={setIncludeNeutrals}
+              expansions={expansions}
+              rarities={rarities}
+              cardTypes={cardTypes}
+              resetAllFilters={resetAllFilters}
             />
-            <InfoBubble
-              onMouseEnter={(e) => {
-                const element = e.target.getBoundingClientRect();
-                setTooltip(
-                  <Tooltip style={{ left: element.x + element.width + 10, top: element.y + window.scrollY }}>
-                    <span>You can search for exact matches by wrapping the text in quotes.</span>
-                    <span>
-                      Example: If you want to search only for things that deal 4 damage,
-                      you can search &quot;deal 4 damage&quot;.
-                      If you want everything that deals some damage, you can search deal damage.
-                    </span>
-                    <span>
-                      Tokens are also included in the search. For example, searching for storm will
-                      also return everything that summons a ghost.
-                    </span>
-                  </Tooltip>,
-                );
-              }}
-              onMouseLeave={() => setTooltip(null)}
-            >
-              ?
-            </InfoBubble>
-          </StyledFilterSelectors>
-          <StyledButton
-            type="button"
-            onClick={() => {
-              setSearchFilter({ filter: null, reverse: false });
-              // eslint-disable-next-line no-param-reassign
-              document.querySelectorAll('input.Search').forEach((el) => { el.value = ''; el.checked = false; });
-            }}
-          >
-            Reset
-          </StyledButton>
-        </FilterContainer>
-        <FilterContainer
-          active={expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0}
-          reverse={expansionFilter && expansionFilter.filter && expansionFilter.reverse}
-        >
-          <StyledFilterSelectors>
-            <span>
-              <input
-                type="checkbox"
-                onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked })}
-                className="Expansion"
-              />
-              <span>NOT</span>
-            </span>
-            <Dropdown
-              type="select"
-              text={t('Expansion')}
-              checkboxClass="Expansion"
-              choices={Object.keys(expansions).map((exp) => ({ title: t(exp) }))}
-              handleChange={handleFilterChange}
-              extended
-              noMin
-              bgColor="rgb(16, 37, 56)"
-            />
-          </StyledFilterSelectors>
-          <StyledButton
-            type="button"
-            onClick={() => {
-              setExpansionFilter({ filter: [], reverse: false });
-              // eslint-disable-next-line no-param-reassign
-              document.querySelectorAll('input.Expansion').forEach((el) => { el.checked = false; });
-            }}
-          >
-            Reset
-          </StyledButton>
-        </FilterContainer>
-        <FilterContainer
-          active={costFilter && costFilter.filter && costFilter.filter.length > 0}
-          reverse={costFilter && costFilter.filter && costFilter.reverse}
-        >
-          <StyledFilterSelectors>
-            <span>
-              <input
-                type="checkbox"
-                onChange={(e) => setCostFilter({ ...costFilter, reverse: e.target.checked })}
-                className="Cost"
-              />
-              <span>NOT</span>
-            </span>
-            <Dropdown
-              type="select"
-              text={t('Cost')}
-              checkboxClass="Cost"
-              choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
-              handleChange={handleFilterChange}
-              noMin
-              bgColor="rgb(16, 37, 56)"
-            />
-          </StyledFilterSelectors>
-          <StyledButton
-            type="button"
-            onClick={() => {
-              setCostFilter({ filter: [], reverse: false });
-              // eslint-disable-next-line no-param-reassign
-              document.querySelectorAll('input.Cost').forEach((el) => { el.checked = false; });
-            }}
-          >
-            Reset
-          </StyledButton>
-        </FilterContainer>
-        <FilterContainer
-          active={typeFilter && typeFilter.filter && typeFilter.filter.length > 0}
-          reverse={typeFilter && typeFilter.filter && typeFilter.reverse}
-        >
-          <StyledFilterSelectors>
-            <span>
-              <input
-                type="checkbox"
-                onChange={(e) => setTypeFilter({ ...typeFilter, reverse: e.target.checked })}
-                className="Type"
-              />
-              <span>NOT</span>
-            </span>
-            <Dropdown
-              type="select"
-              text={t('Type')}
-              checkboxClass="Type"
-              choices={Object.keys(cardTypes).map((type) => ({ title: t(type) }))}
-              handleChange={handleFilterChange}
-              noMin
-              bgColor="rgb(16, 37, 56)"
-            />
-          </StyledFilterSelectors>
-          <StyledButton
-            type="button"
-            onClick={() => {
-              setTypeFilter({ filter: [], reverse: false });
-              // eslint-disable-next-line no-param-reassign
-              document.querySelectorAll('input.Type').forEach((el) => { el.checked = false; });
-            }}
-          >
-            Reset
-          </StyledButton>
-        </FilterContainer>
-        <FilterContainer
-          active={rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0}
-          reverse={rarityFilter && rarityFilter.filter && rarityFilter.reverse}
-        >
-          <StyledFilterSelectors>
-            <span>
-              <input
-                type="checkbox"
-                onChange={(e) => setRarityFilter({ ...rarityFilter, reverse: e.target.checked })}
-                className="Rarity"
-              />
-              <span>NOT</span>
-            </span>
-            <Dropdown
-              type="select"
-              text={t('Rarity')}
-              checkboxClass="Rarity"
-              choices={Object.keys(rarities).map((type) => ({ title: t(type) }))}
-              handleChange={handleFilterChange}
-              noMin
-              bgColor="rgb(16, 37, 56)"
-            />
-          </StyledFilterSelectors>
-          <StyledButton
-            type="button"
-            onClick={() => {
-              setRarityFilter({ filter: [], reverse: false });
-              // eslint-disable-next-line no-param-reassign
-              document.querySelectorAll('input.Rarity').forEach((el) => { el.checked = false; });
-            }}
-          >
-            Reset
-          </StyledButton>
-        </FilterContainer>
-        <span className="neutralFilter">
-          <span>{t('Include neutrals')}:</span>
-          <label htmlFor="filterNeutral">
-            <select
-              name="neutral"
-              onChange={(e) => {
-                setIncludeNeutrals(e.target.value);
-              }}
-              value={includeNeutrals}
-            >
-              <option value="Yes">{t('Yes')}</option>
-              <option value="">{t('Class cards only')}</option>
-              <option value="Only">{t('Neutrals only')}</option>
-            </select>
-          </label>
-        </span>
-      </TopBar>
+          </>
+        )
+        : (
+          <>
+            <TopBar>
+              <StyledButton type="button" onClick={resetAllFilters}>
+                Reset all filters
+              </StyledButton>
+              <FilterContainer
+                active={searchFilter && searchFilter.filter}
+                reverse={searchFilter && searchFilter.filter && searchFilter.reverse}
+                long
+              >
+                <StyledFilterSelectors>
+                  <span>
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setSearchFilter({ ...searchFilter, reverse: e.target.checked })}
+                      className="Search"
+                    />
+                    <span>NOT</span>
+                  </span>
+                  <input
+                    type="text"
+                    className="Search"
+                    placeholder={t('Search card text')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        setSearchFilter({ ...searchFilter, filter: e.target.value });
+                      }
+                    }}
+                    style={{ margin: '0 0 2px 3px' }}
+                  />
+                  <InfoBubble
+                    onMouseEnter={(e) => {
+                      const element = e.target.getBoundingClientRect();
+                      setTooltip(
+                        <Tooltip style={{ left: element.x + element.width + 10, top: element.y + window.scrollY }}>
+                          <span>You can search for exact matches by wrapping the text in quotes.</span>
+                          <span>
+                            Example: If you want to search only for things that deal 4 damage,
+                            you can search &quot;deal 4 damage&quot;.
+                            If you want everything that deals some damage, you can search deal damage.
+                          </span>
+                          <span>
+                            Tokens are also included in the search. For example, searching for storm will
+                            also return everything that summons a ghost.
+                          </span>
+                        </Tooltip>,
+                      );
+                    }}
+                    onMouseLeave={() => setTooltip(null)}
+                  >
+                    ?
+                  </InfoBubble>
+                </StyledFilterSelectors>
+                <StyledButton
+                  type="button"
+                  onClick={() => {
+                    setSearchFilter({ filter: null, reverse: false });
+                    // eslint-disable-next-line no-param-reassign
+                    document.querySelectorAll('input.Search').forEach((el) => { el.value = ''; el.checked = false; });
+                  }}
+                >
+                  Reset
+                </StyledButton>
+              </FilterContainer>
+              <FilterContainer
+                active={expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0}
+                reverse={expansionFilter && expansionFilter.filter && expansionFilter.reverse}
+              >
+                <StyledFilterSelectors>
+                  <span>
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setExpansionFilter({ ...expansionFilter, reverse: e.target.checked })}
+                      className="Expansion"
+                    />
+                    <span>NOT</span>
+                  </span>
+                  <Dropdown
+                    type="select"
+                    text={t('Expansion')}
+                    checkboxClass="Expansion"
+                    choices={Object.keys(expansions).map((exp) => ({ title: t(exp) }))}
+                    handleChange={handleFilterChange}
+                    extended
+                    noMin
+                    bgColor="rgb(16, 37, 56)"
+                  />
+                </StyledFilterSelectors>
+                <StyledButton
+                  type="button"
+                  onClick={() => {
+                    setExpansionFilter({ filter: [], reverse: false });
+                    // eslint-disable-next-line no-param-reassign
+                    document.querySelectorAll('input.Expansion').forEach((el) => { el.checked = false; });
+                  }}
+                >
+                  Reset
+                </StyledButton>
+              </FilterContainer>
+              <FilterContainer
+                active={costFilter && costFilter.filter && costFilter.filter.length > 0}
+                reverse={costFilter && costFilter.filter && costFilter.reverse}
+              >
+                <StyledFilterSelectors>
+                  <span>
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setCostFilter({ ...costFilter, reverse: e.target.checked })}
+                      className="Cost"
+                    />
+                    <span>NOT</span>
+                  </span>
+                  <Dropdown
+                    type="select"
+                    text={t('Cost')}
+                    checkboxClass="Cost"
+                    choices={['0', '1', '2', '3', '4', '5', '6', '7', '8+'].map((num) => ({ title: num }))}
+                    handleChange={handleFilterChange}
+                    noMin
+                    bgColor="rgb(16, 37, 56)"
+                  />
+                </StyledFilterSelectors>
+                <StyledButton
+                  type="button"
+                  onClick={() => {
+                    setCostFilter({ filter: [], reverse: false });
+                    // eslint-disable-next-line no-param-reassign
+                    document.querySelectorAll('input.Cost').forEach((el) => { el.checked = false; });
+                  }}
+                >
+                  Reset
+                </StyledButton>
+              </FilterContainer>
+              <FilterContainer
+                active={typeFilter && typeFilter.filter && typeFilter.filter.length > 0}
+                reverse={typeFilter && typeFilter.filter && typeFilter.reverse}
+              >
+                <StyledFilterSelectors>
+                  <span>
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setTypeFilter({ ...typeFilter, reverse: e.target.checked })}
+                      className="Type"
+                    />
+                    <span>NOT</span>
+                  </span>
+                  <Dropdown
+                    type="select"
+                    text={t('Type')}
+                    checkboxClass="Type"
+                    choices={Object.keys(cardTypes).map((type) => ({ title: t(type) }))}
+                    handleChange={handleFilterChange}
+                    noMin
+                    bgColor="rgb(16, 37, 56)"
+                  />
+                </StyledFilterSelectors>
+                <StyledButton
+                  type="button"
+                  onClick={() => {
+                    setTypeFilter({ filter: [], reverse: false });
+                    // eslint-disable-next-line no-param-reassign
+                    document.querySelectorAll('input.Type').forEach((el) => { el.checked = false; });
+                  }}
+                >
+                  Reset
+                </StyledButton>
+              </FilterContainer>
+              <FilterContainer
+                active={rarityFilter && rarityFilter.filter && rarityFilter.filter.length > 0}
+                reverse={rarityFilter && rarityFilter.filter && rarityFilter.reverse}
+              >
+                <StyledFilterSelectors>
+                  <span>
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setRarityFilter({ ...rarityFilter, reverse: e.target.checked })}
+                      className="Rarity"
+                    />
+                    <span>NOT</span>
+                  </span>
+                  <Dropdown
+                    type="select"
+                    text={t('Rarity')}
+                    checkboxClass="Rarity"
+                    choices={Object.keys(rarities).map((type) => ({ title: t(type) }))}
+                    handleChange={handleFilterChange}
+                    noMin
+                    bgColor="rgb(16, 37, 56)"
+                  />
+                </StyledFilterSelectors>
+                <StyledButton
+                  type="button"
+                  onClick={() => {
+                    setRarityFilter({ filter: [], reverse: false });
+                    // eslint-disable-next-line no-param-reassign
+                    document.querySelectorAll('input.Rarity').forEach((el) => { el.checked = false; });
+                  }}
+                >
+                  Reset
+                </StyledButton>
+              </FilterContainer>
+              <span className="neutralFilter">
+                <span>{t('Include neutrals')}:</span>
+                <label htmlFor="filterNeutral">
+                  <select
+                    name="neutral"
+                    onChange={(e) => {
+                      setIncludeNeutrals(e.target.value);
+                    }}
+                    value={includeNeutrals}
+                  >
+                    <option value="Yes">{t('Yes')}</option>
+                    <option value="">{t('Class cards only')}</option>
+                    <option value="Only">{t('Neutrals only')}</option>
+                  </select>
+                </label>
+              </span>
+            </TopBar>
+          </>
+        )}
       <div style={{ margin: '15px 0 0 15px', height: '88vh', display: 'flex' }}>
         <div style={{
           display: 'inline-block', height: '88vh', overflow: 'auto',

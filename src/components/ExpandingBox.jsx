@@ -13,21 +13,24 @@ const propTypes = {
   ]),
   width: PropTypes.string,
   marginTop: PropTypes.string,
+  margin: PropTypes.string,
+  preserveState: PropTypes.bool,
 };
 
 const TitleBox = styled.div`
   width: ${(props) => props.width};
   border: 2px solid #444;
   height: 50px;
-  margin: auto;
+  margin: ${(props) => props.margin};
   margin-top: ${(props) => props.marginTop};
   margin-bottom: 25px;
   background-color: #111;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 `;
 
 const ContentDiv = styled.div`
-  margin: auto;
+  margin: ${(props) => props.margin};
   width: ${(props) => props.width};
   margin-top: -30px;
   padding-top: 20px;
@@ -41,12 +44,12 @@ const ContentDiv = styled.div`
 `;
 
 const ExpandingBox = ({
-  title, content, width = '75%', marginTop = '0px',
+  title, content, width = '75%', marginTop = '0px', margin = 'auto', preserveState = false,
 }) => {
   const [expanded, setExpanded] = useState(false);
   return (
     <>
-      <TitleBox width={width} marginTop={marginTop} onClick={() => setExpanded(!expanded)}>
+      <TitleBox width={width} marginTop={marginTop} margin={margin} onClick={() => setExpanded(!expanded)}>
         <div style={{ paddingTop: '15px', height: '100%' }}>
           <span style={{ float: 'left', marginLeft: '10%' }}>
             {expanded ? (
@@ -64,7 +67,9 @@ const ExpandingBox = ({
           <span>{title}</span>
         </div>
       </TitleBox>
-      {expanded && <ContentDiv width={width}>{content}</ContentDiv>}
+      {preserveState
+        ? <ContentDiv width={width} margin={margin} style={{ display: expanded ? 'inherit' : 'none' }}>{content}</ContentDiv>
+        : expanded && <ContentDiv width={width} margin={margin}>{content}</ContentDiv>}
     </>
   );
 };
