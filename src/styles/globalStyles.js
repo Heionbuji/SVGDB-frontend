@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
 html, body, #root {
   min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
 }
 body {
   background-color: #e6e6e6;
