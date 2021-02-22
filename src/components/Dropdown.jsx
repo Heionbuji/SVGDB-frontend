@@ -29,6 +29,8 @@ const DropdownContent = styled.ul`
   z-index: 3;
   width: ${(props) => (props.Extended ? '200px' : '100%')};
   min-width: 100px;
+  max-height: 75vh;
+  overflow-y: auto;
 `;
 
 const StyledDropdownItem = styled.li`

@@ -53,7 +53,7 @@ const Deck = ({ deck, setDeck, cards, setTooltip }) => {
   };
 
   return (
-    <div style={{ height: '75vh', color: 'white', overflow: 'hidden auto' }}>
+    <div style={{ height: '75vh', color: 'white', overflow: 'hidden auto', paddingBottom: '10px' }}>
       {deck && cards && (
         Object.keys(deck)
           .sort((a, b) => {
@@ -75,6 +75,7 @@ const Deck = ({ deck, setDeck, cards, setTooltip }) => {
                 backgroundSize: '256px 42px',
                 width: '256px',
                 height: '32px',
+                margin: 'auto',
                 marginTop: '8px',
                 userSelect: 'none',
               }}

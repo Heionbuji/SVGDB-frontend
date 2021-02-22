@@ -76,6 +76,9 @@
     "ダークネス・エボルヴ": "Darkness Evolved",
     "クラシック": "Classic",
     "ベーシック": "Basic",
+    "トークン": "Token",
+    "Alt": "イラスト違い",
+    "イラスト違い": "Alt",
     "Fortunes Hand": "運命の神々",
     "World Uprooted": "ナテラ崩壊",
     "Ultimate Colosseum": "アルティメットコロシアム",
@@ -132,7 +135,9 @@
     "Cards": "カード",
     "Search": "検索",
     "Filters": "フィルタ",
-    "Cancel": "キャンセル"
+    "Cancel": "キャンセル",
+    "Show deck": "デッキ表示",
+    "Token": "トークン"
   },
   "resources": {
     "Collab and Event": "コラボとイベント",
