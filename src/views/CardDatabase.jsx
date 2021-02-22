@@ -68,6 +68,8 @@ const CardDatabase = ({ t, i18n }) => {
     'Darkness Evolved': '102',
     Classic: '101',
     Basic: '100',
+    Token: '9',
+    Alt: '7',
   };
   const cardTypes = {
     Follower: '1',
@@ -127,7 +129,7 @@ const CardDatabase = ({ t, i18n }) => {
       const newShown = {};
       const keys = Object.keys(allCards).filter((card) => {
         const id = allCards[card].id_.toString();
-        let filter = id.substring(0, 1) !== '9' && id.substring(0, 1) !== '7';
+        let filter = id.substring(0, 1) !== '9';
 
         if (includeNeutrals) {
           if (includeNeutrals === 'Only') {
@@ -142,9 +144,9 @@ const CardDatabase = ({ t, i18n }) => {
         }
 
         if (expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0 && !expansionFilter.reverse) {
-          filter = filter && expansionFilter.filter.some((item) => id.substring(0, 3) === expansions[t(item)]);
+          filter = expansionFilter.filter.some((item) => id.substring(0, expansions[t(item)].length) === expansions[t(item)]);
         } else if (expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0 && expansionFilter.reverse) {
-          filter = filter && expansionFilter.filter.every((item) => id.substring(0, 3) !== expansions[t(item)]);
+          filter = expansionFilter.filter.every((item) => id.substring(0, expansions[t(item)].length) !== expansions[t(item)]);
         }
 
         if (costFilter && costFilter.filter && costFilter.filter.length > 0 && !costFilter.reverse) {
@@ -379,20 +381,18 @@ const CardDatabase = ({ t, i18n }) => {
       </div>
       { isMobileDisplay()
         ? (
-          <>
-            <MobileFilters
-              setSearch={setSearchFilter}
-              setExpansion={setExpansionFilter}
-              setCost={setCostFilter}
-              setType={setTypeFilter}
-              setRarity={setRarityFilter}
-              setNeutrals={setIncludeNeutrals}
-              expansions={expansions}
-              rarities={rarities}
-              cardTypes={cardTypes}
-              resetAllFilters={resetAllFilters}
-            />
-          </>
+          <MobileFilters
+            setSearch={setSearchFilter}
+            setExpansion={setExpansionFilter}
+            setCost={setCostFilter}
+            setType={setTypeFilter}
+            setRarity={setRarityFilter}
+            setNeutrals={setIncludeNeutrals}
+            expansions={expansions}
+            rarities={rarities}
+            cardTypes={cardTypes}
+            resetAllFilters={resetAllFilters}
+          />
         )
         : (
           <>
