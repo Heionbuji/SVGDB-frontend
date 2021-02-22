@@ -268,3 +268,15 @@ export const MobilePopup = styled.div`
   }
 
 `;
+
+export const DeckContainer = styled.div`
+  width: 15%:
+  margin-left: 10px;
+  @media screen and (max-width: 640px) {
+    position: absolute;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.98);
+    width: 100vw;
+    margin-left: 0;
+  }
+`;

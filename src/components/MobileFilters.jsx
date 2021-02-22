@@ -26,6 +26,9 @@ const propTypes = {
   cardTypes: PropTypes.shape().isRequired,
   rarities: PropTypes.shape().isRequired,
   resetAllFilters: PropTypes.func.isRequired,
+  deckbuilder: PropTypes.bool,
+  deckHidden: PropTypes.bool,
+  setDeckHidden: PropTypes.func,
 };
 
 const MobileFilters = (
@@ -40,6 +43,9 @@ const MobileFilters = (
     cardTypes,
     rarities,
     resetAllFilters,
+    deckbuilder = false,
+    deckHidden = false,
+    setDeckHidden = null,
   },
 ) => {
   const { t } = useTranslation();
@@ -122,6 +128,12 @@ const MobileFilters = (
         <StyledButton type="button" onClick={toggleShowFilters} style={{ minWidth: '50px', maxHeight: '100%', margin: '5px' }}>
           {t('Filters')}
         </StyledButton>
+        {deckbuilder && (
+          <StyledButton type="button" onClick={() => setDeckHidden(!deckHidden)} style={{ minWidth: '50px', maxHeight: '100%', margin: '5px' }}>
+            {t('Show deck')}
+          </StyledButton>
+        )}
+
       </TopBar>
       <DimBackground style={{ display: showFilters ? 'inherit' : 'none' }}>
         <MobilePopup>
@@ -391,6 +403,12 @@ const MobileFilters = (
 
     </>
   );
+};
+
+MobileFilters.defaultProps = {
+  deckbuilder: false,
+  deckHidden: false,
+  setDeckHidden: null,
 };
 
 MobileFilters.propTypes = propTypes;
