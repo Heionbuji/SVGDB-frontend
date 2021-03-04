@@ -144,9 +144,9 @@ const CardDatabase = ({ t, i18n }) => {
         }
 
         if (expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0 && !expansionFilter.reverse) {
-          filter = expansionFilter.filter.some((item) => id.substring(0, expansions[t(item)].length) === expansions[t(item)]);
+          filter = filter && expansionFilter.filter.some((item) => id.substring(0, expansions[t(item)].length) === expansions[t(item)]);
         } else if (expansionFilter && expansionFilter.filter && expansionFilter.filter.length > 0 && expansionFilter.reverse) {
-          filter = expansionFilter.filter.every((item) => id.substring(0, expansions[t(item)].length) !== expansions[t(item)]);
+          filter = filter && expansionFilter.filter.every((item) => id.substring(0, expansions[t(item)].length) !== expansions[t(item)]);
         }
 
         if (costFilter && costFilter.filter && costFilter.filter.length > 0 && !costFilter.reverse) {
