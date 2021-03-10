@@ -68,7 +68,7 @@ export const TokenText = styled.span`
 export const StyledLeaderImg = styled.img`
   max-width: 512px;
   @media(orientation: portrait) {
-    max-width: 40vw;
+    max-width: 80vw;
   }
 `;
 
