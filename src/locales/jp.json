@@ -137,7 +137,16 @@
     "Filters": "フィルタ",
     "Cancel": "キャンセル",
     "Show deck": "デッキ表示",
-    "Token": "トークン"
+    "Token": "トークン",
+
+    "Forestcraft": "エルフ",
+    "Swordcraft": "ロイヤル",
+    "Runecraft": "ウィッチ",
+    "Dragoncraft": "ドラゴン",
+    "Shadowcraft": "ネクロ",
+    "Bloodcraft": "ヴァンパイア",
+    "Havencraft": "ビショップ",
+    "Portalcraft": "ネメシス"
   },
   "resources": {
     "Collab and Event": "コラボとイベント",

@@ -2,25 +2,30 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState, useEffect, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { StyledContentDiv } from '../styles/globalStyles';
-import { StyledCardImageContainer, StyledButton, StyledLeaderImg } from '../styles/cardStyles';
+import {
+  StyledCardImageContainer, StyledButton, StyledLeaderImg, StyledCardName,
+} from '../styles/cardStyles';
 import { ForegroundDiv, DimBackground } from '../styles/leaderAnimationStyles';
 import LeaderAudioContainer from '../components/LeaderAudioContainer';
 
 const LeaderAnimations = React.lazy(() => import('../components/LeaderAnimations'));
 
-const propTypes = {
-  t: PropTypes.func.isRequired,
-};
-
-const Leader = ({ t }) => {
+const Leader = () => {
   const { leaderId } = useParams();
   const [win, setWin] = useState('win');
   const [zoom, setZoom] = useState('profile');
   const [showAnimations, setShowAnimations] = useState(false);
+  const [leaderInfo, setLeaderInfo] = useState(null);
+  const { t, i18n } = useTranslation();
+
   useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/leader/${leaderId}`)
+      .then((res) => res.json())
+      .then((data) => setLeaderInfo(data));
+  }, []);
 
   const removeZeroPad = (string) => {
     while (String(string).charAt(0) === '0') {
@@ -30,8 +35,25 @@ const Leader = ({ t }) => {
     return string;
   };
 
+  const crafts = [
+    'Forestcraft',
+    'Swordcraft',
+    'Runecraft',
+    'Dragoncraft',
+    'Shadowcraft',
+    'Bloodcraft',
+    'Havencraft',
+    'Portalcraft',
+  ];
+
   return leaderId && (
     <StyledContentDiv>
+      {leaderInfo && (
+        <StyledCardName style={{ textAlign: 'left', padding: '20px' }}>
+          {leaderInfo.name[i18n.language]}
+          <span style={{ float: 'right' }}>{t(crafts[leaderInfo.craft - 1])}</span>
+        </StyledCardName>
+      )}
       <StyledCardImageContainer>
         {leaderId.substring(0, 2) !== '50' && leaderId.substring(0, 2) !== '60' ? (
           <>
@@ -100,6 +122,4 @@ const Leader = ({ t }) => {
   );
 };
 
-Leader.propTypes = propTypes;
-
-export default withTranslation()(Leader);
+export default Leader;
