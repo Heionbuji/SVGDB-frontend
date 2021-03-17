@@ -55,7 +55,8 @@ const Leader = () => {
         </StyledCardName>
       )}
       <StyledCardImageContainer>
-        {leaderId.substring(0, 2) !== '50' && leaderId.substring(0, 2) !== '60' ? (
+        {/* HARDCODED EXCEPTION AHEAD: ID 504 is the only one that doesn't follow regular conventions */}
+        {leaderId.length < 5 && leaderId !== '504' ? (
           <>
             <a
               target="_blank"
