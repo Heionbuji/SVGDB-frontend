@@ -56,6 +56,7 @@
     "Switch expression": "表情を変える",
     "Deckbuilder": "デッキ作成",
 
+    "暗黒のウェルサ": "Darkness Over Vellsar",
     "十天覚醒": "Eternal Awakening",
     "レヴィールの旋風": "Storm Over Rivayle",
     "運命の神々": "Fortunes Hand",
@@ -97,6 +98,7 @@
     "Darkness Evolved": "ダークネス・エボルヴ",
     "Storm Over Rivayle": "レヴィールの旋風",
     "Eternal Awakening": "十天覚醒",
+    "Darkness Over Vellsar": "暗黒のウェルサ",
     "Classic": "クラシック",
     "Basic": "ベーシック",
 
@@ -163,6 +165,8 @@
     "2019": "2019年",
     "2018": "2018年",
     "-- Select Expansion --": "カードパック",
+    "Eternal Awakening": "十天覚醒",
+    "Darkness Over Vellsar": "暗黒のウェルサ",
     "Storm Over Rivayle": "レヴィールの旋風",
     "Fortune's hand": "運命の神々",
     "World Uprooted": "ナテラ崩壊",

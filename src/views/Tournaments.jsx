@@ -34,6 +34,7 @@ const Tournaments = () => {
   };
 
   const exp2season = {
+    'Darkness Over Vellsar': '17th Season',
     'Eternal Awakening': '16th Season',
     'Storm Over Rivayle': '15th Season',
     'Fortunes Hand': '14th Season',
