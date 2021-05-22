@@ -14,7 +14,7 @@ const News = () => {
     fetch(`${process.env.REACT_APP_API_URL}/news/${i18n.language}`)
       .then((res) => res.json())
       .then((resjson) => setNews(resjson));
-  }, []);
+  }, [i18n.language]);
   return (
     news && news.map((newsItem) => (
       <StyledNewsDiv key={newsItem.title}>
