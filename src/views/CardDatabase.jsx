@@ -100,6 +100,18 @@ const CardDatabase = ({ t, i18n }) => {
     'Portalcraft',
   ];
 
+  const resetAllFilters = () => {
+    document.querySelectorAll(
+      'input.Search, input.Expansion, input.Cost, input.Type, input.Rarity',
+    ).forEach((el) => { el.value = ''; el.checked = false; }); // eslint-disable-line no-param-reassign
+    setSearchFilter({ filter: null, reverse: false });
+    setExpansionFilter({ filter: [], reverse: false });
+    setCostFilter({ filter: [], reverse: false });
+    setTypeFilter({ filter: [], reverse: false });
+    setRarityFilter({ filter: [], reverse: false });
+    setIncludeNeutrals('Yes');
+  };
+
   const parseQuotedString = (input) => {
     const words = [];
     let startIndex = 0;
@@ -120,6 +132,7 @@ const CardDatabase = ({ t, i18n }) => {
   const isMobileDisplay = () => window.screen.width < 640;
 
   useEffect(() => {
+    resetAllFilters();
     fetch(`${process.env.REACT_APP_API_URL}/${i18n.language}`)
       .then((res) => res.json())
       .then((resJson) => { setAllCards(resJson); setShownCards(resJson); });
@@ -353,18 +366,6 @@ const CardDatabase = ({ t, i18n }) => {
         setFilter({ ...filter, filter: [...filter.filter, filterValue] });
       }
     }
-  };
-
-  const resetAllFilters = () => {
-    document.querySelectorAll(
-      'input.Search, input.Expansion, input.Cost, input.Type, input.Rarity',
-    ).forEach((el) => { el.value = ''; el.checked = false; }); // eslint-disable-line no-param-reassign
-    setSearchFilter({ filter: null, reverse: false });
-    setExpansionFilter({ filter: [], reverse: false });
-    setCostFilter({ filter: [], reverse: false });
-    setTypeFilter({ filter: [], reverse: false });
-    setRarityFilter({ filter: [], reverse: false });
-    setIncludeNeutrals('Yes');
   };
 
   return (
