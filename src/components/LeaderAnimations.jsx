@@ -18,7 +18,14 @@ class LeaderAnimations extends React.Component {
     this.state = {};
     this.loading = true;
     this.pixi_cnt = null;
-    this.app = new PIXI.Application({width: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, height: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, transparent:false});
+    this.app = new PIXI.Application(
+      {
+        width: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth,
+        height: window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth,
+        transparent: false,
+        backgroundColor: 0x00b140
+      }
+    );
     this.animation = null;
     this.animScale = 0.6;
   };
