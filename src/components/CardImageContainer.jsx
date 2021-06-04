@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
-import PropTypes, { bool } from 'prop-types';
+import PropTypes, { bool, string } from 'prop-types';
 import { StyledCardImageContainer, StyledArtImg } from '../styles/cardStyles';
 
 const propTypes = {
@@ -11,18 +11,19 @@ const propTypes = {
   ]).isRequired,
   hidden: PropTypes.bool,
   censored: bool,
+  locale: string,
 };
 
-const CardImageContainer = ({ evo, cardId, hidden = false, censored = false }) => (
+const CardImageContainer = ({ evo, cardId, hidden = false, censored = false, locale = 'en' }) => (
   !hidden && (
     <StyledCardImageContainer>
       <a
         target="_blank"
-        href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${evo ? 'E' : 'C'}_${cardId}.png`}
+        href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${evo ? 'E' : 'C'}_${cardId}.png?lang=${locale}`}
         rel="noopener noreferrer"
         style={{ margin: 'auto' }}
       >
-        <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
+        <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${evo ? 'E' : 'C'}_${cardId}.png?lang=${locale}`} alt="" />
       </a>
       <a
         target="_blank"
