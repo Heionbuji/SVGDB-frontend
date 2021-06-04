@@ -50,7 +50,7 @@ const Deckbuilder = ({ t, i18n }) => {
   const [currentDeck, setCurrentDeck] = useState({});
   const [tooltip, setTooltip] = useState(null);
   const [deckHidden, setDeckHidden] = useState(isMobileDisplay());
-  const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
+  const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails`;
   const [currDeckCount, setCurrDeckCount] = useState(0);
   const [showLoad, setShowLoad] = useState(false);
   const deckHashRef = useRef(null);
@@ -345,7 +345,7 @@ const Deckbuilder = ({ t, i18n }) => {
         >
           <LazyLoadedImage
             key={`img${key}`}
-            src={`${thumbnailUrl}${key}.png`}
+            src={`${thumbnailUrl}/${i18n.language}/C_${key}.png`}
             alt=""
             width={imgWidth}
             height={imgHeight}

@@ -43,7 +43,7 @@ const CardDatabase = ({ t, i18n }) => {
   const [allCards, setAllCards] = useState(null);
   const [shownCards, setShownCards] = useState(null);
   const [tooltip, setTooltip] = useState(null);
-  const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/C_`;
+  const thumbnailUrl = `${process.env.REACT_APP_ASSETS_URL}/thumbnails`;
   const filters = {
     NEUTRAL: '0',
   };
@@ -314,7 +314,7 @@ const CardDatabase = ({ t, i18n }) => {
             <Link to={`/cards/${key}`}>
               <LazyLoadedImage
                 key={`img${key}`}
-                src={`${thumbnailUrl}${key}.png`}
+                src={`${thumbnailUrl}/${i18n.language}/C_${key}.png`}
                 alt=""
                 width={imgWidth}
                 height={imgHeight}
