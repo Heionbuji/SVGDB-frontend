@@ -22,7 +22,7 @@ const TokenContainer = ({ token, language }) => {
       <div style={{ border: '1px solid pink', padding: '10px' }}>
         <p style={{ marginTop: '5px' }}><b>{tokenJson.name_}</b></p>
         <StyledTokenInfo>
-          <img src={`${process.env.REACT_APP_ASSETS_URL}/${language}/thumbnails/C_${tokenJson.id_}.png`} alt="" style={{ paddingRight: '5px' }} />
+          <img src={`${process.env.REACT_APP_ASSETS_URL}/thumbnails/${language}/C_${tokenJson.id_}.png`} alt="" style={{ paddingRight: '5px' }} />
           {tokenJson.type_ === 'Follower'
             ? (
               <TokenText>
