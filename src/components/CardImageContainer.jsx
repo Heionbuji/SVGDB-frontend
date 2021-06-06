@@ -19,7 +19,7 @@ const CardImageContainer = ({ evo, cardId, hidden = false, censored = false, loc
     <StyledCardImageContainer>
       <a
         target="_blank"
-        href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${locale}/${evo ? 'E' : 'C'}_${cardId}.png`}
+        href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : `cards/${locale}`}/${evo ? 'E' : 'C'}_${cardId}.png`}
         rel="noopener noreferrer"
         style={{ margin: 'auto' }}
       >
