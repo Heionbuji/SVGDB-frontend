@@ -59,6 +59,7 @@ const Deckbuilder = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Renascent Chronicles': '121',
     'Darkness Over Vellsar': '120',
     'Eternal Awakening': '119',
     'Storm Over Rivayle': '118',
