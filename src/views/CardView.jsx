@@ -26,6 +26,7 @@ const CardView = ({ t, i18n }) => {
   const [censored, setCensored] = useState(false);
   const [showCensored, setShowCensored] = useState(false);
   const [evo, setEvo] = useState(false);
+  const [animated, setAnimated] = useState(false);
   const { cardId } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -51,7 +52,7 @@ const CardView = ({ t, i18n }) => {
           {cardJson.name_}
           <span style={{ float: 'right' }}>{cardJson.craft_}</span>
         </StyledCardName>
-        <CardImageContainer evo={evo} cardId={cardId} locale={i18n.language} />
+        <CardImageContainer evo={evo} cardId={cardId} locale={i18n.language} anim={animated} />
         <div style={{ textAlign: 'center' }}>
           {cardJson.type_ === t('follower')
           && (
@@ -59,6 +60,9 @@ const CardView = ({ t, i18n }) => {
               {evo ? `${t('base')}` : `${t('evolved')}`} {t('art')}
             </StyledButton>
           )}
+          <StyledButton type="button" onClick={() => setAnimated(!animated)}>
+            Animated
+          </StyledButton>
           {censored && (
             <>
               <StyledButton type="button" onClick={() => setShowCensored(!showCensored)}>

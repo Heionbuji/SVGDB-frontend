@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes, { bool, string } from 'prop-types';
 import { StyledCardImageContainer, StyledArtImg } from '../styles/cardStyles';
+import VideoContainer from './VideoContainer';
 
 const propTypes = {
   evo: PropTypes.bool.isRequired,
@@ -12,30 +13,49 @@ const propTypes = {
   hidden: PropTypes.bool,
   censored: bool,
   locale: string,
+  anim: bool,
 };
 
-const CardImageContainer = ({ evo, cardId, hidden = false, censored = false, locale = 'en' }) => (
-  !hidden && (
-    <StyledCardImageContainer>
-      <a
-        target="_blank"
-        href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : `cards/${locale}`}/${evo ? 'E' : 'C'}_${cardId}.png`}
-        rel="noopener noreferrer"
-        style={{ margin: 'auto' }}
-      >
-        <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${locale}/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
-      </a>
-      <a
-        target="_blank"
-        href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`}
-        rel="noopener noreferrer"
-        style={{ margin: 'auto' }}
-      >
-        <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`} alt="" />
-      </a>
-    </StyledCardImageContainer>
-  )
-);
+const CardImageContainer = ({
+  evo, cardId, hidden = false, censored = false, locale = 'en', anim = false,
+}) => {
+  if (!hidden) {
+    if (!anim) {
+      return (
+        <StyledCardImageContainer>
+          <a
+            target="_blank"
+            href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : `cards/${locale}`}/${evo ? 'E' : 'C'}_${cardId}.png`}
+            rel="noopener noreferrer"
+            style={{ margin: 'auto' }}
+          >
+            <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'cards'}/${locale}/${evo ? 'E' : 'C'}_${cardId}.png`} alt="" />
+          </a>
+          <a
+            target="_blank"
+            href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`}
+            rel="noopener noreferrer"
+            style={{ margin: 'auto' }}
+          >
+            <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`} alt="" />
+          </a>
+        </StyledCardImageContainer>
+      );
+    }
+    return (
+      <StyledCardImageContainer>
+        <VideoContainer videoSrc={`${process.env.REACT_APP_ASSETS_URL}/cardanim/${cardId}.mp4`} />
+        <a
+          target="_blank"
+          href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`}
+          rel="noopener noreferrer"
+        >
+          <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`} alt="" />
+        </a>
+      </StyledCardImageContainer>
+    );
+  } return '';
+};
 
 CardImageContainer.propTypes = propTypes;
 
