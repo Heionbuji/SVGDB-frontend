@@ -1,14 +1,15 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
   videoSrc: PropTypes.string,
+  cardId: PropTypes.string,
 };
 
-const VideoContainer = ({ videoSrc }) => {
+const VideoContainer = ({ videoSrc, cardId }) => {
   const vid = useRef(null);
   const checkIfCanAutoplay = (video) => {
     const promise = video.play();
@@ -27,6 +28,14 @@ const VideoContainer = ({ videoSrc }) => {
       checkIfCanAutoplay(vid.current);
     }
   }, []);
+  const getCardType = () => {
+    if (cardId.charAt(5) === '1') {
+      return 'follower';
+    } if (cardId.charAt(5) === '4') {
+      return 'spell';
+    }
+    return 'amulet';
+  };
   return (
     <div style={{
       maxWidth: '345px',
@@ -39,6 +48,8 @@ const VideoContainer = ({ videoSrc }) => {
           maxWidth: '345px',
           maxHeight: '417px',
           width: 'auto',
+          maskImage: `url(${process.env.REACT_APP_API_URL}/assets/cardanim/${getCardType()}.png)`,
+          WebkitMaskImage: `url(${process.env.REACT_APP_API_URL}/assets/cardanim/${getCardType()}.png)`,
         }}
         src={videoSrc}
         ref={vid}

@@ -61,7 +61,7 @@ const CardView = ({ t, i18n }) => {
             </StyledButton>
           )}
           <StyledButton type="button" onClick={() => setAnimated(!animated)}>
-            Animated
+            {t('animated')}
           </StyledButton>
           {censored && (
             <>

@@ -44,7 +44,7 @@ const CardImageContainer = ({
     }
     return (
       <StyledCardImageContainer>
-        <VideoContainer videoSrc={`${process.env.REACT_APP_ASSETS_URL}/cardanim/${cardId}.mp4`} />
+        <VideoContainer videoSrc={`${process.env.REACT_APP_ASSETS_URL}/cardanim/${cardId}.mp4`} cardId={cardId.toString()} />
         <a
           target="_blank"
           href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`}
