@@ -48,8 +48,8 @@ const VideoContainer = ({ videoSrc, cardId }) => {
           maxWidth: '345px',
           maxHeight: '417px',
           width: 'auto',
-          maskImage: `url(${process.env.REACT_APP_API_URL}/assets/cardanim/${getCardType()}.png)`,
-          WebkitMaskImage: `url(${process.env.REACT_APP_API_URL}/assets/cardanim/${getCardType()}.png)`,
+          maskImage: `url(${process.env.REACT_APP_ASSETS_URL}/cardanim/${getCardType()}.png)`,
+          WebkitMaskImage: `url(${process.env.REACT_APP_ASSETS_URL}/cardanim/${getCardType()}.png)`,
         }}
         src={videoSrc}
         ref={vid}
