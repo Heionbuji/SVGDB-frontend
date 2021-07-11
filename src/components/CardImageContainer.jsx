@@ -19,6 +19,14 @@ const propTypes = {
 const CardImageContainer = ({
   evo, cardId, hidden = false, censored = false, locale = 'en', anim = false,
 }) => {
+  const formatCardId = (id) => {
+    const base = id.substring(0, id.length - 1);
+    if (evo) {
+      return `${base}1`;
+    }
+    return `${base}0`;
+  };
+
   if (!hidden) {
     if (!anim) {
       return (
@@ -44,7 +52,7 @@ const CardImageContainer = ({
     }
     return (
       <StyledCardImageContainer>
-        <VideoContainer videoSrc={`${process.env.REACT_APP_ASSETS_URL}/cardanim/${cardId}.mp4`} cardId={cardId.toString()} />
+        <VideoContainer videoSrc={`${process.env.REACT_APP_ASSETS_URL}/cardanim/${formatCardId(cardId)}.mp4`} cardId={cardId.toString()} evo={evo} />
         <a
           target="_blank"
           href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${evo ? '1' : '0'}.png`}
