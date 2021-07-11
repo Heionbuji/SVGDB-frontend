@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { StyledVideoContainer } from '../styles/cardStyles';
 
 const propTypes = {
   videoSrc: PropTypes.string,
@@ -21,13 +22,7 @@ const VideoContainer = ({ videoSrc, cardId }) => {
       });
     }
   };
-  useEffect(() => {
-    if (vid) {
-      vid.current.loop = true;
-      vid.current.muted = true;
-      checkIfCanAutoplay(vid.current);
-    }
-  }, []);
+
   const getCardType = () => {
     if (cardId.charAt(5) === '1') {
       return 'follower';
@@ -36,25 +31,43 @@ const VideoContainer = ({ videoSrc, cardId }) => {
     }
     return 'amulet';
   };
+
+  const handleFullscreen = (e) => {
+    if (!vid.current) return;
+    if (document.fullscreenElement) {
+      vid.current.classList.remove(`mask-${getCardType()}`);
+    } else {
+      vid.current.classList.add(`mask-${getCardType()}`);
+    }
+  };
+
+  useEffect(() => {
+    if (vid) {
+      document.addEventListener('fullscreenchange', handleFullscreen);
+      document.addEventListener('webkitfullscreenchange', handleFullscreen);
+      vid.current.loop = true;
+      vid.current.muted = true;
+      checkIfCanAutoplay(vid.current);
+    }
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreen);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreen);
+    };
+  }, [cardId, videoSrc]);
+
   return (
-    <div style={{
-      maxWidth: '345px',
-      maxHeight: '417px',
-      width: 'auto',
-    }}
-    >
+    <StyledVideoContainer>
       <video
         style={{
           maxWidth: '345px',
           maxHeight: '417px',
           width: 'auto',
-          maskImage: `url(${process.env.REACT_APP_ASSETS_URL}/cardanim/${getCardType()}.png)`,
-          WebkitMaskImage: `url(${process.env.REACT_APP_ASSETS_URL}/cardanim/${getCardType()}.png)`,
         }}
+        className={`mask-${getCardType()}`}
         src={videoSrc}
         ref={vid}
       />
-    </div>
+    </StyledVideoContainer>
   );
 };
 

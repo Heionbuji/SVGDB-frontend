@@ -97,3 +97,21 @@ export const StyledTokenInfo = styled.div`
     flex-direction: column;
   }
 `;
+
+export const StyledVideoContainer = styled.div`
+  max-width: 345px;
+  max-height: 417px;
+  width: auto;
+  .mask-follower {
+    mask-image: url(${process.env.REACT_APP_ASSETS_URL}/cardanim/follower.png);
+    webkit-mask-image: url(${process.env.REACT_APP_ASSETS_URL}/cardanim/follower.png);
+  }
+  .mask-spell {
+    mask-image: url(${process.env.REACT_APP_ASSETS_URL}/cardanim/spell.png);
+    webkit-mask-image: url(${process.env.REACT_APP_ASSETS_URL}/cardanim/spell.png);
+  }
+  .mask-amulet {
+    mask-image: url(${process.env.REACT_APP_ASSETS_URL}/cardanim/amulet.png);
+    webkit-mask-image: url(${process.env.REACT_APP_ASSETS_URL}/cardanim/amulet.png);
+  }
+`;
