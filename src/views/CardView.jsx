@@ -30,8 +30,6 @@ const CardView = ({ t, i18n }) => {
   const { cardId } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
-    setEvo(false);
-    setShowCensored(false);
     fetch(`${process.env.REACT_APP_API_URL}/cards/${i18n.language}/${cardId}`)
       .then((res) => res.json())
       .then((resjson) => {
