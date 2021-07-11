@@ -15,7 +15,7 @@ const VideoContainer = ({ videoSrc, cardId }) => {
     const promise = video.play();
     if (promise !== undefined) {
       promise.then(() => {
-        video.controls = true;
+        video.controls = false;
       }).catch(() => {
         video.controls = true;
       });
