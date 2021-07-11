@@ -22,7 +22,7 @@ const CardImageContainer = ({
   const isFollowerAndEvo = useMemo(() => {
     const isFollower = cardId.charAt(5) === '1';
     return isFollower && evo;
-  }, [cardId, evo]);
+  }, [cardId, evo, anim]);
 
   const formatCardId = (id) => {
     const base = id.substring(0, id.length - 1);
