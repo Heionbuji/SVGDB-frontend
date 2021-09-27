@@ -5,7 +5,6 @@ import { StyledDiv } from '../styles/globalStyles';
 import CardSearch from './CardSearch';
 import Dropdown from './Dropdown';
 import FlagsContainer from './FlagsContainer';
-import AdContainer from './AdContainer';
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -40,7 +39,6 @@ const Navbar = () => {
         />
         <CardSearch />
       </StyledDiv>
-      <AdContainer currentPath={path} />
     </>
   );
 };
