@@ -145,7 +145,7 @@ const CardDatabase = ({ t, i18n }) => {
       const newShown = {};
       const keys = Object.keys(allCards).filter((card) => {
         const id = allCards[card].id_.toString();
-        let filter = expansionFilter && expansionFilter.filter && expansionFilter.filter.includes('Token') ? true : id.substring(0, 1) !== '9';
+        let filter = expansionFilter && expansionFilter.filter && expansionFilter.filter.includes(t('Token')) ? true : id.substring(0, 1) !== '9';
 
         if (includeNeutrals) {
           if (includeNeutrals === 'Only') {
