@@ -48,6 +48,7 @@ const CardDatabase = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Omen of Storms': '123',
     'Dawn of Calamity': '122',
     'Renascent Chronicles': '121',
     'Darkness Over Vellsar': '120',
