@@ -67,7 +67,7 @@ const AudioContainer = ({ cardId, t, i18n }) => {
           {voiceJson.other && (
             voiceJson.other.map((other) => (
               <tr key={other}>
-                <Reactivetd>{other.substring(7, 8) === '4' ? t('accelerate') : t('crystallize')}</Reactivetd>
+                <Reactivetd>{other.substring(8, 9) === '4' ? t('accelerate') : t('crystallize')}</Reactivetd>
                 <Reactivetd>
                   <audio controls preload="none" src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/${other}`} />
                 </Reactivetd>
