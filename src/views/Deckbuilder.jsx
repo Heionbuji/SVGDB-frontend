@@ -36,7 +36,7 @@ const propTypes = {
 };
 
 const Deckbuilder = ({ t, i18n }) => {
-  const isMobileDisplay = () => window.screen.width < 640;
+  const isMobileDisplay = () => window.screen.height < 900;
 
   const [selectedClass, setSelectedClass] = useState(null);
   const [expansionFilter, setExpansionFilter] = useState(null);

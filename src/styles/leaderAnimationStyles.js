@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const ForegroundDiv = styled.div`
   position: relative;
@@ -7,16 +7,17 @@ export const ForegroundDiv = styled.div`
   z-index: 100;
   width: 100vw;
   height: 100vh;
-  margin: auto;
 
   @media screen and (max-aspect-ratio: 4/3) {
     flex-direction: column;
   }
 
-  canvas {
-    width: 50vw;
-    height: 50vw;
-  }
+  ${(props) => !props.fullscreen && `
+    canvas {
+      width: 50vw;
+      height: 50vw;
+    }`}
+
 
 `;
 
@@ -38,7 +39,7 @@ export const StyledButton = styled.button`
 `;
 
 export const StyledDiv = styled.div`
-  padding: 0 100px;
+  padding: 0 ${(props) => (props.fullscreen ? '0' : '100px')};
   @media only screen and (max-width: 1200px) {
     padding: 0;
   }
@@ -60,4 +61,16 @@ export const ResponsiveButton = styled.button`
     
     padding: 10px;
   }
+`;
+
+const FadeIn = keyframes`
+  0% { opacity: 0%; margin-top: 20px; }
+  100% { opacity: 100%; margin-top: 0px; }
+`;
+
+export const FadingDiv = styled.div`
+  animation-name: ${FadeIn};
+  animation-duration: 0.5s;
+  background-color: black;
+  background-blend-mode: lighten;
 `;

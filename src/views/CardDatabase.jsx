@@ -132,7 +132,7 @@ const CardDatabase = ({ t, i18n }) => {
     return words;
   };
 
-  const isMobileDisplay = () => window.screen.width < 640;
+  const isMobileDisplay = () => window.screen.height < 900;
 
   useEffect(() => {
     resetAllFilters();
