@@ -6,8 +6,10 @@ import {
   DimBackground,
   StyledDiv,
   ResponsiveButton,
-  FadingDiv
+  FadingDiv,
+  ColorPickerContainer
 } from '../styles/leaderAnimationStyles';
+import { HexColorPicker, HexColorInput } from 'react-colorful';
 
 window.PIXI = PIXI;
 require("pixi-spine")
@@ -31,6 +33,8 @@ class LeaderAnimations extends React.Component {
     }
     this.showButtons = false;
     this.isPaused = false;
+    this.colorPicker = false;
+    this.bgColor = '#000000'
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
@@ -42,6 +46,8 @@ class LeaderAnimations extends React.Component {
     this.togglePaused = this.togglePaused.bind(this);
     this.rotate = this.rotate.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
+    this.setBgColor = this.setBgColor.bind(this);
+    this.toggleColorPicker = this.toggleColorPicker.bind(this);
   };
 
   componentWillUnmount() {
@@ -132,7 +138,7 @@ class LeaderAnimations extends React.Component {
     let height = rect.height - 50;
     if(maxHeight > maxWidth && this.isFullscreen) {
       width = maxWidth / 2 - 40;
-      height = maxHeight - 100;
+      height = maxHeight - 200;
     }
     if(width > maxWidth) {
       width = 100;
@@ -140,6 +146,7 @@ class LeaderAnimations extends React.Component {
     if(height > maxHeight) {
       height = -100;
     }
+    const isInBottomHalf = height > maxHeight / 2;
     return (
       <FadingDiv style={{ position: 'absolute', zIndex: '999', top: height, left: width, display: !this.showButtons && 'none' }} ref={this.buttonRow}>
         <img
@@ -175,6 +182,13 @@ class LeaderAnimations extends React.Component {
             this.animation.scale.set(this.animScale);
           }}
         />
+        <ColorPickerContainer
+          mobile={!isInBottomHalf}
+          style={{ display: !this.colorPicker && 'none' }}
+        >
+          <HexColorPicker color={this.bgColor} onChange={this.setBgColor} />
+          <HexColorInput color={this.bgColor} onChange={this.setBgColor} prefixed />
+        </ColorPickerContainer>
         <img
           src={`${process.env.PUBLIC_URL}/svgs/minus.svg`}
           alt="Zoom out"
@@ -184,6 +198,13 @@ class LeaderAnimations extends React.Component {
             this.animScale -= 0.1
             this.animation.scale.set(this.animScale);
           }}
+        />
+        <img
+          src={`${process.env.PUBLIC_URL}/svgs/color.svg`}
+          alt="Change background color"
+          title="Change background color"
+          className="actionButton"
+          onClick={this.toggleColorPicker}
         />
         <img
           src={`${process.env.PUBLIC_URL}/svgs/fullscreen.svg`}
@@ -240,7 +261,7 @@ class LeaderAnimations extends React.Component {
     this.setState(this.state);
   }
   onMouseLeave(e) {
-    if(!e.explicitOriginalTarget.classList.contains('actionButton')) {
+    if(!e.relatedTarget || (!e.relatedTarget.classList.contains('actionButton') && !this.colorPicker)) {
       this.showButtons = false;
       this.setState(this.state);
     }
@@ -265,6 +286,17 @@ class LeaderAnimations extends React.Component {
       this.app.renderer.resize(window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth, window.innerWidth > window.innerHeight ? window.innerWidth / 2 : window.innerWidth)
     }
     this.setState(this.state);
+  }
+
+  setBgColor(newColor) {
+    this.bgColor = newColor;
+    this.app.renderer.backgroundColor = this.bgColor.replace('#', '0x');
+    this.setState(this.state);
+  }
+
+  toggleColorPicker() {
+    this.colorPicker = !this.colorPicker;
+    this.setState(this.state)
   }
 
   render() {

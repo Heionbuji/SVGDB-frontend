@@ -46,6 +46,7 @@ export const StyledDiv = styled.div`
 `;
 
 export const ResponsiveButton = styled.button`
+  min-width: 100px;
   width: 10vw;
   margin: 5px;
   color: white;
@@ -73,4 +74,9 @@ export const FadingDiv = styled.div`
   animation-duration: 0.5s;
   background-color: black;
   background-blend-mode: lighten;
+`;
+
+export const ColorPickerContainer = styled.div`
+  position: absolute;
+  top: ${(props) => (props.mobile ? '50px' : '-230px')};
 `;
