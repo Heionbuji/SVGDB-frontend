@@ -48,6 +48,7 @@ const CardDatabase = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Roar of the Godwyrm': '125',
     'Edge of Paradise': '124',
     'Omen of Storms': '123',
     'Dawn of Calamity': '122',
