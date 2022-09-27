@@ -59,6 +59,7 @@ const Deckbuilder = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Celestial Dragonblade': '126',
     'Roar of the Godwyrm': '125',
     'Edge of Paradise': '124',
     'Omen of Storms': '123',
