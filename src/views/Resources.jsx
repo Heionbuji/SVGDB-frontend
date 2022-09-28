@@ -29,7 +29,7 @@ const Resources = () => {
       thumbnailSrc = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/`;
       break;
     case 'flairs':
-      resourceSrc = `${process.env.REACT_APP_ASSETS_URL}/degrees/degree_`;
+      resourceSrc = `${process.env.REACT_APP_ASSETS_URL}/flairs/degree_`;
       thumbnailSrc = `${process.env.REACT_APP_ASSETS_URL}/thumbnails/degree_`;
       break;
     default:
