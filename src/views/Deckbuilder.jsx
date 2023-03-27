@@ -59,6 +59,7 @@ const Deckbuilder = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Academy of Ages': '128',
     'Eightfold Abyss Azvaldt': '127',
     'Celestial Dragonblade': '126',
     'Roar of the Godwyrm': '125',
