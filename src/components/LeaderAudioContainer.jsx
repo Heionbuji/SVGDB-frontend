@@ -35,6 +35,11 @@ const LeaderAudioContainer = ({ leaderId, t }) => {
     'Hurt',
     'Hurt',
   ];
+
+  // TODO: Do something about this
+  const leadersWithEvoLines = ['3917'];
+  const additionalEvos = ['001', '002', '003', '004', '005', '006', '007', '010', '011'];
+  const onlyEvos = ['012', '013', '014', '015'];
   return leaderId && (
     <table style={{ margin: 'auto' }}>
       <thead>
@@ -47,26 +52,96 @@ const LeaderAudioContainer = ({ leaderId, t }) => {
       <tbody>
         {audioNames.map((name, index) => {
           const id = (index + 1).toString().padStart(3, '0');
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <tr key={name + index}>
-              <Reactivetd>{t(name)}</Reactivetd>
-              <Reactivetd>
-                <audio
-                  controls
-                  preload="none"
-                  src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_${id}_0.mp3`}
-                />
-              </Reactivetd>
-              <Reactivetd>
-                <audio
-                  controls
-                  preload="none"
-                  src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_${id}_0.mp3`}
-                />
-              </Reactivetd>
-            </tr>
-          );
+          let template;
+          if (!leadersWithEvoLines.includes(leaderId)) {
+            template =
+              // eslint-disable-next-line react/no-array-index-key
+              <tr key={name + index}>
+                <Reactivetd>{t(name)}</Reactivetd>
+                <Reactivetd>
+                  <audio
+                    controls
+                    preload="none"
+                    src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_${id}_0.mp3`}
+                  />
+                </Reactivetd>
+                <Reactivetd>
+                  <audio
+                    controls
+                    preload="none"
+                    src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_${id}_0.mp3`}
+                  />
+                </Reactivetd>
+              </tr>
+          } else {
+            if (!onlyEvos.includes(id)) {
+              template =
+                // eslint-disable-next-line react/no-array-index-key
+                <tr key={name + index}>
+                  <Reactivetd>{t(name)}</Reactivetd>
+                  <Reactivetd>
+                    <audio
+                      controls
+                      preload="none"
+                      src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_${id}_0.mp3`}
+                    />
+                  </Reactivetd>
+                  <Reactivetd>
+                    <audio
+                      controls
+                      preload="none"
+                      src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_${id}_0.mp3`}
+                    />
+                  </Reactivetd>
+                </tr>
+            } else {
+              template = (
+                // eslint-disable-next-line react/no-array-index-key
+                <tr key={name + index}>
+                  <Reactivetd>{t(name)}</Reactivetd>
+                  <Reactivetd>
+                    <audio
+                      controls
+                      preload="none"
+                      src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_${id}_evo_0.mp3`}
+                    />
+                  </Reactivetd>
+                  <Reactivetd>
+                    <audio
+                      controls
+                      preload="none"
+                      src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_${id}_evo_0.mp3`}
+                    />
+                  </Reactivetd>
+                </tr>
+              )
+            }
+            if (additionalEvos.includes(id)) {
+              template = (
+                <React.Fragment>
+                  {template}
+                  <tr key={name + index + 'evo'}>
+                    <Reactivetd>{t(name) + ' (' + t('evolved') + ')'}</Reactivetd>
+                    <Reactivetd>
+                      <audio
+                        controls
+                        preload="none"
+                        src={`${process.env.REACT_APP_ASSETS_URL}/audio/jp/vo_${leaderId}_000_${id}_evo_0.mp3`}
+                      />
+                    </Reactivetd>
+                    <Reactivetd>
+                      <audio
+                        controls
+                        preload="none"
+                        src={`${process.env.REACT_APP_ASSETS_URL}/audio/en/vo_${leaderId}_000_${id}_evo_0.mp3`}
+                      />
+                    </Reactivetd>
+                  </tr>
+                </React.Fragment>
+              )
+            }
+          }
+          return template;
         })}
       </tbody>
     </table>
