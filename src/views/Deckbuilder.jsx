@@ -59,6 +59,7 @@ const Deckbuilder = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Heroes of Rivenbrandt': '129',
     'Academy of Ages': '128',
     'Eightfold Abyss Azvaldt': '127',
     'Celestial Dragonblade': '126',
