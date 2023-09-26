@@ -48,6 +48,7 @@ const CardDatabase = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Order Shift': '130',
     'Heroes of Rivenbrandt': '129',
     'Academy of Ages': '128',
     'Eightfold Abyss Azvaldt': '127',
