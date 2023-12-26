@@ -59,6 +59,7 @@ const Deckbuilder = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Resurgent Legends': '131',
     'Order Shift': '130',
     'Heroes of Rivenbrandt': '129',
     'Academy of Ages': '128',
