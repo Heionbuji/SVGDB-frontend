@@ -17,7 +17,7 @@ const propTypes = {
 };
 
 const CardImageContainer = ({
-  evo, cardId, hidden = false, censored = false, locale = 'en', anim = false,
+  evo, cardId, hidden = false, censored = false, locale = 'en', anim = false, resurgentId = ''
 }) => {
   const isFollowerAndEvo = useMemo(() => {
     const isFollower = cardId.charAt(5) === '1';
@@ -46,11 +46,11 @@ const CardImageContainer = ({
           </a>
           <a
             target="_blank"
-            href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${isFollowerAndEvo ? '1' : '0'}.png`}
+            href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${resurgentId || cardId}${isFollowerAndEvo ? '1' : '0'}.png`}
             rel="noopener noreferrer"
             style={{ margin: 'auto' }}
           >
-            <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${isFollowerAndEvo ? '1' : '0'}.png`} alt="" />
+            <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${resurgentId || cardId}${isFollowerAndEvo ? '1' : '0'}.png`} alt="" />
           </a>
         </StyledCardImageContainer>
       );

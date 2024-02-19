@@ -52,7 +52,7 @@ const CardView = ({ t, i18n }) => {
           {cardJson.name_}
           <span style={{ float: 'right' }}>{cardJson.craft_}</span>
         </StyledCardName>
-        <CardImageContainer evo={evo} cardId={cardId} locale={i18n.language} anim={animated} />
+        <CardImageContainer evo={evo} cardId={cardId} locale={i18n.language} anim={animated} resurgentId={cardJson.original_card} />
         <div style={{ textAlign: 'center' }}>
           {cardJson.type_ === t('follower')
           && (
