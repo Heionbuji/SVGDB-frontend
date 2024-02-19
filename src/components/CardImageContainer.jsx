@@ -60,10 +60,10 @@ const CardImageContainer = ({
         <VideoContainer videoSrc={`${process.env.REACT_APP_ASSETS_URL}/cardanim/${formatCardId(cardId)}.mp4`} cardId={cardId.toString()} />
         <a
           target="_blank"
-          href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${isFollowerAndEvo ? '1' : '0'}.png`}
+          href={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${resurgentId || cardId}${isFollowerAndEvo ? '1' : '0'}.png`}
           rel="noopener noreferrer"
         >
-          <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${cardId}${isFollowerAndEvo ? '1' : '0'}.png`} alt="" />
+          <StyledArtImg src={`${process.env.REACT_APP_ASSETS_URL}/${censored ? 'censored' : 'fullart'}/${resurgentId || cardId}${isFollowerAndEvo ? '1' : '0'}.png`} alt="" />
         </a>
       </StyledCardImageContainer>
     );
