@@ -117,13 +117,16 @@ const CardView = ({ t, i18n }) => {
           </div>
         </StyledCardInformation>
         <AudioContainer cardJson={cardJson} cardId={cardId} i18n={i18n} />
-        {altsAndTokens[0] && (
+        {(altsAndTokens[0] || cardJson.resurgent_card) && (
           <div style={{ paddingLeft: '10%' }}>
             <h2>{t('relatedCards')}: </h2> <br />
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               {altsAndTokens.map((token) => (
                 <TokenContainer token={token} language={i18n.language} key={`token${token}`} />
               ))}
+              {cardJson.resurgent_card && (
+                <TokenContainer token={cardJson.original_card} language={i18n.language} key={`token${cardJson.original_card}`} />
+              )}
             </div>
           </div>
         )}
