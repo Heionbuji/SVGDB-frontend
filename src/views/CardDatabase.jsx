@@ -212,17 +212,17 @@ const CardDatabase = ({ t, i18n }) => {
           let tokensText = '';
           if (allCards[id].tokens_) {
             allCards[id].tokens_.forEach((tokenId) => {
-              tokensText += allCards[tokenId].baseEffect_;
-              tokensText += allCards[tokenId].evoEffect_;
-              tokensText += allCards[tokenId].name_;
+              tokensText += allCards[tokenId]?.baseEffect_;
+              tokensText += allCards[tokenId]?.evoEffect_;
+              tokensText += allCards[tokenId]?.name_;
             });
           }
           filter = filter
               && words.every((word) => (
-                (allCards[id].name_.toLowerCase().includes(word)
-                || allCards[id].baseEffect_.toLowerCase().includes(word)
-                || allCards[id].trait_.toLowerCase().includes(word)
-                || allCards[id].evoEffect_.toLowerCase().includes(word)
+                (allCards[id]?.name_?.toLowerCase().includes(word)
+                || allCards[id]?.baseEffect_.toLowerCase().includes(word)
+                || allCards[id]?.trait_.toLowerCase().includes(word)
+                || allCards[id]?.evoEffect_.toLowerCase().includes(word)
                 || tokensText.toLowerCase().includes(word))
               ));
         } else if (searchFilter && searchFilter.filter && searchFilter.reverse) {
@@ -230,9 +230,9 @@ const CardDatabase = ({ t, i18n }) => {
           let tokensText = '';
           if (allCards[id].tokens_) {
             allCards[id].tokens_.forEach((tokenId) => {
-              tokensText += allCards[tokenId].baseEffect_;
-              tokensText += allCards[tokenId].evoEffect_;
-              tokensText += allCards[tokenId].name_;
+              tokensText += allCards[tokenId]?.baseEffect_;
+              tokensText += allCards[tokenId]?.evoEffect_;
+              tokensText += allCards[tokenId]?.name_;
             });
           }
           filter = filter
