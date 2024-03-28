@@ -48,6 +48,7 @@ const CardDatabase = ({ t, i18n }) => {
     NEUTRAL: '0',
   };
   const expansions = {
+    'Heroes of Shadowverse': '132',
     'Resurgent Legends': '131',
     'Order Shift': '130',
     'Heroes of Rivenbrandt': '129',
