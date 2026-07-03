@@ -132,13 +132,24 @@ table {
   display: flex;
 }
 
+.ascii-container {
+  width: 100%;
+  justify-content: center;
+  display: flex;  
+}
+.ascii {
+  font-family: monospace;
+  white-space: pre;
+  line-height: 10px;
+  font-weight: bolder;
+}
+
 `;
 
 export const StyledDiv = styled.div`
 text-align: center;
 & > .spaced {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 10px;
   @media(orientation: portrait) {
     padding: 10px;
   }

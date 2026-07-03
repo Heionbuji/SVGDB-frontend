@@ -4,7 +4,7 @@ export const StyledNewsDiv = styled.div`
   white-space: pre-wrap;
   color: white;
   min-height: 40vh;
-  padding-left: 40px;
+  padding: 0 40px;
   margin-bottom: 21px;
 `;
 

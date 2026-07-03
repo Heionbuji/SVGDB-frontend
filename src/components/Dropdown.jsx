@@ -75,7 +75,7 @@ const Dropdown = ({
             height: '100%',
             lineHeight: 'normal',
             backgroundColor: bgColor || 'inherit',
-            margin: '0 5px',
+            margin: '5px 5px',
           }
         }
         onMouseEnter={() => setDropdownVisible(true)}
